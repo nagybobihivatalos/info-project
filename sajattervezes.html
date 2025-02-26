@@ -2,7 +2,7 @@
 <head>
 	<meta charset="UTF_8">
 	<link rel="stylesheet" href="style.css">
-<title>Képek</title>
+<title>Saját tervezésű áramkör</title>
 </head>
 
 <body>
@@ -11,7 +11,8 @@ body {
   background-image: url('bg.png');
 }
 img {
-    vertical-align: middle;
+    vertical-align: right;
+    width: 450px; height: 400px;
 }
 a:link {
   color: Lawngreen;
@@ -36,7 +37,13 @@ a:active {
   background-color: transparent;
   text-decoration: underline;
 }
+p {
+color: lawngreen;
+}
 </style>
-<p>Hello</p>
+<p>Itt látható a saját tervezésű áramkörünk ami tartalmaz egy ellenállást egy piezoelektromos érzékelőt és egy LED-et:</p>
+<img src="kepek/aramkor.jpg">
+<p>Az ellenállás biztosítja hogy ne kerüljön túl sok áram a LED-be így nem sül ki a LED és megy tönkre</p>
+<p>A piezoelektromos szenzor egy kapcsolóként működik ami nyomás vagy rezgés hatására átengedi az áramot és világítani fog a LED</p>
 </body>
 </html>
