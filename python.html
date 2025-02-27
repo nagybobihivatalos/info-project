@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF_8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Kód Szövegként</title>
+    <style>
+        /* Globális stílusok */
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #2e2e2e; /* Fekete háttér */
+            color: #ffffff; /* Fehér szöveg */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Középre igazítás */
+            height: 100vh;
+            overflow: auto; /* Görgethetõség, ha kell */
+            flex-direction: column; /* A tartalom függõleges elrendezése */
+        }
+
+        /* Container a tartalomhoz */
+        .container {
+            background-color: #333333; /* Sötétebb háttér */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 85%; /* Szélesebb */
+            max-width: 1400px; /* Maximális szélesség */
+            margin-top: 20px; /* Kisebb távolság a tetejétõl */
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50; /* Zöld szín */
+            margin-bottom: 20px;
+            font-size: 2em; /* Nagyobb méret */
+        }
+
+        p {
+            font-size: 1.2em; /* Kisebb szöveg */
+            margin-bottom: 20px;
+            text-align: center;
+            color: #dddddd; /* Halvány szürke */
+        }
+
+        /* A kód szövegként való megjelenítése */
+        .code-text {
+            background-color: #1e1e1e; /* Sötét háttér */
+            color: #dcdcdc; /* Világos szöveg */
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.3em; /* Nagyobb szöveg */
+            line-height: 1.6; /* Kisebb sorok közötti távolság */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            border: 1px solid #444;
+            max-height: 700px; /* A kód blokk maximális magassága */
+            overflow-y: auto; /* Görgethetõség ha túllépi a magasságot */
+            margin-top: 20px;
+        }
+
+        /* Különbözõ színek az if-ekhez */
+        .keyword {
+            color: #ff79c6; /* Pink szín */
+            font-weight: bold;
+        }
+
+        .function {
+            color: #50fa7b; /* Zöld szín */
+        }
+
+        .string {
+            color: #f1fa8c; /* Sárga szín */
+        }
+
+        .comment {
+            color: #6272a4; /* Kékeszöld */
+        }
+
+        /* Vissza gomb stílusa */
+        .back-button {
+            background-color: #ff5733; /* Vörös gomb */
+            color: #fff; /* Fehér szöveg */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 30px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background-color: #ff2a00; /* Sötétebb vörös hover állapotban */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Python Kód Szövegként</h1>
+        <p>Az alábbiakban egy Python scriptet tekinthetsz meg szövegként:</p>
+
+        <div class="code-text">
+            <span class="function">valasz</span>=input(<span class="string">"Mondj egy hálózati eszközt!:     (switch/router/hub/workstation)\\n"</span>)<br>
+            <span class="keyword">if</span> valasz == <span class="string">"switch"</span>:<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy másik switch-hez szeretnéd kötni, akkor kereszt(fordított) kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy hub-ba szeretnéd kötni, akkor kereszt(fordított) kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy workstation-höz szeretnéd kötni akkor egyenes kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy router-be szeretnéd kötni, akkor egyesnes kábelt kell használni."</span>)<br><br>
+
+            <span class="keyword">if</span> valasz == <span class="string">"router"</span>:<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy másik router-hez szeretnéd kötni, akkor kereszt(fordított) kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy workstation-höz szeretnéd kötni, akkor kereszt(fordított) kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy hub-hoz szeretnéd kötni, akkor egyenes kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy switch-hez szeretnéd kötni, akkor egyenes kábelt kell használni."</span>)<br><br>
+
+            <span class="keyword">if</span> valasz == <span class="string">"hub"</span>:<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy másik hub-hoz szeretnéd kötni, akkor kereszt(fordított) kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy switch-hez szeretnéd kötni, akkor kereszt(fordított) kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy router-hez szeretnéd kötni, akkor egyenes kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy workstation szeretnéd kötni, akkor egyenes kábelt kell használni."</span>)<br><br>
+
+            <span class="keyword">if</span> valasz == <span class="string">"workstation"</span>:<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy router-hez szeretnéd kötni, akkor kereszt(fordított) kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy workstation-höz szeretnéd kötni, akkor kereszt(fordított) kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy hub-hoz szeretnéd kötni, akkor egyesnes kábelt kell használni."</span>)<br>
+            &nbsp;&nbsp;<span class="function">print</span>(<span class="string">"Ha egy switch-hez szeretnéd kötni, akkor egyesnes kábelt kell használni."</span>)<br>
+        </div>
+
+        <!-- Vissza gomb -->
+        <a href="elsofelev.html" class="back-button">Vissza</a>
+    </div>
+
+</body>
+</html>

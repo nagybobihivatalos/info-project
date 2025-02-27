@@ -1,0 +1,113 @@
+/* Alap beállítások */
+body {
+    background-color: #1a1a1a; /* Sötét szürke háttér */
+    color: white;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #00aaff; /* Élénk kék szín a címhez */
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+/* Kép galéria */
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-items: center;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-item img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobil optimalizálás */
+@media (max-width: 768px) {
+    .image-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .image-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Lightbox stílusok */
+a.lightbox {
+    display: inline-block;
+}
+
+.lightbox img {
+    border: 3px solid #444;
+    border-radius: 8px;
+}
+
+.lightbox:hover img {
+    border-color: #00aaff; /* Kék szín a kép körül */
+}
+
+/* Letöltési gomb */
+.download-link {
+    margin-top: 50px;
+}
+
+.download-button {
+    background-color: #00aaff;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 8px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: #0088cc;
+}
+.back-button-link {
+    margin-top: 50px;
+}
+
+.back-button {
+    background-color: #00aaff;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 8px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0088cc;
+}
+
