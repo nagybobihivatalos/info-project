@@ -1,53 +1,59 @@
-<html>
+<!DOCTYPE html>
+<html lang="hu">
 <head>
-	<meta charset="UTF_8">
-	<link rel="stylesheet" href="style.css">
-<title>KÃ©pek</title>
+    <meta charset="UTF_8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Számitógép részei, szerelése</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<style>
-body {
-  background-image: url('bg.png');
-}
-img {
-    vertical-align: middle;
-}
-a:link {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
 
-a:visited {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
+    <header>
+        <h1>Számitógép részei</h1>
+        <p>Fedezd fel a számitógéprõl készült képeket!</p>
+    </header>
 
-a:hover {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
+    <main>
+        <section class="full-machine">
+            <h2>A gép teljes képe</h2>
+            <img src="teljesgep.jpg" alt="A gép teljes képe" class="gallery-item" onclick="openModal(0)">
+        </section>
 
-a:active {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
-</style>
-<p><a href="kepek/teljesgep.jpg">Teljes gÃ©p</a></p>
-<p><a href="kepek/dvd.jpg">DVD Ã­rÃ³/olvasÃ³</a></p>
-<p><a href="kepek/cpu.jpg">CPU</a></p>
-<p><a href="kepek/cpuborda.jpg">CPU hÅ±tÅ‘borda</a></p>
-<p><a href="kepek/ram.jpg">RAM</a></p>
-<p><a href="kepek/iGPU.jpg">IntegrÃ¡lt videÃ³kÃ¡rtya</a></p>
-<p><a href="kepek/pcislot.jpg">PCI bemenet</a></p>
-<p><a href="kepek/psukabel.jpg">TÃ¡pegysÃ©g Ã©s kÃ¡belei</a></p>
-<p><a href="kepek/io.jpg">Bemenet/Kimenet</a></p>
-<p><a href="kepek/bioselem.jpg">BIOS gombelem</a></p>
-<p><a href="kepek/hdd.jpg">HDD</a></p>
-<p><a href="szamitogep.html"><-vissza</a></p>
+        <section class="parts">
+            <h2>Alkatrészek képei</h2>
+            <div class="image-grid">
+                <img src="part1.jpg" alt="Alkatrész 1" class="gallery-item" onclick="openModal(1)">
+                <img src="part2.jpg" alt="Alkatrész 2" class="gallery-item" onclick="openModal(2)">
+                <img src="part9.jpg" alt="Alkatrész 3" class="gallery-item" onclick="openModal(3)">
+                <img src="part4.jpg" alt="Alkatrész 4" class="gallery-item" onclick="openModal(4)">
+                <img src="part5.jpg" alt="Alkatrész 5" class="gallery-item" onclick="openModal(5)">
+                <img src="part6.jpg" alt="Alkatrész 6" class="gallery-item" onclick="openModal(6)">
+                <img src="part7.jpg" alt="Alkatrész 7" class="gallery-item" onclick="openModal(7)">
+                <img src="part8.jpg" alt="Alkatrész 8" class="gallery-item" onclick="openModal(8)">
+                <img src="part3.jpg" alt="Alkatrész 9" class="gallery-item" onclick="openModal(9)">
+                <img src="part10.jpg" alt="Alkatrész 10" class="gallery-item" onclick="openModal(10)">
+            </div>
+        </section>
+		 <div class="back-button-container">
+            <a href="szamitogep.html" class="back-button">Vissza</a>
+        </div>
+    </main>
+
+    
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="caption" id="caption"></div>
+        <a class="prev" onclick="changeImage(-1)">&#10094;</a>
+        <a class="next" onclick="changeImage(1)">&#10095;</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Info Project | Minden jog fenntartva.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
