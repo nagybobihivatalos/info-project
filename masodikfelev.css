@@ -1,4 +1,4 @@
-/* Alap stílusok */
+v/* Alap stílusok */
 body, html {
     margin: 0;
     padding: 0;
@@ -6,53 +6,61 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f7f7f7;
-    font-family: Arial, sans-serif;
+    background-color: #1f1f1f; /* Fekete háttér */
+    font-family: 'Arial', sans-serif;
 }
 
 /* Konténer, ami tartalmazza a gombokat */
 .container {
     text-align: center;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 40px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #292929; /* Sötétebb szürke konténer */
+    border-radius: 15px;
+    padding: 50px;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.5);
+    width: 400px;
+}
+
+/* Gombok konténerének stílusa */
+.buttons {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Térköz a gombok között */
 }
 
 /* Gombok stílusa */
-.buttons {
-    margin-bottom: 20px;
-}
-
 .button {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #9b4d96, #4b0082); /* Lila átmenet */
     color: white;
-    padding: 15px 32px;
-    font-size: 16px;
+    font-size: 18px;
+    padding: 15px 40px;
     border: none;
-    border-radius: 5px;
-    margin: 10px;
+    border-radius: 50px; /* Lekerekített gombok */
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.3s ease, background 0.3s ease; /* Animáció */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .button:hover {
-    background-color: #45a049;
+    background: linear-gradient(135deg, #9b4d96, #6a1b9a); /* Hover állapotban más lila árnyalat */
+    transform: scale(1.1); /* Gombok nagyobbodása hoverre */
 }
 
 /* Vissza gomb stílusa */
 .back-button {
+    display: inline-block;
+    margin-top: 20px;
     text-decoration: none;
-    background-color: #f44336;
+    background-color: #ff4081; /* Rózsaszín hover szín */
     color: white;
     padding: 12px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    display: inline-block;
-    transition: background-color 0.3s;
+    border-radius: 50px;
+    font-size: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .back-button:hover {
-    background-color: #e53935;
+    background-color: #f50057; /* Sötétebb rózsaszín hover */
+    transform: scale(1.1); /* Vissza gomb animálása */
 }
-
