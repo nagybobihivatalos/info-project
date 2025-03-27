@@ -1,1 +1,58 @@
+/* Alap stílusok */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+    font-family: Arial, sans-serif;
+}
+
+/* Konténer, ami tartalmazza a gombokat */
+.container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Gombok stílusa */
+.buttons {
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+/* Vissza gomb stílusa */
+.back-button {
+    text-decoration: none;
+    background-color: #f44336;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #e53935;
+}
 
