@@ -1,44 +1,86 @@
-<html>
+<!DOCTYPE html>
+<html lang="hu">
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css">
-<title>10. elsõ félév</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Második Félév</title>
+    <link rel="stylesheet" href="masodikfelev.css">
 </head>
-
 <body>
-<style>
-body {
-  background-image: url('bg.png');
-}
-img {
-    vertical-align: middle;
-}
-a:link {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:visited {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:hover {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
-
-a:active {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
-</style>
-<p><a href="python.html">Python</a></p>
-<p><a href="cisco.html">Cisco</a></p>
-<p><a href="osztaly.html"><-vissza</a></p>
+    <div class="container">
+        <div class="buttons">
+            <button href=python.html class="button">Python</button>
+            <button href=cisco.html class="button">Cisco</button>
+        </div>
+        <a href="10.html" class="back-button">Vissza</a>
+    </div>
 </body>
 </html>
+
+<style>
+v/* Alap stílusok */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1f1f1f; /* Fekete háttér */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Konténer, ami tartalmazza a gombokat */
+.container {
+    text-align: center;
+    background-color: #292929; /* Sötétebb szürke konténer */
+    border-radius: 15px;
+    padding: 50px;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.5);
+    width: 400px;
+}
+
+/* Gombok konténerének stílusa */
+.buttons {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Térköz a gombok között */
+}
+
+/* Gombok stílusa */
+.button {
+    background: linear-gradient(135deg, #9b4d96, #4b0082); /* Lila átmenet */
+    color: white;
+    font-size: 18px;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px; /* Lekerekített gombok */
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease; /* Animáció */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.button:hover {
+    background: linear-gradient(135deg, #9b4d96, #6a1b9a); /* Hover állapotban más lila árnyalat */
+    transform: scale(1.1); /* Gombok nagyobbodása hoverre */
+}
+
+/* Vissza gomb stílusa */
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    background-color: #ff4081; /* Rózsaszín hover szín */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #f50057; /* Sötétebb rózsaszín hover */
+    transform: scale(1.1); /* Vissza gomb animálása */
+}
