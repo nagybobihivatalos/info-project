@@ -2,15 +2,98 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Dokumentáció megjelenítése</title>
+  <title>Első féléves dokumentáció</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    .doc-content {
+      white-space: pre-wrap;
+      line-height: 1.7;
+      color: #444;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>Első féléves dokumentáció</h1>
-    <div id="doc-content">Betöltés...</div>
-  </div>
+    <div class="doc-content">
+      <!-- Ide jön a dokumentáció szövege -->
+      Dokumentáció
 
-  <script src="script.js"></script>
+Python:
+Bevezetés
+Ez a Python script a felhasználótól kérdezi, hogy melyik hálózati eszközt szeretne csatlakoztatni. A program az eszközhöz megfelelő kábelezést javasol a felhasználónak. Az eszközök, amikkel dolgozik, a következők:
+•	Switch
+•	Router
+•	Hub
+•	Workstation
+A kód különböző feltételek alapján különböző kábeltípusokat ajánl a felhasználónak, attól függően, hogy melyik eszközt kívánják összekapcsolni.
+2. A kód működése
+A kód folyamata az alábbi lépésekből áll:
+1.	Felhasználói bemenet: A program bekéri a felhasználó válaszát az alábbi üzenettel:
+	„Mondj egy hálózati eszközt! (switch/router/hub/workstation).”
+A felhasználó itt választhatja ki, hogy egy switch, router, hub vagy workstation-t szeretne csatlakoztatni.
+2.	Eszközkategória ellenőrzés: A program a bemenetet kisbetűs formában (.lower()) ellenőrzi, hogy biztosan ne legyen érzékeny a kis- és nagybetűk használatára.
+3. Hibakezelés: Ha a felhasználó nem egy érvényes hálózati eszközt ad meg (pl. nem switch, router, hub vagy workstation), akkor a program az alábbi üzenetet írja ki: 
+
+„Arra az eszközre nem tudok mondani sajnos.”
+
+
+4. Lehetőségek a jövőbeli fejlesztésre
+•	Bővíthető eszközökkel: További eszközökkel bővíthető, például "modem", "bridge" stb.
+•	Felhasználói input validálása: Jelenleg a program nem validálja a felhasználó által beírt válaszokat alaposabban, például figyelmen kívül hagyja a hibás vagy nem várt karaktereket. A validációt érdemes lehet finomítani.
+•	Grafikus felhasználói felület (GUI): Később hozzáadhatunk egy GUI-t, amely lehetővé teszi a felhasználói választásokat a kattintások segítségével.
+
+
+
+Cisco:
+
+Konfiguráció:
+PC0:
+ip: 192.168.10.15
+mask: 255.255.255.0
+gateway: 192.168.10.1
+
+PC1:
+ip: 192.168.10.20
+mask: 255.255.255.0
+gateway: 192.168.10.1
+
+Router0:
+console pw: cisco12345
+telnet pw: cisco12345
+
+Router1:
+console pw: cisco12345
+telnet pw: cisco12345
+
+Switch0:
+telnet pw: cisco12345
+
+Switch1:
+telnet pw: cisco12345
+
+
+    </div>
+  </div>
 </body>
 </html>
