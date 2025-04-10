@@ -1,0 +1,12 @@
+create table termekek (
+    termekid int primary key,
+    termeknev varchar(100),
+    kategoria varchar(50),
+    ar int,
+    keszleten int,
+    gyarto varchar(50)
+);
+
+insert into termekek (termekid, termeknev, kategoria, ar, keszleten, gyarto) values(1, 'bluetooth hangszóró', 'elektronika', 12990, 23, 'jbl'),
+
+
