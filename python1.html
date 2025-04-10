@@ -1,1 +1,114 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Hálózati cím kalkulátor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .result {
+      margin-top: 30px;
+      background-color: #ecf0f1;
+      padding: 20px;
+      border-radius: 6px;
+      font-size: 18px;
+      color: #2d3436;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Hálózati cím kalkulátor</h1>
+    
+    <label for="ip">IP cím:</label>
+    <input type="text" id="ip" placeholder="Pl. 192.168.1.100">
+    
+    <label for="mask">Alhálózati maszk:</label>
+    <input type="text" id="mask" placeholder="Pl. 255.255.255.0">
+    
+    <button onclick="calculateNetwork()">Számítás</button>
+    
+    <div id="output" class="result" style="display: none;"></div>
+  </div>
+
+  <script>
+    function calculateNetwork() {
+      const ip = document.getElementById('ip').value.trim();
+      const mask = document.getElementById('mask').value.trim();
+
+      const ipParts = ip.split('.');
+      const maskParts = mask.split('.');
+
+      if (ipParts.length !== 4 || maskParts.length !== 4) {
+        alert("Hibás formátum! 4 darab oktett szükséges.");
+        return;
+      }
+
+      try {
+        const networkParts = ipParts.map((part, index) => {
+          return parseInt(part) & parseInt(maskParts[index]);
+        });
+
+        const output = document.getElementById('output');
+        output.innerText = "Hálózati cím: " + networkParts.join('.');
+        output.style.display = 'block';
+      } catch (err) {
+        alert("Hiba történt a számítás közben.");
+      }
+    }
+  </script>
+</body>
+</html>
 
