@@ -2,43 +2,68 @@
 <html lang="hu">
 <head>
   <meta charset="UTF-8">
-  <title>Hálózati cím kalkulátor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hálózati Cím Kalkulátor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f4f8;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
     .container {
-      max-width: 600px;
-      margin: 60px auto;
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      background-color: white;
+      border-radius: 16px;
+      padding: 40px 30px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
       text-align: center;
-      color: #2c3e50;
       margin-bottom: 30px;
+      color: #2c3e50;
+      font-size: 28px;
     }
 
     label {
       display: block;
       margin-top: 20px;
-      font-weight: bold;
+      font-weight: 600;
+      color: #34495e;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 12px;
+      padding: 12px 16px;
       margin-top: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      border: 2px solid #dfe6e9;
+      border-radius: 8px;
       font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0984e3;
+      outline: none;
     }
 
     button {
@@ -46,31 +71,44 @@
       width: 100%;
       padding: 14px;
       font-size: 16px;
-      background-color: #3498db;
+      font-weight: bold;
+      background-color: #0984e3;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #2980b9;
+      background-color: #74b9ff;
     }
 
     .result {
       margin-top: 30px;
-      background-color: #ecf0f1;
-      padding: 20px;
-      border-radius: 6px;
-      font-size: 18px;
+      background-color: #dfe6e9;
+      padding: 18px;
+      border-radius: 8px;
+      font-size: 17px;
       color: #2d3436;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Hálózati cím kalkulátor</h1>
+    <h1>Hálózati Cím Kalkulátor</h1>
     
     <label for="ip">IP cím:</label>
     <input type="text" id="ip" placeholder="Pl. 192.168.1.100">
@@ -80,14 +118,13 @@
     
     <button onclick="calculateNetwork()">Számítás</button>
     
-    <div id="output" class="result" style="display: none;"></div>
+    <div id="output" class="result"></div>
   </div>
 
   <script>
     function calculateNetwork() {
       const ip = document.getElementById('ip').value.trim();
       const mask = document.getElementById('mask').value.trim();
-
       const ipParts = ip.split('.');
       const maskParts = mask.split('.');
 
@@ -111,4 +148,3 @@
   </script>
 </body>
 </html>
-
