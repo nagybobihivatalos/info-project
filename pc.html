@@ -1,55 +1,157 @@
-<html>
+<!DOCTYPE html>
+<html lang="hu">
 <head>
-	<meta charset="UTF_8">
-	<link rel="stylesheet" href="style.css">
-<title>Összeállított PC</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Összeállított PC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #2a2a3d, #3c3c54); /* Fekete-lila gradiens */
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #b1b1b1;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    a {
+      color: #00ff88; /* Lila és zöld keveréke */
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    a:hover {
+      color: #ff4d4d; /* Piros hover */
+      text-decoration: underline;
+      transform: scale(1.05);
+    }
+
+    a:active {
+      color: #ff4d4d;
+    }
+
+    p {
+      font-size: 18px;
+      color: #e0e0e0;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      transition: color 0.3s ease;
+    }
+
+    p:hover {
+      color: #b1b1b1; /* Fényesebb szürke hover effekt */
+    }
+
+    .button {
+      background-color: #6a4c9c; /* Lila háttér */
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      width: 200px;
+      margin: 20px auto;
+      display: block;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #ff4d4d; /* Vörös hover */
+      transform: translateY(-2px);
+    }
+
+    .button:active {
+      background-color: #ff3333;
+    }
+
+    img {
+      width: 350px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px 5px rgba(0, 150, 255, 0.7); /* Kék glow */
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      img {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<style>
-body {
-  background-image: url('bg.png');
-}
-img {
-    vertical-align: right;
-    width: 450px; height: 400px;
-}
-a:link {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
+  <h1>Összeállított PC</h1>
 
-a:visited {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
+  <div class="container">
+    <p><a href="szamitogep.html"><- Vissza</a></p>
 
-a:hover {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
+    <p><a href="https://www.pcx.hu//intel-core-i5-12400f-processzor-bx8071512400f--532146?referer=arukereso&aku=96b731806ebf90bdfecf6b00bb923414">CPU</a></p>
+    <p><a href="https://www.arukereso.hu/alaplap-c3128/gigabyte/h610m-h-v2-ddr4-p948992454/">Alaplap</a></p>
+    <p><a href="https://www.arukereso.hu/memoria-modul-c3577/corsair/vengeance-lpx-16gb-2x8gb-ddr4-3200mhz-cmk16gx4m2b3200c16-p310937681/">RAM</a></p>
+    <p><a href="https://rhw.hu/termek/gigabyte-gtx-1650-oc-windforce-d6-4gb-gv-n1656wf2oc-4gd/?gQT=2">GPU</a></p>
+    <p><a href="https://www.pcx.hu/gigabyte-tapegyseg-650w-80-gold-gp-p650g-895095">Tápegység</a></p>
+    <p><a href="https://belso-ssd-meghajto.arukereso.hu/samsung/970-evo-plus-250gb-m-2-pcie-mz-v7s250bw-p451073484/">SSD</a></p>
+    <p><a href="https://www.arukereso.hu/merevlemez-c3103/seagate/barracuda-3-5-2tb-7200rpm-256mb-sata3-st2000dm008-p410408627/">HDD</a></p>
 
-a:active {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
-p {
-color: lawngreen;
-}
-</style>
-<p><a href="szamitogep.html"><-vissza</a></p>
-<p><a href="https://www.pcx.hu//intel-core-i5-12400f-processzor-bx8071512400f--532146?referer=arukereso&aku=96b731806ebf90bdfecf6b00bb923414">CPU</a></p>
-<p><a href="https://www.arukereso.hu/alaplap-c3128/gigabyte/h610m-h-v2-ddr4-p948992454/">Alaplap</a></p>
-<p><a href="https://www.arukereso.hu/memoria-modul-c3577/corsair/vengeance-lpx-16gb-2x8gb-ddr4-3200mhz-cmk16gx4m2b3200c16-p310937681/">RAM</a></p>
-<p><a href="https://rhw.hu/termek/gigabyte-gtx-1650-oc-windforce-d6-4gb-gv-n1656wf2oc-4gd/?gQT=2">GPU</a></p>
-<p><a href="https://www.pcx.hu/gigabyte-tapegyseg-650w-80-gold-gp-p650g-895095">Tápegység</a></p>
-<p><a href="https://belso-ssd-meghajto.arukereso.hu/samsung/970-evo-plus-250gb-m-2-pcie-mz-v7s250bw-p451073484/">SSD</a></p>
-<p><a href="https://www.arukereso.hu/merevlemez-c3103/seagate/barracuda-3-5-2tb-7200rpm-256mb-sata3-st2000dm008-p410408627/">HDD</a></p>
-<p>OS: Windows 10</p>
-<p>Ez a gép videójátékokra lett kialakítva. Nem a legerősebb de egy középkategóriának megfelel. A 16GB RAM bőven elég (legalábbis szerintem) a mai videójátékokhoz. Az operációs rendszer Windows 10 mivel a Windows 11 csak egy átfestés ami ráadásul több erőforrást is fogyaszt. Bár lehetne Linux is mivel alkalmas a játékra és még kevesebb erőforrást és tárhelyet ígényel csak vannak bizonyos csalás elleni szoftverek amik képtelenek futni egy Linuxos környezetben</p>
+    <p>OS: Windows 10</p>
+
+    <p>Ez a gép videójátékokra lett kialakítva. Nem a legerősebb, de egy középkategóriának megfelel. A 16GB RAM bőven elég (legalábbis szerintem) a mai videójátékokhoz. Az operációs rendszer Windows 10, mivel a Windows 11 csak egy átfestés, ráadásul több erőforrást is fogyaszt. Bár lehetne Linux is, mivel alkalmas a játékra és kevesebb erőforrást és tárhelyet igényel, de vannak bizonyos csalás elleni szoftverek, amelyek nem futnak Linux környezetben.</p>
+
+    <!-- Button to go to product page -->
+    <a href="https://www.pcx.hu" class="button">További információk</a>
+  </div>
 </body>
 </html>
