@@ -20,21 +20,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
+      padding: 20px;
     }
 
-    .card {
+    .container {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
       border-radius: 20px;
-      max-width: 900px;
       width: 100%;
+      max-width: 900px;
       padding: 40px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
       display: flex;
-      flex-direction: row;
-      gap: 40px;
       flex-wrap: wrap;
+      gap: 20px;
       animation: fadeIn 0.6s ease-in-out;
     }
 
@@ -43,26 +42,31 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .card img {
-      flex: 1 1 350px;
-      max-width: 100%;
+    .image-container {
+      flex: 1 1 40%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .image-container img {
+      width: 100%;
       height: auto;
       border-radius: 12px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
     }
 
     .text {
-      flex: 1 1 300px;
+      flex: 1 1 55%;
+      color: #e0e0e0;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 20px;
     }
 
     p {
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.6;
-      color: #e0e0e0;
+      margin-bottom: 15px;
     }
 
     a {
@@ -78,24 +82,30 @@
     }
 
     @media (max-width: 768px) {
-      .card {
-        flex-direction: column;
-        padding: 30px;
+      .container {
+        padding: 20px;
+      }
+
+      .image-container {
+        flex: 1 1 100%;
+        text-align: center;
       }
 
       .text {
-        align-items: center;
+        flex: 1 1 100%;
         text-align: center;
       }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <img src="kepek/aramkor.jpg" alt="Saját tervezésű áramkör">
+  <div class="container">
+    <div class="image-container">
+      <img src="kepek/aramkor.jpg" alt="Saját tervezésű áramkör">
+    </div>
     <div class="text">
       <p>Itt látható a saját tervezésű áramkörünk, ami tartalmaz egy ellenállást, egy piezoelektromos érzékelőt és egy LED-et.</p>
-      <p>Az <strong>ellenállás</strong> gondoskodik arról, hogy ne kerüljön túl sok áram a LED-be, így az nem sül ki és nem megy tönkre.</p>
+      <p>Az <strong>ellenállás</strong> biztosítja, hogy ne kerüljön túl sok áram a LED-be, így az nem sül ki és nem megy tönkre.</p>
       <p>A <strong>piezoelektromos szenzor</strong> kapcsolóként működik – nyomás vagy rezgés hatására átengedi az áramot, így a LED világítani kezd.</p>
     </div>
   </div>
