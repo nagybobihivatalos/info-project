@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TippmixPro - Sportfogadás</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #4CAF50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .content h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .event-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .event-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 280px;
+            text-align: center;
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .event-card .info {
+            padding: 15px;
+        }
+
+        .event-card h3 {
+            font-size: 1.6rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .event-card p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .bet-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .bet-btn:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TippmixPro - Sportfogadás</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="#">Főoldal</a>
+        <a href="#">Sportok</a>
+        <a href="#">Következő események</a>
+        <a href="#">Fogadásaim</a>
+        <a href="#">Kijelentkezés</a>
+    </nav>
+
+    <div class="container">
+        <div class="content">
+            <h2>Legújabb események</h2>
+
+            <div class="event-list">
+                <div class="event-card">
+                    <img src="https://via.placeholder.com/280x180" alt="Event Image">
+                    <div class="info">
+                        <h3>Foci - Barcelona vs Real Madrid</h3>
+                        <p>Az egyik legizgalmasabb mérkőzés a szezonban! Fogadj most!</p>
+                        <button class="bet-btn">Fogadás</button>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <img src="https://via.placeholder.com/280x180" alt="Event Image">
+                    <div class="info">
+                        <h3>Tenisz - Federer vs Djokovic</h3>
+                        <p>Izgalmas tenisz mérkőzés! Ne hagyd ki!</p>
+                        <button class="bet-btn">Fogadás</button>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <img src="https://via.placeholder.com/280x180" alt="Event Image">
+                    <div class="info">
+                        <h3>Foci - Manchester United vs Liverpool</h3>
+                        <p>A Premier League legnagyobb összecsapása!</p>
+                        <button class="bet-btn">Fogadás</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 TippmixPro. Minden jog fenntartva. <a href="#">Adatvédelmi irányelvek</a> | <a href="#">Felhasználási feltételek</a></p>
+    </footer>
+
+    <script>
+        // Események fogadására szolgáló egyszerű JavaScript interakció
+        const betButtons = document.querySelectorAll('.bet-btn');
+
+        betButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Fogadást sikeresen rögzítettük!');
+            });
+        });
+    </script>
+
+</body>
+</html>
