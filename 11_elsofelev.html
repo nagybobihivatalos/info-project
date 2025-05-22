@@ -1,41 +1,79 @@
 <!DOCTYPE html>
-<html lang="hun">
+<html lang="hu">
 <head>
-    <meta charset="UTF_8">
+    <meta charset="UTF-8">
     <title>Zöldség Adatbázis</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f8f1;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #f1f1f1;
+            padding: 40px 20px;
+            margin: 0;
         }
+
         h1 {
-            color: #2f8f2f;
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #4CAF50;
         }
+
         table {
             border-collapse: collapse;
             width: 100%;
-            background-color: #ffffff;
+            background-color: #1e1e1e;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
         }
+
         th, td {
-            border: 1px solid #a8d5a2;
-            padding: 8px;
+            padding: 14px 16px;
             text-align: center;
+            border-bottom: 1px solid #2e2e2e;
         }
+
         th {
-            background-color: #a2d9a8;
+            background-color: #2a2a2a;
+            color: #81c784;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
+
+        tr:nth-child(even) {
+            background-color: #181818;
+        }
+
+        tr:hover {
+            background-color: #2e2e2e;
+        }
+
         .yes {
-            color: green;
+            color: #66ff66;
             font-weight: bold;
+            text-shadow: 0 0 5px #66ff66;
         }
+
         .no {
-            color: red;
+            color: #ff6666;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ff6666;
+        }
+
+        @media (max-width: 768px) {
+            table, th, td {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
+
     <h1>Zöldségek adatbázisa</h1>
+
     <table>
         <thead>
             <tr>
@@ -48,71 +86,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Paradicsom</td>
-                <td>780</td>
-                <td>Magyarország</td>
-                <td>120.5</td>
-                <td class="yes">Igen</td>
-                <td class="yes">Igen</td>
-            </tr>
-            <tr>
-                <td>Uborka</td>
-                <td>450</td>
-                <td>Spanyolország</td>
-                <td>95.3</td>
-                <td class="no">Nem</td>
-                <td class="yes">Igen</td>
-            </tr>
-            <tr>
-                <td>Répa</td>
-                <td>320</td>
-                <td>Magyarország</td>
-                <td>200.0</td>
-                <td class="yes">Igen</td>
-                <td class="no">Nem</td>
-            </tr>
-            <tr>
-                <td>Paprika</td>
-                <td>990</td>
-                <td>Hollandia</td>
-                <td>50.0</td>
-                <td class="no">Nem</td>
-                <td class="yes">Igen</td>
-            </tr>
-            <tr>
-                <td>Zeller</td>
-                <td>370</td>
-                <td>Szlovákia</td>
-                <td>80.0</td>
-                <td class="yes">Igen</td>
-                <td class="no">Nem</td>
-            </tr>
-            <tr>
-                <td>Káposzta</td>
-                <td>290</td>
-                <td>Magyarország</td>
-                <td>180.7</td>
-                <td class="no">Nem</td>
-                <td class="yes">Igen</td>
-            </tr>
-            <tr>
-                <td>Cékla</td>
-                <td>400</td>
-                <td>Románia</td>
-                <td>60.2</td>
-                <td class="yes">Igen</td>
-                <td class="no">Nem</td>
-            </tr>
-            <tr>
-                <td>Hagyma</td>
-                <td>250</td>
-                <td>Magyarország</td>
-                <td>300.0</td>
-                <td class="no">Nem</td>
-                <td class="yes">Igen</td>
-            </tr>
+            <tr><td>Paradicsom</td><td>780</td><td>Magyarország</td><td>120.5</td><td class="yes">Igen</td><td class="yes">Igen</td></tr>
+            <tr><td>Uborka</td><td>450</td><td>Spanyolország</td><td>95.3</td><td class="no">Nem</td><td class="yes">Igen</td></tr>
+            <tr><td>Répa</td><td>320</td><td>Magyarország</td><td>200.0</td><td class="yes">Igen</td><td class="no">Nem</td></tr>
+            <tr><td>Paprika</td><td>990</td><td>Hollandia</td><td>50.0</td><td class="no">Nem</td><td class="yes">Igen</td></tr>
+            <tr><td>Zeller</td><td>370</td><td>Szlovákia</td><td>80.0</td><td class="yes">Igen</td><td class="no">Nem</td></tr>
+            <tr><td>Káposzta</td><td>290</td><td>Magyarország</td><td>180.7</td><td class="no">Nem</td><td class="yes">Igen</td></tr>
+            <tr><td>Cékla</td><td>400</td><td>Románia</td><td>60.2</td><td class="yes">Igen</td><td class="no">Nem</td></tr>
+            <tr><td>Hagyma</td><td>250</td><td>Magyarország</td><td>300.0</td><td class="no">Nem</td><td class="yes">Igen</td></tr>
         </tbody>
     </table>
+
 </body>
 </html>
