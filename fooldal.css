@@ -1,204 +1,194 @@
-/* Reset a margók és paddingok a konzisztenciáért */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Alap beállítások */
+/* Alap */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #121212; /* Sötét háttér */
-    color: #f4f4f4; /* Világos szöveg */
+    font-family: 'Inter', sans-serif;
+    background-color: #121212;
+    color: #f4f4f4;
     line-height: 1.6;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    margin: 0;
 }
 
-h1, h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-}
-
-/* Header: jobban elkülöníthető */
+/* Header */
 header {
-    width: 100%;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #2c3e50, #34495e); /* Szürke-kék gradien */
-    color: #fff;
+    background-color: #1f1f1f;
+    padding: 60px 20px 40px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
     font-size: 3rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
 }
 
-/* Navigáció: tisztább, modern design */
+header p {
+    font-size: 1.2rem;
+    color: #aaa;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Navigáció */
+nav {
+    background-color: #1a1a1a;
+    padding: 15px 0;
+}
+
 nav ul {
-    list-style-type: none;
+    list-style: none;
     display: flex;
     justify-content: center;
-    padding: 20px 0;
-}
-
-nav ul li {
-    margin-right: 30px;
+    gap: 30px;
 }
 
 nav ul li a {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 1.2rem;
     font-weight: 500;
-    transition: color 0.3s ease, transform 0.3s ease;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #1abc9c; /* Világos zöldkék szín hover állapotban */
-    transform: translateY(-5px); /* Finom emelkedés hover-re */
+    color: #1abc9c;
 }
 
-/* Main tartalom: rendezett, de dinamikus */
+/* Fő tartalom */
 main {
-    padding: 60px 20px;
-    max-width: 1200px;
+    padding: 40px 20px 0;
+    max-width: 1000px;
     width: 90%;
     margin: 0 auto;
+    flex-grow: 1;
 }
 
+/* Szekciók */
 .section {
     margin-bottom: 60px;
+    text-align: center;
 }
 
 .section h2 {
-    font-size: 2.5rem;
-    color: #e74c3c; /* Piros szín */
-    margin-bottom: 20px;
-    text-align: center;
+    font-size: 2rem;
+    color: #e74c3c;
+    margin-bottom: 10px;
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .section p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #bbb;
-    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Kapcsolati űrlap - külön blokk legalul */
+.contact-wrapper {
+    padding: 40px 20px;
+    background-color: #181818;
     text-align: center;
 }
 
-/* Formázás: letisztult, modern formák */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    max-width: 650px;
-    margin: 0 auto;
-    padding: 30px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+.contact-wrapper h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #e67e22;
 }
 
-form input, form textarea {
-    background-color: #333;
+form {
+    max-width: 450px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input,
+form textarea {
+    background-color: #252525;
     border: 1px solid #444;
     border-radius: 6px;
     color: #f4f4f4;
-    padding: 15px;
-    font-size: 1.1rem;
-    transition: border 0.3s ease, background-color 0.3s ease;
+    padding: 12px;
+    font-size: 1rem;
 }
 
-form input:focus, form textarea:focus {
-    border-color: #e74c3c; /* Piros szín fókuszáláskor */
-    background-color: #222; /* Sötétebb háttér fókusznál */
+form input:focus,
+form textarea:focus {
+    border-color: #e67e22;
+    outline: none;
+    background-color: #1a1a1a;
 }
 
 form button {
-    background-color: #e74c3c;
-    color: #fff;
-    font-size: 1.3rem;
-    padding: 15px;
+    background-color: #e67e22;
+    color: white;
     border: none;
+    padding: 12px;
+    font-size: 1.1rem;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
 }
 
 form button:hover {
-    background-color: #c0392b; /* Sötétebb piros */
-    transform: translateY(-3px);
+    background-color: #d35400;
 }
 
+/* Gomb stílus */
 a.btn {
     display: inline-block;
     background-color: #16a085;
     color: white;
-    padding: 18px 35px;
+    padding: 12px 25px;
     text-decoration: none;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
 }
 
 a.btn:hover {
-    background-color: #1abc9c; /* Világosabb zöldkék */
-    transform: translateY(-5px);
+    background-color: #1abc9c;
 }
 
-/* Footer: finom elválasztás */
+/* Lábléc */
 footer {
     background-color: #1f1f1f;
     color: #bbb;
     text-align: center;
-    padding: 30px;
-    width: 100%;
-    position: relative;
-    bottom: 0;
-    font-size: 1rem;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    font-size: 0.9rem;
 }
 
-/* Media Queries: reszponzív dizájn */
+/* Reszponzivitás */
 @media (max-width: 768px) {
     header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 
     nav ul {
         flex-direction: column;
-        margin-top: 20px;
-    }
-
-    nav ul li {
-        margin-right: 0;
-        margin-bottom: 10px;
+        gap: 15px;
     }
 
     .section h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .section p {
         font-size: 1rem;
     }
 
-    form {
-        padding: 20px;
-        width: 90%;
-    }
-
-    a.btn {
-        font-size: 1.1rem;
-        padding: 12px 25px;
+    .contact-wrapper h2 {
+        font-size: 1.5rem;
     }
 }
