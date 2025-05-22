@@ -63,6 +63,7 @@
             text-shadow: 0 0 5px #ff6666;
         }
 
+        /* Új: Modern zöld glow-os gomb stílus */
         button {
             background-color: #2e7d32;
             color: #ffffff;
@@ -90,11 +91,6 @@
             table, th, td {
                 font-size: 0.9rem;
             }
-
-            button {
-                width: 100%;
-                margin: 8px 0;
-            }
         }
     </style>
 </head>
@@ -102,8 +98,78 @@
 
     <h1>Zöldség Adatbázis</h1>
 
-    <div style="text-align: center; margin-bottom: 30px;">
+    <div>
         <button onclick="showAll()">Összes megjelenítése</button>
         <button onclick="filterUnder500()">500 Ft alattiak</button>
         <button onclick="filterBio()">Csak bio zöldségek</button>
-        <button onclick="filt
+        <button onclick="filterSzezonalis()">Szezonális zöldségek</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Név</th>
+                <th>Ár (Ft/kg)</th>
+                <th>Származási hely</th>
+                <th>Készlet (kg)</th>
+                <th>Bio</th>
+                <th>Szezonális</th>
+            </tr>
+        </thead>
+        <tbody id="zoldsegTabla"></tbody>
+    </table>
+
+    <script>
+        const zoldsegek = [
+            { nev: "Paradicsom", ar: 780, hely: "Magyarország", keszlet: 120.5, bio: true, szezonalis: true },
+            { nev: "Uborka", ar: 450, hely: "Spanyolország", keszlet: 95.3, bio: false, szezonalis: true },
+            { nev: "Répa", ar: 320, hely: "Magyarország", keszlet: 200.0, bio: true, szezonalis: false },
+            { nev: "Paprika", ar: 990, hely: "Hollandia", keszlet: 50.0, bio: false, szezonalis: true },
+            { nev: "Zeller", ar: 370, hely: "Szlovákia", keszlet: 80.0, bio: true, szezonalis: false },
+            { nev: "Káposzta", ar: 290, hely: "Magyarország", keszlet: 180.7, bio: false, szezonalis: true },
+            { nev: "Cékla", ar: 400, hely: "Románia", keszlet: 60.2, bio: true, szezonalis: false },
+            { nev: "Hagyma", ar: 250, hely: "Magyarország", keszlet: 300.0, bio: false, szezonalis: true }
+        ];
+
+        function megjelenit(lista) {
+            const tabla = document.getElementById("zoldsegTabla");
+            tabla.innerHTML = "";
+
+            lista.forEach(z => {
+                const sor = `<tr>
+                    <td>${z.nev}</td>
+                    <td>${z.ar}</td>
+                    <td>${z.hely}</td>
+                    <td>${z.keszlet}</td>
+                    <td class="${z.bio ? 'yes' : 'no'}">${z.bio ? "Igen" : "Nem"}</td>
+                    <td class="${z.szezonalis ? 'yes' : 'no'}">${z.szezonalis ? "Igen" : "Nem"}</td>
+                </tr>`;
+                tabla.innerHTML += sor;
+            });
+        }
+
+        function showAll() {
+            megjelenit(zoldsegek);
+        }
+
+        function filterUnder500() {
+            const szurt = zoldsegek.filter(z => z.ar < 500);
+            megjelenit(szurt);
+        }
+
+        function filterBio() {
+            const szurt = zoldsegek.filter(z => z.bio);
+            megjelenit(szurt);
+        }
+
+        function filterSzezonalis() {
+            const szurt = zoldsegek.filter(z => z.szezonalis);
+            megjelenit(szurt);
+        }
+
+        // Alapértelmezés: az összeset megjeleníti
+        showAll();
+    </script>
+
+</body>
+</html>
