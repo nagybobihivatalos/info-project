@@ -1,99 +1,175 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <title>Első féléves dokumentáció</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hálózati Dokumentáció</title>
   <style>
     body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #f4f4f4;
+      line-height: 1.6;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f6f8;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1f1f1f;
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 2px solid #e67e22;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #e67e22;
+      margin-bottom: 10px;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 40px auto;
-      background: white;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 0 20px;
     }
 
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 25px;
+    .section {
+      background-color: #1a1a1a;
+      border-left: 5px solid #3498db;
+      padding: 30px;
+      margin-bottom: 40px;
+      border-radius: 6px;
     }
 
-    .doc-content {
-      white-space: pre-wrap;
-      line-height: 1.7;
-      color: #444;
+    .section h2 {
+      color: #3498db;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .section h3 {
+      color: #1abc9c;
+      font-size: 1.4rem;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    pre {
+      background-color: #2c2c2c;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+
+    footer {
+      background-color: #1f1f1f;
+      color: #bbb;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .section h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
+
+  <header>
+    <h1>Hálózati Dokumentáció</h1>
+  </header>
+
   <div class="container">
-    <h1>Első féléves dokumentáció</h1>
-    <div class="doc-content">
-      <!-- Ide jön a dokumentáció szövege -->
-      Dokumentáció
+    <div class="section">
+      <h2>Python</h2>
+      <h3>Bevezetés</h3>
+      <p>Ez a Python script a felhasználótól kérdezi, hogy melyik hálózati eszközt szeretne csatlakoztatni. A program az eszközhöz megfelelő kábelezést javasol a felhasználónak.</p>
+      <p>Az eszközök, amikkel dolgozik:</p>
+      <ul>
+        <li>Switch</li>
+        <li>Router</li>
+        <li>Hub</li>
+        <li>Workstation</li>
+      </ul>
+      <p>A kód különböző feltételek alapján különböző kábeltípusokat ajánl, attól függően, hogy melyik eszközt szeretnénk csatlakoztatni.</p>
 
-Python:
-Bevezetés
-Ez a Python script a felhasználótól kérdezi, hogy melyik hálózati eszközt szeretne csatlakoztatni. A program az eszközhöz megfelelő kábelezést javasol a felhasználónak. Az eszközök, amikkel dolgozik, a következők:
-•	Switch
-•	Router
-•	Hub
-•	Workstation
-A kód különböző feltételek alapján különböző kábeltípusokat ajánl a felhasználónak, attól függően, hogy melyik eszközt kívánják összekapcsolni.
-2. A kód működése
-A kód folyamata az alábbi lépésekből áll:
-1.	Felhasználói bemenet: A program bekéri a felhasználó válaszát az alábbi üzenettel:
-	„Mondj egy hálózati eszközt! (switch/router/hub/workstation).”
-A felhasználó itt választhatja ki, hogy egy switch, router, hub vagy workstation-t szeretne csatlakoztatni.
-2.	Eszközkategória ellenőrzés: A program a bemenetet kisbetűs formában (.lower()) ellenőrzi, hogy biztosan ne legyen érzékeny a kis- és nagybetűk használatára.
-3. Hibakezelés: Ha a felhasználó nem egy érvényes hálózati eszközt ad meg (pl. nem switch, router, hub vagy workstation), akkor a program az alábbi üzenetet írja ki: 
+      <h3>A kód működése</h3>
+      <ol>
+        <li><strong>Felhasználói bemenet:</strong> „Mondj egy hálózati eszközt! (switch/router/hub/workstation)”</li>
+        <li><strong>Eszközkategória ellenőrzés:</strong> kisbetűs formában történik (.lower())</li>
+        <li><strong>Hibakezelés:</strong> Ha érvénytelen eszközt ad meg a felhasználó, a program kiírja:<br />
+          <em>„Arra az eszközre nem tudok mondani sajnos.”</em>
+        </li>
+      </ol>
 
-„Arra az eszközre nem tudok mondani sajnos.”
+      <h3>Lehetőségek a jövőbeli fejlesztésre</h3>
+      <ul>
+        <li>Bővíthető további eszközökkel (pl. modem, bridge)</li>
+        <li>Felhasználói input alaposabb validálása</li>
+        <li>Grafikus felület (GUI) integrálása</li>
+      </ul>
+    </div>
 
+    <div class="section">
+      <h2>Cisco</h2>
+      <h3>Kis információ</h3>
+      <p>1 byte = 8 bit | Min: 0 bit, Max: 32 bit</p>
+      <p>Bitek értéke:</p>
+      <pre>1 = 2⁰
+2 = 2¹
+3 = 2²
+4 = 2³
+5 = 2⁴
+6 = 2⁵
+7 = 2⁶
+8 = 2⁷</pre>
 
-4. Lehetőségek a jövőbeli fejlesztésre
-•	Bővíthető eszközökkel: További eszközökkel bővíthető, például "modem", "bridge" stb.
-•	Felhasználói input validálása: Jelenleg a program nem validálja a felhasználó által beírt válaszokat alaposabban, például figyelmen kívül hagyja a hibás vagy nem várt karaktereket. A validációt érdemes lehet finomítani.
-•	Grafikus felhasználói felület (GUI): Később hozzáadhatunk egy GUI-t, amely lehetővé teszi a felhasználói választásokat a kattintások segítségével.
-
-
-
-Cisco:
-
-Konfiguráció:
-PC0:
-ip: 192.168.10.15
-mask: 255.255.255.0
-gateway: 192.168.10.1
+      <h3>Konfiguráció</h3>
+      <pre>PC0:
+IP: 192.168.10.15 /24
+Mask: 255.255.255.0
+Gateway: 192.168.10.1
 
 PC1:
-ip: 192.168.10.20
-mask: 255.255.255.0
-gateway: 192.168.10.1
+IP: 192.168.10.20 /24
+Mask: 255.255.255.0
+Gateway: 192.168.10.1
 
 Router0:
-console pw: cisco12345
-telnet pw: cisco12345
+Console PW: cisco12345
+Telnet PW: cisco12345
 
 Router1:
-console pw: cisco12345
-telnet pw: cisco12345
+Console PW: cisco12345
+Telnet PW: cisco12345
 
 Switch0:
-telnet pw: cisco12345
+Telnet PW: cisco12345
 
 Switch1:
-telnet pw: cisco12345
-
-
+Telnet PW: cisco12345</pre>
     </div>
   </div>
+
+  <footer>
+    &copy; 2025 Hálózati Dokumentáció. Minden jog fenntartva.
+  </footer>
+
 </body>
 </html>
