@@ -23,6 +23,7 @@
             height: 100vh;
             text-align: center;
             margin: 0;
+            flex-direction: column;
         }
 
         /* Header stílusok */
@@ -41,11 +42,11 @@
             color: #bbb;
         }
 
-        /* Gombok tartálya */
+        /* Gombok tartálya, egymás mellé helyezve */
         .button-container {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 20px; /* Távolság a gombok között */
+            justify-content: center; /* Középre igazítás */
         }
 
         /* Alap gombok stílusa */
