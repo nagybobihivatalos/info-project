@@ -63,90 +63,47 @@
             text-shadow: 0 0 5px #ff6666;
         }
 
+        button {
+            background-color: #2e7d32;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            margin: 10px 8px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #66ff66, 0 0 20px rgba(102, 255, 102, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+            box-shadow: 0 0 15px #66ff66, 0 0 30px rgba(102, 255, 102, 0.7);
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
         @media (max-width: 768px) {
             table, th, td {
                 font-size: 0.9rem;
+            }
+
+            button {
+                width: 100%;
+                margin: 8px 0;
             }
         }
     </style>
 </head>
 <body>
 
-   
+    <h1>Zöldség Adatbázis</h1>
 
-  <div>
-    <button onclick="showAll()">Összes megjelenítése</button>
-    <button onclick="filterUnder500()">500 Ft alattiak</button>
-    <button onclick="filterBio()">Csak bio zöldségek</button>
-    <button onclick="filterSzezonalis()">Szezonális zöldségek</button>
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Név</th>
-        <th>Ár (Ft/kg)</th>
-        <th>Származási hely</th>
-        <th>Készlet (kg)</th>
-        <th>Bio</th>
-        <th>Szezonális</th>
-      </tr>
-    </thead>
-    <tbody id="zoldsegTabla"></tbody>
-  </table>
-
-  <script>
-    const zoldsegek = [
-      { nev: "Paradicsom", ar: 780, hely: "Magyarország", keszlet: 120.5, bio: true, szezonalis: true },
-      { nev: "Uborka", ar: 450, hely: "Spanyolország", keszlet: 95.3, bio: false, szezonalis: true },
-      { nev: "Répa", ar: 320, hely: "Magyarország", keszlet: 200.0, bio: true, szezonalis: false },
-      { nev: "Paprika", ar: 990, hely: "Hollandia", keszlet: 50.0, bio: false, szezonalis: true },
-      { nev: "Zeller", ar: 370, hely: "Szlovákia", keszlet: 80.0, bio: true, szezonalis: false },
-      { nev: "Káposzta", ar: 290, hely: "Magyarország", keszlet: 180.7, bio: false, szezonalis: true },
-      { nev: "Cékla", ar: 400, hely: "Románia", keszlet: 60.2, bio: true, szezonalis: false },
-      { nev: "Hagyma", ar: 250, hely: "Magyarország", keszlet: 300.0, bio: false, szezonalis: true }
-    ];
-
-    function megjelenit(lista) {
-      const tabla = document.getElementById("zoldsegTabla");
-      tabla.innerHTML = "";
-
-      lista.forEach(z => {
-        const sor = `<tr>
-          <td>${z.nev}</td>
-          <td>${z.ar}</td>
-          <td>${z.hely}</td>
-          <td>${z.keszlet}</td>
-          <td>${z.bio ? "Igen" : "Nem"}</td>
-          <td>${z.szezonalis ? "Igen" : "Nem"}</td>
-        </tr>`;
-        tabla.innerHTML += sor;
-      });
-    }
-
-    function showAll() {
-      megjelenit(zoldsegek);
-    }
-
-    function filterUnder500() {
-      const szurt = zoldsegek.filter(z => z.ar < 500);
-      megjelenit(szurt);
-    }
-
-    function filterBio() {
-      const szurt = zoldsegek.filter(z => z.bio);
-      megjelenit(szurt);
-    }
-
-    function filterSzezonalis() {
-      const szurt = zoldsegek.filter(z => z.szezonalis);
-      megjelenit(szurt);
-    }
-
-    // Alapértelmezés: az összeset megjeleníti
-    showAll();
-  </script>
-
-
-</body>
-</html>
+    <div style="text-align: center; margin-bottom: 30px;">
+        <button onclick="showAll()">Összes megjelenítése</button>
+        <button onclick="filterUnder500()">500 Ft alattiak</button>
+        <button onclick="filterBio()">Csak bio zöldségek</button>
+        <button onclick="filt
