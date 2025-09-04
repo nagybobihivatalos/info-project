@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Zöldség és Gyümölcs Adatbázis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #f1f1f1;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #4CAF50;
+        }
+
+        .table-container {
+            margin-bottom: 40px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: center;
+            border-bottom: 1px solid #2e2e2e;
+        }
+
+        th {
+            background-color: #2a2a2a;
+            color: #81c784;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #181818;
+        }
+
+        tr:hover {
+            background-color: #2e2e2e;
+        }
+
+        .yes {
+            color: #66ff66;
+            font-weight: bold;
+            text-shadow: 0 0 5px #66ff66;
+        }
+
+        .no {
+            color: #ff6666;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ff6666;
+        }
+
+        /* Gomb stílus */
+        button {
+            background-color: #2e7d32;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            margin: 10px 8px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #66ff66, 0 0 20px rgba(102, 255, 102, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+            box-shadow: 0 0 15px #66ff66, 0 0 30px rgba(102, 255, 102, 0.7);
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Gyümölcsök táblához más szín */
+        .fruit-table th {
+            background-color: #2a2a2a;
+            color: #ffcc00;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .fruit-table tr:nth-child(even) {
+            background-color: #2d2d2d;
+        }
+
+        .fruit-table tr:hover {
+            background-color: #3e3e3e;
+        }
+
+        .fruit-table .yes {
+            color: #ffcc00;
+        }
+
+        .fruit-table .no {
+            color: #ff6666;
+        }
+
+        @media (max-width: 768px) {
+            table, th, td {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Zöldség és Gyümölcs Adatbázis</h1>
+
+    <!-- Zöldségek szűrők -->
+    <div>
+        <button onclick="showAllVeggies()">Összes zöldség megjelenítése</button>
+        <button onclick="filterUnder500Veggies()">500 Ft alatti zöldségek</button>
+        <button onclick="filterBioVeggies()">Csak bio zöldségek</button>
+        <button onclick="filterSzezonalisVeggies()">Szezonális zöldségek</button>
+    </div>
+
+    <!-- Zöldségek táblázat -->
+    <div class="table-container">
+        <h2 style="color: #4CAF50; text-align: center;">Zöldségek</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Ár (Ft/kg)</th>
+                    <th>Származási hely</th>
+                    <th>Készlet (kg)</th>
+                    <th>Bio</th>
+                    <th>Szezonális</th>
+                </tr>
+            </thead>
+            <tbody id="zoldsegTabla"></tbody>
+        </table>
+    </div>
+
+    <!-- Gyümölcsök szűrők -->
+    <div>
+        <button onclick="showAllFruits()">Összes gyümölcs megjelenítése</button>
+        <button onclick="filterUnder500Fruits()">500 Ft alatti gyümölcsök</button>
+        <button onclick="filterBioFruits()">Csak bio gyümölcsök</button>
+        <button onclick="filterSzezonalisFruits()">Szezonális gyümölcsök</button>
+    </div>
+
+    <!-- Gyümölcsök táblázat -->
+    <div class="table-container">
+        <h2 style="color: #FFCC00; text-align: center;">Gyümölcsök</h2>
+        <table class="fruit-table">
+            <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Ár (Ft/kg)</th>
+                    <th>Származási hely</th>
+                    <th>Készlet (kg)</th>
+                    <th>Bio</th>
+                    <th>Szezonális</th>
+                </tr>
+            </thead>
+            <tbody id="gyumolcsTabla"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const zoldsegek = [
+            { nev: "Paradicsom", ar: 780, hely: "Magyarország", keszlet: 120.5, bio: true, szezonalis: true },
+            { nev: "Uborka", ar: 450, hely: "Spanyolország", keszlet: 95.3, bio: false, szezonalis: true },
+            { nev: "Répa", ar: 320, hely: "Magyarország", keszlet: 200.0, bio: true, szezonalis: false },
+            { nev: "Paprika", ar: 990, hely: "Hollandia", keszlet: 50.0, bio: false, szezonalis: true },
+            { nev: "Zeller", ar: 370, hely: "Szlovákia", keszlet: 80.0, bio: true, szezonalis: false },
+            { nev: "Káposzta", ar: 290, hely: "Magyarország", keszlet: 180.7, bio: false, szezonalis: true },
+            { nev: "Cékla", ar: 400, hely: "Románia", keszlet: 60.2, bio: true, szezonalis: false },
+            { nev: "Hagyma", ar: 250, hely: "Magyarország", keszlet: 300.0, bio: false, szezonalis: true }
+        ];
+
+        const gyumolcsok = [
+            { nev: "Alma", ar: 650, hely: "Magyarország", keszlet: 100.0, bio: true, szezonalis: true },
+            { nev: "Banán", ar: 1200, hely: "Costa Rica", keszlet: 250.0, bio: false, szezonalis: false },
+            { nev: "Eper", ar: 950, hely: "Spanyolország", keszlet: 75.0, bio: true, szezonalis: true },
+            { nev: "Narancs", ar: 800, hely: "Spanyolország", keszlet: 200.0, bio: false, szezonalis: true },
+            { nev: "Szilva", ar: 600, hely: "Románia", keszlet: 60.0, bio: true, szezonalis: false }
+        ];
+
+        function megjelenit(lista, tablaId) {
+            const tabla = document
