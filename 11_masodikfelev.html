@@ -8,47 +8,50 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #121212;
             color: #f1f1f1;
+            padding: 40px 20px;
             margin: 0;
-            padding: 20px;
-            font-size: 0.9rem;
         }
 
         h1 {
             text-align: center;
             color: #4CAF50;
-            font-size: 2rem;
-            margin-bottom: 30px;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #4CAF50;
         }
 
-        h2 {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 1.5rem;
-        }
-
-        .table-container {
-            max-width: 1000px;
-            margin: 0 auto 30px auto;
-        }
-
-        table {
-            width: 100%;
+        /* Zöldség adatbázis */
+        .zoldseg-table {
             border-collapse: collapse;
-            margin-top: 10px;
+            width: 100%;
             background-color: #1e1e1e;
-            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            border-radius: 10px;
             overflow: hidden;
-            font-size: 0.85rem;
+            margin-bottom: 40px;
+        }
+
+        /* Gyümölcs adatbázis */
+        .gyumolcs-table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #2c3e50;
+            box-shadow: 0 0 15px rgba(255, 87, 34, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         th, td {
-            padding: 8px 10px;
+            padding: 14px 16px;
             text-align: center;
             border-bottom: 1px solid #2e2e2e;
         }
 
         th {
             background-color: #2a2a2a;
+            color: #81c784;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
@@ -63,60 +66,41 @@
         .yes {
             color: #66ff66;
             font-weight: bold;
+            text-shadow: 0 0 5px #66ff66;
         }
 
         .no {
             color: #ff6666;
             font-weight: bold;
-        }
-
-        .fruit-table th {
-            color: #ffcc00;
-        }
-
-        .fruit-table .yes {
-            color: #ffcc00;
-        }
-
-        .button-group {
-            text-align: center;
-            margin-bottom: 10px;
+            text-shadow: 0 0 5px #ff6666;
         }
 
         button {
             background-color: #2e7d32;
             color: #ffffff;
             border: none;
-            padding: 8px 14px;
-            margin: 6px;
-            font-size: 0.85rem;
-            border-radius: 6px;
+            padding: 12px 20px;
+            margin: 10px 8px;
+            font-size: 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 0 6px #66ff66;
+            box-shadow: 0 0 10px #66ff66, 0 0 20px rgba(102, 255, 102, 0.5);
             transition: all 0.3s ease;
         }
 
         button:hover {
             background-color: #388e3c;
+            box-shadow: 0 0 15px #66ff66, 0 0 30px rgba(102, 255, 102, 0.7);
             transform: scale(1.05);
         }
 
-        @media (max-width: 600px) {
+        button:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
             table, th, td {
-                font-size: 0.75rem;
-            }
-
-            button {
-                font-size: 0.75rem;
-                padding: 6px 10px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            h2 {
-                font-size: 1.2rem;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -125,57 +109,40 @@
 
     <h1>Zöldség és Gyümölcs Adatbázis</h1>
 
-    <!-- Zöldség szűrők -->
-    <div class="button-group">
-        <button onclick="showAllVeggies()">Összes zöldség</button>
-        <button onclick="filterUnder500Veggies()">500 Ft alatt</button>
-        <button onclick="filterBioVeggies()">Bio zöldségek</button>
-        <button onclick="filterSzezonalisVeggies()">Szezonális zöldségek</button>
+    <div>
+        <button onclick="showAll('zoldseg')">Összes Zöldség megjelenítése</button>
+        <button onclick="showAll('gyumolcs')">Összes Gyümölcs megjelenítése</button>
     </div>
 
-    <!-- Zöldség táblázat -->
-    <div class="table-container">
-        <h2 style="color: #4CAF50;">Zöldségek</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Név</th>
-                    <th>Ár (Ft/kg)</th>
-                    <th>Származás</th>
-                    <th>Készlet</th>
-                    <th>Bio</th>
-                    <th>Szezonális</th>
-                </tr>
-            </thead>
-            <tbody id="zoldsegTabla"></tbody>
-        </table>
-    </div>
+    <!-- Zöldség adatbázis -->
+    <table class="zoldseg-table">
+        <thead>
+            <tr>
+                <th>Név</th>
+                <th>Ár (Ft/kg)</th>
+                <th>Származási hely</th>
+                <th>Készlet (kg)</th>
+                <th>Bio</th>
+                <th>Szezonális</th>
+            </tr>
+        </thead>
+        <tbody id="zoldsegTabla"></tbody>
+    </table>
 
-    <!-- Gyümölcs szűrők -->
-    <div class="button-group">
-        <button onclick="showAllFruits()">Összes gyümölcs</button>
-        <button onclick="filterUnder500Fruits()">500 Ft alatt</button>
-        <button onclick="filterBioFruits()">Bio gyümölcsök</button>
-        <button onclick="filterSzezonalisFruits()">Szezonális gyümölcsök</button>
-    </div>
-
-    <!-- Gyümölcs táblázat -->
-    <div class="table-container">
-        <h2 style="color: #ffcc00;">Gyümölcsök</h2>
-        <table class="fruit-table">
-            <thead>
-                <tr>
-                    <th>Név</th>
-                    <th>Ár (Ft/kg)</th>
-                    <th>Származás</th>
-                    <th>Készlet</th>
-                    <th>Bio</th>
-                    <th>Szezonális</th>
-                </tr>
-            </thead>
-            <tbody id="gyumolcsTabla"></tbody>
-        </table>
-    </div>
+    <!-- Gyümölcs adatbázis -->
+    <table class="gyumolcs-table">
+        <thead>
+            <tr>
+                <th>Név</th>
+                <th>Ár (Ft/kg)</th>
+                <th>Származási hely</th>
+                <th>Készlet (kg)</th>
+                <th>Bio</th>
+                <th>Szezonális</th>
+            </tr>
+        </thead>
+        <tbody id="gyumolcsTabla"></tbody>
+    </table>
 
     <script>
         const zoldsegek = [
@@ -190,22 +157,42 @@
         ];
 
         const gyumolcsok = [
-            { nev: "Alma", ar: 650, hely: "Magyarország", keszlet: 100.0, bio: true, szezonalis: true },
-            { nev: "Banán", ar: 1200, hely: "Costa Rica", keszlet: 250.0, bio: false, szezonalis: false },
-            { nev: "Eper", ar: 950, hely: "Spanyolország", keszlet: 75.0, bio: true, szezonalis: true },
-            { nev: "Narancs", ar: 800, hely: "Spanyolország", keszlet: 200.0, bio: false, szezonalis: true },
-            { nev: "Szilva", ar: 600, hely: "Románia", keszlet: 60.0, bio: true, szezonalis: false }
+            { nev: "Alma", ar: 480, hely: "Magyarország", keszlet: 150.0, bio: true, szezonalis: true },
+            { nev: "Banán", ar: 800, hely: "Ecuador", keszlet: 120.5, bio: false, szezonalis: false },
+            { nev: "Szilva", ar: 600, hely: "Szerbia", keszlet: 50.0, bio: true, szezonalis: true },
+            { nev: "Cseresznye", ar: 1200, hely: "Törökország", keszlet: 75.5, bio: true, szezonalis: true },
+            { nev: "Körte", ar: 550, hely: "Magyarország", keszlet: 110.0, bio: false, szezonalis: true }
         ];
 
         function megjelenit(lista, tablaId) {
             const tabla = document.getElementById(tablaId);
             tabla.innerHTML = "";
+
             lista.forEach(z => {
-                tabla.innerHTML += `
-                    <tr>
-                        <td>${z.nev}</td>
-                        <td>${z.ar}</td>
-                        <td>${z.hely}</td>
-                        <td>${z.keszlet}</td>
-                        <td class="${z.bio ? 'yes' : 'no'}">${z.bio ? "Igen" : "Nem"}</td>
-                        <td class="${z.szezonalis ? 'yes' :
+                const sor = `<tr>
+                    <td>${z.nev}</td>
+                    <td>${z.ar}</td>
+                    <td>${z.hely}</td>
+                    <td>${z.keszlet}</td>
+                    <td class="${z.bio ? 'yes' : 'no'}">${z.bio ? "Igen" : "Nem"}</td>
+                    <td class="${z.szezonalis ? 'yes' : 'no'}">${z.szezonalis ? "Igen" : "Nem"}</td>
+                </tr>`;
+                tabla.innerHTML += sor;
+            });
+        }
+
+        function showAll(tipus) {
+            if (tipus === 'zoldseg') {
+                megjelenit(zoldsegek, "zoldsegTabla");
+            } else {
+                megjelenit(gyumolcsok, "gyumolcsTabla");
+            }
+        }
+
+        // Alapértelmezés: az összeset megjeleníti
+        showAll('zoldseg');
+        showAll('gyumolcs');
+    </script>
+
+</body>
+</html>
