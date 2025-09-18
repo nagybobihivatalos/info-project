@@ -99,8 +99,20 @@
             transition: background-color 0.3s;
         }
 
-        .download-btn:hover {
-            background-color: #45a049;
+        /* Vissza gomb stílusa (piros) */
+        .back-btn {
+            background-color: #f44336;
+        }
+
+        .back-btn:hover {
+            background-color: #e53935;
+        }
+
+        /* Vissza gomb */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -108,20 +120,21 @@
 
 <div class="gallery">
     <img src="kepek/11_elsofelevpkt/Azegesz.png" alt="Minden">
-    <img src="kepek/11_elsofelevpkt/R1_1GE0.png" alt="R1_1GE0">
-    <img src="kepek/11_elsofelevpkt/R1_1GE1.png" alt="R1_1GE1">
-    <img src="kepek/11_elsofelevpkt/R1_1S2.png" alt="R1_1S2">
-    <img src="kepek/11_elsofelevpkt/R1_1S3.png" alt="R1_1S3">
-    <img src="kepek/11_elsofelevpkt/R2_1GE0.png" alt="R2_1GE0">
-    <img src="kepek/11_elsofelevpkt/R2_1S2.png" alt="R2_1S2">
-    <img src="kepek/11_elsofelevpkt/R2_1S3.png" alt="R2_1S3">
-    <img src="kepek/11_elsofelevpkt/R3_1GE0.png" alt="R3_1GE0">
-    <img src="kepek/11_elsofelevpkt/R3_1S2.png" alt="R3_1S2">
-    <img src="kepek/11_elsofelevpkt/R3_1S3.png" alt="R3_1S3">
     <img src="kepek/11_elsofelevpkt/PC1_1FE0.png" alt="PC1_1FE0">
-    <img src="kepek/11_elsofelevpkt/PC1_2FE0.png" alt="PC1_2FE0">
+    <img src="kepek/11_elsofelevpkt/PC1_2FE0.png" alt="PC1_FE0">
     <img src="kepek/11_elsofelevpkt/PC2_1FE0.png" alt="PC2_1FE0">
     <img src="kepek/11_elsofelevpkt/PC3_1FE0.png" alt="PC3_1FE0">
+    <img src="kepek/11_elsofelevpkt/R1_1GE0.png" alt="R1_1GE0">
+    <img src="kepek/11_elsofelevpkt/R1_1GE1.png" alt="R1_1GE1">
+    <img src="kepek/11_elsofelevpkt/R1_1S010.png" alt="R1_1S010">
+    <img src="kepek/11_elsofelevpkt/R1_1S011.png" alt="R1_1S011">
+    <img src="kepek/11_elsofelevpkt/R2_1GE0.png" alt="R2_1GE0">
+    <img src="kepek/11_elsofelevpkt/R2_1S010.png" alt="R2_1S010">
+    <img src="kepek/11_elsofelevpkt/R2_1S011.png" alt="R2_1S011">
+    <img src="kepek/11_elsofelevpkt/R3_1GE0.png" alt="R3_1GE0">
+    <img src="kepek/11_elsofelevpkt/R3_1S010.png" alt="R3_1S010">
+    <img src="kepek/11_elsofelevpkt/R3_1S011.png" alt="R3_1S011">
+    <img src="kepek/11_elsofelevpkt/RIP.png" alt="RIP">
 </div>
 
 <div class="modal" id="modal">
@@ -130,6 +143,10 @@
     <img src="" alt="Kép nagyban" id="modalImg">
     <span class="arrow arrow-right" id="next">&gt;</span>
 </div>
+
+<div class="button-container">
+    <!-- Vissza gomb -->
+    <a href="11_elsofelev.html">Vissza</a>
 
 <!-- Letöltés gomb -->
 <a href="pkt/11_elsofelev.pkt" download class="download-btn" id="downloadBtn">A .pkt fálj letöltése</a>
