@@ -1,42 +1,57 @@
-<html>
+<!DOCTYPE html>
+<html lang="hu">
 <head>
-	<meta charset="UTF_8">
-	<link rel="stylesheet" href="style.css">
-<title>12.-es projekt munkák</title>
+    <meta charset="UTF-8">
+    <title>12.-es projekt munkák</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #121212; /* sötét háttér */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        .btn {
+            background-color: #1e1e1e;
+            border: none;
+            color: #00ff66;
+            padding: 14px 28px;
+            margin: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00ff66, 0 0 30px rgba(0, 255, 102, 0.6);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #2a2a2a;
+            box-shadow: 0 0 25px #00ff66, 0 0 50px rgba(0, 255, 102, 0.9);
+            transform: scale(1.05);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
 </head>
-
 <body>
-<style>
-body {
-  background-image: url('bg.png');
-}
-img {
-    vertical-align: middle;
-}
-a:link {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:visited {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:hover {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
-
-a:active {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
-</style>
-<p><a href="osztaly.html"><-vissza</a></p>
+    <div class="container">
+        <a href="osztaly.html" class="btn">← Vissza</a>
+        <a href="felev1.html" class="btn">1. Félév</a>
+        <a href="felev2.html" class="btn">2. Félév</a>
+    </div>
 </body>
 </html>
