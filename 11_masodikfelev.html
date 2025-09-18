@@ -215,24 +215,41 @@
         }
 
         function filterTable(tipus) {
-            let filteredData = [];
+            let selectId = tipus === 'zoldseg' ? 'zoldsegSelect' : 'gyumolcsSelect';
+            let filterValue = document.getElementById(selectId).value;
+            let tableClass = tipus === 'zoldseg' ? 'zoldseg-table' : 'gyumolcs-table';
 
-            if (tipus === 'zoldseg') {
-                const filterValue = document.getElementById('zoldsegSelect').value;
-                if (filterValue === 'all') {
-                    filteredData = zoldsegek;
-                } else {
-                    filteredData = zoldsegek.filter(z => z[filterValue] !== undefined);
-                }
-                megjelenit(filteredData, "zoldsegTabla");
-            } else {
-                const filterValue = document.getElementById('gyumolcsSelect').value;
-                if (filterValue === 'all') {
-                    filteredData = gyumolcsok;
-                } else {
-                    filteredData = gyumolcsok.filter(g => g[filterValue] !== undefined);
-                }
-                megjelenit(filteredData, "gyumolcsTabla");
+            let table = document.querySelector('.' + tableClass);
+            let headers = table.querySelectorAll("th");
+            let rows = table.querySelectorAll("tbody tr");
+
+            // Mindent visszaállítunk (mutatjuk)
+            headers.forEach((th, index) => {
+                th.style.display = "";
+                rows.forEach(row => {
+                    row.cells[index].style.display = "";
+                });
+            });
+
+            // Ha nem "minden", akkor csak Név + kiválasztott oszlop maradjon
+            if (filterValue !== "all") {
+                headers.forEach((th, index) => {
+                    if (
+                        (filterValue === "ar" && th.textContent.includes("Ár")) ||
+                        (filterValue === "hely" && th.textContent.includes("Származási")) ||
+                        (filterValue === "keszlet" && th.textContent.includes("Készlet")) ||
+                        (filterValue === "bio" && th.textContent.includes("Bio")) ||
+                        (filterValue === "szezonalis" && th.textContent.includes("Szezonális")) ||
+                        th.textContent.includes("Név")
+                    ) {
+                        // hagyjuk láthatón
+                    } else {
+                        th.style.display = "none";
+                        rows.forEach(row => {
+                            row.cells[index].style.display = "none";
+                        });
+                    }
+                });
             }
         }
 
