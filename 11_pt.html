@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>11. Első félév Cisco Packet Tracer</title>
+	<link rel="stylesheet" href="ciscocss.css">
+    <style>
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+            max-width: 90%;
+            margin: auto;
+        }
+        
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            width: 80%;
+            max-width: 900px;
+            border-radius: 10px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Nyilak stílusa */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+            z-index: 100; /* biztosítja, hogy mindig a kép felett legyenek */
+            padding: 10px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5); /* Enyhén átlátszó háttér */
+            transition: background-color 0.3s ease;
+        }
+
+        .arrow-left {
+            left: 15px;
+        }
+
+        .arrow-right {
+            right: 15px;
+        }
+
+        /* Nyilak háttér színe változik, ha rájuk viszed az egeret */
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+		/* Letöltés gomb */
+        .download-btn {
+            margin-top: 30px;
+            padding: 15px 25px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gallery">
+    <img src="kepek/11_elsofelevpkt/Azegesz.png" alt="Minden">
+    <img src="kepek/11_elsofelevpkt/R1_1GE0.png" alt="R1_1GE0">
+    <img src="kepek/11_elsofelevpkt/R1_1GE1.png" alt="R1_1GE1">
+    <img src="kepek/11_elsofelevpkt/R1_1S2.png" alt="R1_1S2">
+    <img src="kepek/11_elsofelevpkt/R1_1S3.png" alt="R1_1S3">
+    <img src="kepek/11_elsofelevpkt/R2_1GE0.png" alt="R2_1GE0">
+    <img src="kepek/11_elsofelevpkt/R2_1S2.png" alt="R2_1S2">
+    <img src="kepek/11_elsofelevpkt/R2_1S3.png" alt="R2_1S3">
+    <img src="kepek/11_elsofelevpkt/R3_1GE0.png" alt="R3_1GE0">
+    <img src="kepek/11_elsofelevpkt/R3_1S2.png" alt="R3_1S2">
+    <img src="kepek/11_elsofelevpkt/R3_1S3.png" alt="R3_1S3">
+    <img src="kepek/11_elsofelevpkt/PC1_1FE0.png" alt="PC1_1FE0">
+    <img src="kepek/11_elsofelevpkt/PC1_2FE0.png" alt="PC1_2FE0">
+    <img src="kepek/11_elsofelevpkt/PC2_1FE0.png" alt="PC2_1FE0">
+    <img src="kepek/11_elsofelevpkt/PC3_1FE0.png" alt="PC3_1FE0">
+</div>
+
+<div class="modal" id="modal">
+    <span class="close" id="close">&times;</span>
+    <span class="arrow arrow-left" id="prev">&lt;</span>
+    <img src="" alt="Kép nagyban" id="modalImg">
+    <span class="arrow arrow-right" id="next">&gt;</span>
+</div>
+
+<!-- Letöltés gomb -->
+<a href="pkt/11_elsofelev.pkt" download class="download-btn" id="downloadBtn">A .pkt fálj letöltése</a>
+
+<script>
+    // Kép galéria és modal
+    const images = document.querySelectorAll('.gallery img');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const closeBtn = document.getElementById('close');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    let currentIndex = 0;
+    
+   // Megnyitja a modal ablakot
+    images.forEach((img, index) => {
+        img.addEventListener('click', () => {
+            modal.classList.add('active');
+            modalImg.src = img.src;
+            currentIndex = index;
+        });
+    });
+
+    // Bezárja a modal ablakot
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+
+    // Kép váltása balra
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+        modalImg.src = images[currentIndex].src;
+    });
+
+    // Kép váltása jobbra
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+        modalImg.src = images[currentIndex].src;
+    });
+
+    // Modal bezárása kattintással a háttéren
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+</script>
+
+</body>
+</html>
