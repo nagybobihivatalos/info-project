@@ -1,0 +1,136 @@
+1. Hálózati Modell (Packet Tracer és/vagy valós eszközök)
+
+Tartalmaznia kell:
+
+Topológia:
+
+Min. 2 router
+
+Min. 3-4 alhálózat (egyikben legalább 2 kapcsoló)
+
+WiFi eszközök is (AP, kliens)
+
+IPv4 és IPv6 címzés
+
+Statikus és/vagy dinamikus (DHCPv4 és DHCPv6: SLAAC, állapottartó)
+
+Kapcsolók (Switch-ek):
+
+VLAN-ok beállítása (pl. külön VLAN admin, vendég, stb.)
+
+Portvédelem (port security konfigurálása)
+
+Forgalomirányítás (Routing):
+
+Statikus vagy dinamikus (pl. OSPFv2, OSPFv3)
+
+DHCP relay (helper-address)
+
+Címfordítás (NAT, PAT, DNAT) beállítása
+
+Forgalomszűrés:
+
+ACL-ek: standard és extended
+
+Pl. admin VLAN csak bizonyos erőforrásokat érjen el
+
+Hibakeresés és hibaelhárítás
+
+Pl. traceroute, ping, debug, log elemzés, stb.
+
+2. Relációs Adatbázis (Min. 2-3 tábla)
+
+Példa: hálózati hozzáférések nyilvántartása
+
+Felhasználók
+
+Eszközök
+
+Jogosultságok
+
+Tartalom:
+
+Kapcsolatok, kulcsok (idegen kulcs, elsődleges kulcs)
+
+Összetett lekérdezések (JOIN, WHERE, GROUP BY, stb.)
+
+CRUD műveletek (insert, delete, update, select)
+
+3. PowerPoint Prezentáció
+
+A projekt teljes folyamatának és eredményeinek bemutatása
+
+Lehet szerkezete:
+
+Bevezetés (Cél, eszközök)
+
+Hálózati topológia (képekkel, Packet Tracer export)
+
+Konfigurációs példák (részletek)
+
+Adatbázis modell (ER diagram, SQL példák)
+
+Eredmények, tesztelés, hibakezelés
+
+Zárás, tanulságok, csoportszerepek
+
+🎯 A Projekt Célja
+
+Komplex vállalati hálózat tervezése és megvalósítása
+
+IPv4/IPv6 ismeretek mélyítése
+
+Hálózati biztonság és menedzsment gyakorlása
+
+Adatbázis kezelés, SQL használat gyakorlati kontextusban
+
+Dokumentációs készségek fejlesztése
+
+Csapatmunka, szerepek gyakorlása (pl. projektvezető)
+
+🧠 Szükséges ismeretek (CCNA2 + előző félév anyaga)
+
+IP címzés (IPv4, IPv6)
+
+Routing (statikus, dinamikus – pl. OSPF)
+
+VLAN, Trunk, DTP
+
+DHCP, DNS
+
+Port security
+
+NAT, PAT
+
+ACL
+
+Hibakeresési eszközök: ping, traceroute, show parancsok
+
+SQL (alapok + többtáblás lekérdezés)
+
+📋 Ajánlott Projektfelosztás csoportban
+Szerep	Feladat
+Projektvezető	Koordinálás, dokumentálás, státuszkövetés
+Hálózattervező	Topológia, eszközök kiosztása, IP-terv
+Rendszeradmin	Konfigurációs parancsok, ACL-ek, NAT
+Biztonsági felelős	Port security, VLAN, ACL-ek
+Adatbázis-felelős	DB tervezés, lekérdezések
+Prezentációfelelős	PPT készítése, dokumentálás
+Tesztelő/Hibakereső	Ping, debug, ACL tesztek, hibák javítása
+📁 Dokumentáció tartalma
+
+Bevezetés
+
+Topológia és IP-címzés terve
+
+Részletes konfigurációk (részletezve: routerek, switch-ek, ACL-ek, DHCP, NAT stb.)
+
+Adatbázis leírás (séma, lekérdezések, ER diagram)
+
+Tesztelés és hibakeresés
+
+Összefoglalás és tanulságok
+
+Felhasznált források
+
+Csoporttagok feladatköre és munkája
