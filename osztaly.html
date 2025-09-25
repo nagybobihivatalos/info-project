@@ -1,168 +1,243 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Osztályok</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Osztályválasztó - Lila Homályos</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-  /* Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0033, #3a1766, #4b1e91);
+            position: relative;
+            overflow-x: hidden;
+            color: #ddd9ff;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
 
-  html, body {
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Uncial Antiqua', cursive;
-    background: #1a002a;
-    color: #d9c9ff;
-    text-transform: uppercase;
-    font-weight: 900;
-    user-select: none;
-  }
+        /* Homályos lila mozgó háttér */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -40%;
+            left: -40%;
+            width: 180%;
+            height: 180%;
+            background:
+                radial-gradient(circle at 25% 30%, #8c5cffcc, transparent 40%),
+                radial-gradient(circle at 70% 60%, #b688ffcc, transparent 50%),
+                radial-gradient(circle at 60% 20%, #925dffcc, transparent 30%);
+            filter: blur(120px);
+            animation: moveBackground 30s linear infinite;
+            z-index: -2;
+        }
 
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
+        /* Áttetsző, sötét lila réteg */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 0, 51, 0.75);
+            backdrop-filter: blur(12px);
+            z-index: -1;
+        }
 
-  /* Mozgó homályos lila háttér */
-  body::before {
-    content: "";
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background:
-      radial-gradient(circle at 30% 30%, #7b3cffcc, transparent 40%),
-      radial-gradient(circle at 70% 70%, #b36cffcc, transparent 50%),
-      radial-gradient(circle at 60% 20%, #a66effcc, transparent 30%);
-    filter: blur(150px);
-    animation: backgroundMove 25s linear infinite;
-    z-index: -2;
-  }
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(20%, 15%); }
+            100% { transform: translate(0, 0); }
+        }
 
-  /* Plusz egy halvány áttetsző réteg a homály miatt */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(26,0,42,0.75);
-    backdrop-filter: blur(20px);
-    z-index: -1;
-  }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 550px;
+            width: 90vw;
+            background: rgba(255 255 255 / 0.07);
+            border-radius: 16px;
+            padding: 25px 45px;
+            box-shadow: 0 0 25px #b688ff66;
+            border: 1px solid #b688ff55;
+        }
 
-  @keyframes backgroundMove {
-    0% {
-      transform: translate(0, 0);
-    }
-    50% {
-      transform: translate(20%, 10%);
-    }
-    100% {
-      transform: translate(0, 0);
-    }
-  }
+        header h1 {
+            font-size: 3rem;
+            letter-spacing: 6px;
+            color: #bdaaff;
+            text-shadow:
+                0 0 8px #bdaaffaa,
+                0 0 16px #bdaaffcc;
+            margin-bottom: 12px;
+        }
 
-  main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    max-width: 900px;
-    justify-content: center;
-    width: 100%;
-  }
+        header p {
+            font-size: 1.4rem;
+            color: #d3cfffcc;
+            text-shadow: 0 0 5px #bdaaffaa;
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
 
-  a.nav-button {
-    position: relative;
-    background: rgba(123, 60, 255, 0.25);
-    border: 3px solid #b36cff;
-    border-radius: 18px;
-    padding: 25px 45px;
-    color: #d9c9ff;
-    font-size: 2rem;
-    font-weight: 900;
-    text-decoration: none;
-    text-align: center;
-    width: 200px;
-    letter-spacing: 4px;
-    box-shadow:
-      0 0 10px #7b3cff88,
-      0 0 20px #b36cffbb,
-      0 0 40px #a66effcc;
-    cursor: pointer;
-    transition:
-      background 0.3s ease,
-      box-shadow 0.3s ease,
-      transform 0.2s ease;
-    text-shadow:
-      0 0 5px #b36cffcc,
-      0 0 15px #a66effcc;
-    user-select: none;
-  }
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 28px;
+            max-width: 850px;
+            width: 90vw;
+        }
 
-  a.nav-button:hover {
-    background: rgba(123, 60, 255, 0.6);
-    box-shadow:
-      0 0 20px #7b3cffdd,
-      0 0 40px #b36cffee,
-      0 0 70px #a66effff;
-    transform: translateY(-8px) scale(1.07);
-    text-shadow:
-      0 0 10px #d9c9ff,
-      0 0 25px #d9c9ffcc;
-    z-index: 10;
-  }
+        .nav-button {
+            position: relative;
+            background: rgba(107, 66, 255, 0.15);
+            border: 2.5px solid #b688ff;
+            border-radius: 18px;
+            padding: 22px 48px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #d3cfff;
+            text-decoration: none;
+            text-align: center;
+            width: 200px;
+            letter-spacing: 5px;
+            cursor: pointer;
+            box-shadow:
+                0 0 20px #b688ff99,
+                0 0 40px #8c5cffbb;
+            transition:
+                background 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.2s ease;
+            overflow: hidden;
+            user-select: none;
+        }
 
-  /* Speciális stílus vissza gombnak - nincs emoji */
-  a.back-button {
-    background: rgba(255, 85, 85, 0.3);
-    border-color: #ff5555;
-    color: #ffdddd;
-    box-shadow:
-      0 0 10px #ff5555bb,
-      0 0 20px #ff4444cc;
-    letter-spacing: 6px;
-  }
+        .nav-button::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                #b688ff88,
+                transparent
+            );
+            animation: shine 4s linear infinite;
+            opacity: 0.3;
+            transform: rotate(25deg);
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 18px;
+        }
 
-  a.back-button:hover {
-    background: rgba(255, 85, 85, 0.6);
-    box-shadow:
-      0 0 25px #ff5555ee,
-      0 0 50px #ff2222ff;
-    color: #ffcccc;
-  }
+        .nav-button:hover {
+            background: rgba(107, 66, 255, 0.4);
+            box-shadow:
+                0 0 35px #b688ffcc,
+                0 0 75px #b688ffdd;
+            transform: translateY(-6px) scale(1.06);
+            color: #fff;
+            text-shadow:
+                0 0 8px #b688ffdd,
+                0 0 16px #b688ffdd;
+            z-index: 10;
+        }
 
-  /* Reszponzív */
-  @media (max-width: 650px) {
-    main {
-      gap: 20px;
-    }
+        .nav-button:hover::before {
+            opacity: 0.6;
+            animation-duration: 2.2s;
+        }
 
-    a.nav-button {
-      width: 100%;
-      font-size: 1.6rem;
-      padding: 18px 0;
-      letter-spacing: 3px;
-    }
-  }
-</style>
+        .back-button {
+            background: rgba(255, 85, 140, 0.12);
+            border-color: #ff5588;
+            color: #ff5588;
+            box-shadow:
+                0 0 18px rgba(255, 85, 140, 0.45);
+            letter-spacing: 6px;
+        }
+
+        .back-button::before {
+            background: linear-gradient(
+                45deg,
+                transparent,
+                #ff5588aa,
+                transparent
+            );
+            border-radius: 18px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 85, 140, 0.35);
+            box-shadow:
+                0 0 45px #ff5588dd,
+                0 0 90px #ff5588ee;
+            color: #ff3366;
+            text-shadow:
+                0 0 8px #ff5588cc,
+                0 0 16px #ff5588cc;
+        }
+
+        /* Shine animation */
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(25deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(25deg);
+            }
+        }
+
+        /* Reszponzív */
+        @media (max-width: 650px) {
+            header h1 {
+                font-size: 2.4rem;
+                letter-spacing: 4px;
+            }
+            header p {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+            }
+            main {
+                gap: 20px;
+            }
+            .nav-button {
+                width: 100%;
+                font-size: 1.3rem;
+                padding: 16px 0;
+                letter-spacing: 3px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <main>
-    <a href="index.html" class="nav-button back-button">VISSZA</a>
-    <a href="9.html" class="nav-button">9. OSZTÁLY</a>
-    <a href="10.html" class="nav-button">10. OSZTÁLY</a>
-    <a href="11.html" class="nav-button">11. OSZTÁLY</a>
-    <a href="12.html" class="nav-button">12. OSZTÁLY</a>
-    <a href="13.html" class="nav-button">13. OSZTÁLY</a>
-  </main>
+    <header>
+        <h1>Osztályválasztó</h1>
+        <p>Válassza ki az alábbi gombok egyikét, hogy továbblépjen!</p>
+    </header>
+    <main>
+        <a href="index.html" class="nav-button back-button">VISSZA</a>
+        <a href="9.html" class="nav-button">9. OSZTÁLY</a>
+        <a href="10.html" class="nav-button">10. OSZTÁLY</a>
+        <a href="11.html" class="nav-button">11. OSZTÁLY</a>
+        <a href="12.html" class="nav-button">12. OSZTÁLY</a>
+        <a href="13.html" class="nav-button">13. OSZTÁLY</a>
+    </main>
 </body>
 </html>
