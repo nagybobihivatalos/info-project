@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Papyrus', fantasy, cursive;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -25,8 +25,7 @@
             align-items: center;
             padding: 40px 20px;
             text-transform: uppercase;
-            font-weight: 900;
-            letter-spacing: 4px;
+            font-weight: 800;
         }
 
         /* Homályos lila mozgó háttér */
@@ -62,47 +61,44 @@
             100% { transform: translate(0, 0); }
         }
 
-        /* Nincs fejléc */
+        /* Header eltávolítva, így nincs "Osztályválasztó" szöveg */
 
         main {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px 40px;
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 20px 0;
+            gap: 28px;
+            max-width: 850px;
+            width: 90vw;
         }
 
         .nav-button {
-            flex: 0 0 calc((100% / 3) - 30px);
-            max-width: 220px;
-            min-width: 180px;
+            position: relative;
             background: rgba(107, 66, 255, 0.15);
             border: 2.5px solid #b688ff;
             border-radius: 18px;
-            padding: 22px 0;
+            padding: 22px 48px;
             font-size: 1.6rem;
+            font-weight: 900;
             color: #d3cfff;
             text-decoration: none;
-            text-align: center;
+            text-align: center; /* középre igazítás */
+            vertical-align: middle;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 200px;
+            letter-spacing: 5px;
+            cursor: pointer;
             box-shadow:
                 0 0 20px #b688ff99,
                 0 0 40px #8c5cffbb;
-            cursor: pointer;
             transition:
                 background 0.3s ease,
                 box-shadow 0.3s ease,
                 transform 0.2s ease;
             overflow: hidden;
             user-select: none;
-            letter-spacing: 5px;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-family: 'Papyrus', fantasy, cursive;
         }
 
         .nav-button::before {
@@ -185,33 +181,15 @@
         }
 
         /* Reszponzív */
-        @media (max-width: 750px) {
+        @media (max-width: 650px) {
             main {
-                max-width: 100%;
-                gap: 20px 15px;
+                gap: 20px;
             }
             .nav-button {
-                flex: 0 0 calc((100% / 2) - 20px);
-                max-width: none;
-                min-width: 140px;
-                font-size: 1.4rem;
-                letter-spacing: 3px;
-            }
-        }
-
-        @media (max-width: 450px) {
-            main {
-                flex-direction: column;
-                gap: 16px;
-                padding: 10px 0;
-            }
-            .nav-button {
-                flex: none;
                 width: 100%;
-                max-width: none;
-                min-width: 0;
-                font-size: 1.2rem;
-                letter-spacing: 2px;
+                font-size: 1.3rem;
+                padding: 16px 0;
+                letter-spacing: 3px;
             }
         }
     </style>
