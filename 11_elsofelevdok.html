@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Packet Tracer - 1. félév</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #f4f7fa;
+      color: #333;
+      padding: 2rem;
+    }
+
+    h1, h2 {
+      color: #2a2e35;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .section {
+      background-color: #fff;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .card {
+      background-color: #eef2f5;
+      padding: 1rem;
+      border-radius: 8px;
+      flex: 1 1 250px;
+    }
+
+    .banner {
+      background-color: #ffdddd;
+      border-left: 6px solid #ff4444;
+      padding: 1rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .commands ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .commands li {
+      background-color: #d9f5e7;
+      border-left: 4px solid #32a875;
+      margin-bottom: 0.5rem;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .card-grid {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Packet Tracer - 1. félév konfiguráció</h1>
+
+    <div class="section">
+      <h2>Routerek (R1_1, R2_1, R3_1)</h2>
+      <div class="card-grid">
+        <div class="card">
+          <p><strong>Telnet jelszó:</strong> cisco12345</p>
+          <p><strong>Priv. Exec mód jelszó:</strong> cisco12345</p>
+          <p><strong>Banner MOTD:</p>
+          <div class="banner">!!!NEM SZABAD!!!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Switchek (S1_1, S1_2)</h2>
+      <div class="card-grid">
+        <div class="card">
+          <p><strong>Telnet jelszó:</strong> cisco12345</p>
+          <p><strong>Priv. Exec mód jelszó:</strong> cisco12345</p>
+          <p><strong>Banner MOTD:</p>
+          <div class="banner">!!!NEM SZABAD!!!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Adatbázis információ</h2>
+      <p>Az adatbázis zöldségeket tartalmaz az alábbi mezőkkel:</p>
+      <ul>
+        <li>Ár (Ft/kg)</li>
+        <li>Származási hely</li>
+        <li>Készlet (kg)</li>
+        <li>Bio</li>
+        <li>Szezonális</li>
+      </ul>
+
+      <div class="commands">
+        <h3>Működő parancsok:</h3>
+        <ul>
+          <li>Összes megjelenítése</li>
+          <li>500 Ft alatti zöldségek</li>
+          <li>Csak bio zöldségek</li>
+          <li>Szezonális zöldségek</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
 
