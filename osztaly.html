@@ -1,162 +1,204 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Osztályok</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Osztályválasztó - Modern Dark</title>
     <style>
-        /* Alapbeállítások */
+        /* Reset */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             min-height: 100vh;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            color: #1c1c1e;
-            transition: all 0.3s ease-in-out;
+            padding: 40px 20px;
+            color: #e0e6f1;
+            overflow-x: hidden;
+            user-select: none;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.3);
-            padding: 20px 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+            backdrop-filter: blur(15px);
+            background: rgba(255 255 255 / 0.05);
+            border-radius: 18px;
+            padding: 30px 50px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            max-width: 500px;
+            width: 90vw;
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #00fff7;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 5px #00fff7,
+                0 0 10px #00fff7,
+                0 0 20px #00fff7;
             margin-bottom: 10px;
         }
 
         header p {
-            font-size: 1rem;
-            color: #3a3a3c;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #a0c9d8;
+            text-shadow: 0 0 3px rgba(0, 255, 247, 0.5);
         }
 
-        /* Gombok */
-        .button-container {
+        main {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            max-width: 300px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            max-width: 800px;
+            width: 90vw;
         }
 
         .nav-button {
-            display: block;
-            text-align: center;
-            padding: 15px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            background: rgba(0, 255, 247, 0.1);
+            border: 2px solid #00fff7;
+            border-radius: 16px;
+            padding: 20px 40px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #00fff7;
             text-decoration: none;
-            font-weight: 600;
-            color: #1c1c1e;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            text-align: center;
+            width: 180px;
+            cursor: pointer;
+            transition:
+                background 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.2s ease;
+            box-shadow:
+                0 0 15px rgba(0, 255, 247, 0.4);
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .nav-button::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                #00fff7,
+                transparent
+            );
+            animation: shine 3s linear infinite;
+            opacity: 0.4;
+            transform: rotate(25deg);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .nav-button:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+            background: rgba(0, 255, 247, 0.3);
+            box-shadow:
+                0 0 30px #00fff7,
+                0 0 60px #00fff7;
+            transform: translateY(-5px) scale(1.05);
+            z-index: 10;
+            text-shadow:
+                0 0 5px #00fff7,
+                0 0 10px #00fff7;
         }
 
-        /* Sötét mód támogatás */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: linear-gradient(135deg, #1c1c1e, #2a2a2a);
-                color: #f5f5f7;
-            }
-
-            header {
-                background: rgba(50, 50, 50, 0.6);
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-            }
-
-            .nav-button {
-                background: rgba(50, 50, 50, 0.6);
-                color: #f5f5f7;
-                border: 1px solid rgba(255, 255, 255, 0.3);
-            }
-
-            .nav-button:hover {
-                background: rgba(50, 50, 50, 0.8);
-            }
+        .nav-button:hover::before {
+            opacity: 0.7;
+            animation-duration: 1.5s;
         }
 
-        /* Gombok speciális stílusai */
         .back-button {
-            background: rgba(255, 59, 48, 0.3);
-            color: #1c1c1e;
+            background: rgba(255, 85, 85, 0.15);
+            border-color: #ff5555;
+            color: #ff5555;
+            box-shadow:
+                0 0 15px rgba(255, 85, 85, 0.4);
+        }
+
+        .back-button::before {
+            background: linear-gradient(
+                45deg,
+                transparent,
+                #ff5555,
+                transparent
+            );
         }
 
         .back-button:hover {
-            background: rgba(255, 59, 48, 0.5);
+            background: rgba(255, 85, 85, 0.35);
+            box-shadow:
+                0 0 40px #ff5555,
+                0 0 80px #ff5555;
+            color: #ff2222;
+            text-shadow:
+                0 0 5px #ff2222,
+                0 0 10px #ff2222;
         }
 
-        /* Animációk */
-        @keyframes buttonPulse {
+        /* Shine animation */
+        @keyframes shine {
             0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
+                transform: translateX(-100%) rotate(25deg);
             }
             100% {
-                transform: scale(1);
+                transform: translateX(100%) rotate(25deg);
             }
         }
 
-        .nav-button:hover {
-            animation: buttonPulse 0.6s ease-in-out;
-        }
-
-        /* Reszponzivitás */
-        @media (min-width: 600px) {
-            .button-container {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
+        /* Reszponzív */
+        @media (max-width: 600px) {
+            main {
+                gap: 18px;
             }
 
             .nav-button {
-                width: 140px;
+                width: 100%;
+                padding: 15px 0;
+                font-size: 1.2rem;
+            }
+
+            header h1 {
+                font-size: 2.4rem;
+            }
+
+            header p {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-
     <header>
         <h1>Osztályválasztó</h1>
         <p>Válassza ki az alábbi gombok egyikét, hogy továbblépjen!</p>
     </header>
-
     <main>
-        <div class="button-container">
-            <a href="index.html" class="nav-button back-button">🔙 Vissza</a>
-            <a href="9.html" class="nav-button">9. Osztály</a>
-            <a href="10.html" class="nav-button">10. Osztály</a>
-            <a href="11.html" class="nav-button">11. Osztály</a>
-            <a href="12.html" class="nav-button">12. Osztály</a>
-            <a href="13.html" class="nav-button">13. Osztály</a>
-        </div>
+        <a href="index.html" class="nav-button back-button">🔙 Vissza</a>
+        <a href="9.html" class="nav-button">9. Osztály</a>
+        <a href="10.html" class="nav-button">10. Osztály</a>
+        <a href="11.html" class="nav-button">11. Osztály</a>
+        <a href="12.html" class="nav-button">12. Osztály</a>
+        <a href="13.html" class="nav-button">13. Osztály</a>
     </main>
-
 </body>
 </html>
