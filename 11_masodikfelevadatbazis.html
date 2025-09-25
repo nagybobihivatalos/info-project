@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Zöldség és Gyümölcs Adatbázis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #f1f1f1;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #4CAF50;
+        }
+
+        /* Zöldség adatbázis */
+        .zoldseg-table, .gyumolcs-table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #1e1e1e;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: center;
+            border-bottom: 1px solid #2e2e2e;
+        }
+
+        th {
+            background-color: #2a2a2a;
+            color: #81c784;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #181818;
+        }
+
+        tr:hover {
+            background-color: #2e2e2e;
+        }
+
+        .yes {
+            color: #66ff66;
+            font-weight: bold;
+            text-shadow: 0 0 5px #66ff66;
+        }
+
+        .no {
+            color: #ff6666;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ff6666;
+        }
+
+        button {
+            background-color: #2e7d32;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            margin: 10px 8px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #66ff66, 0 0 20px rgba(102, 255, 102, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+            box-shadow: 0 0 15px #66ff66, 0 0 30px rgba(102, 255, 102, 0.7);
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        select {
+            background-color: #333;
+            color: #f1f1f1;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            table, th, td {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Zöldség és Gyümölcs Adatbázis</h1>
+
+    <div>
+       
+
+    <div>
+        <label for="zoldsegSelect">Válasszon oszlopot a zöldség adatbázisban:</label>
+        <select id="zoldsegSelect" onchange="filterTable('zoldseg')">
+            <option value="all">Minden</option>
+            <option value="ar">Ár (Ft/kg)</option>
+            <option value="hely">Származási hely</option>
+            <option value="keszlet">Készlet (kg)</option>
+            <option value="bio">Bio</option>
+            <option value="szezonalis">Szezonális</option>
+        </select>
+    </div>
+
+    <!-- Zöldség adatbázis -->
+    <table class="zoldseg-table">
+        <thead>
+            <tr>
+                <th>Név</th>
+                <th>Ár (Ft/kg)</th>
+                <th>Származási hely</th>
+                <th>Készlet (kg)</th>
+                <th>Bio</th>
+                <th>Szezonális</th>
+            </tr>
+        </thead>
+        <tbody id="zoldsegTabla"></tbody>
+    </table>
+
+
+    <div>
+        <label for="gyumolcsSelect">Válasszon oszlopot a gyümölcs adatbázisban:</label>
+        <select id="gyumolcsSelect" onchange="filterTable('gyumolcs')">
+            <option value="all">Minden</option>
+            <option value="ar">Ár (Ft/kg)</option>
+            <option value="hely">Származási hely</option>
+            <option value="keszlet">Készlet (kg)</option>
+            <option value="bio">Bio</option>
+            <option value="szezonalis">Szezonális</option>
+        </select>
+    </div>
+
+    <!-- Gyümölcs adatbázis -->
+    <table class="gyumolcs-table">
+        <thead>
+            <tr>
+                <th>Név</th>
+                <th>Ár (Ft/kg)</th>
+                <th>Származási hely</th>
+                <th>Készlet (kg)</th>
+                <th>Bio</th>
+                <th>Szezonális</th>
+            </tr>
+        </thead>
+        <tbody id="gyumolcsTabla"></tbody>
+    </table>
+
+    <script>
+        const zoldsegek = [
+            { nev: "Paradicsom", ar: 780, hely: "Magyarország", keszlet: 120.5, bio: true, szezonalis: true },
+            { nev: "Uborka", ar: 450, hely: "Spanyolország", keszlet: 95.3, bio: false, szezonalis: true },
+            { nev: "Répa", ar: 320, hely: "Magyarország", keszlet: 200.0, bio: true, szezonalis: false },
+            { nev: "Paprika", ar: 990, hely: "Hollandia", keszlet: 50.0, bio: false, szezonalis: true },
+            { nev: "Zeller", ar: 370, hely: "Szlovákia", keszlet: 80.0, bio: true, szezonalis: false },
+            { nev: "Káposzta", ar: 290, hely: "Magyarország", keszlet: 180.7, bio: false, szezonalis: true },
+            { nev: "Cékla", ar: 400, hely: "Románia", keszlet: 60.2, bio: true, szezonalis: false },
+            { nev: "Hagyma", ar: 250, hely: "Magyarország", keszlet: 300.0, bio: false, szezonalis: true }
+        ];
+
+        const gyumolcsok = [
+            { nev: "Alma", ar: 480, hely: "Magyarország", keszlet: 150.0, bio: true, szezonalis: true },
+            { nev: "Banán", ar: 800, hely: "Ecuador", keszlet: 120.5, bio: false, szezonalis: false },
+            { nev: "Szilva", ar: 600, hely: "Szerbia", keszlet: 50.0, bio: true, szezonalis: true },
+            { nev: "Cseresznye", ar: 1200, hely: "Törökország", keszlet: 75.5, bio: true, szezonalis: true },
+            { nev: "Körte", ar: 550, hely: "Magyarország", keszlet: 110.0, bio: false, szezonalis: true }
+        ];
+
+        function megjelenit(lista, tablaId) {
+            const tabla = document.getElementById(tablaId);
+            tabla.innerHTML = "";
+
+            lista.forEach(z => {
+                const sor = `<tr>
+                    <td>${z.nev}</td>
+                    <td>${z.ar}</td>
+                    <td>${z.hely}</td>
+                    <td>${z.keszlet}</td>
+                    <td class="${z.bio ? 'yes' : 'no'}">${z.bio ? "Igen" : "Nem"}</td>
+                    <td class="${z.szezonalis ? 'yes' : 'no'}">${z.szezonalis ? "Igen" : "Nem"}</td>
+                </tr>`;
+                tabla.innerHTML += sor;
+            });
+        }
+
+        function showAll(tipus) {
+            if (tipus === 'zoldseg') {
+                megjelenit(zoldsegek, "zoldsegTabla");
+            } else {
+                megjelenit(gyumolcsok, "gyumolcsTabla");
+            }
+        }
+
+        function filterTable(tipus) {
+            let selectId = tipus === 'zoldseg' ? 'zoldsegSelect' : 'gyumolcsSelect';
+            let filterValue = document.getElementById(selectId).value;
+            let tableClass = tipus === 'zoldseg' ? 'zoldseg-table' : 'gyumolcs-table';
+
+            let table = document.querySelector('.' + tableClass);
+            let headers = table.querySelectorAll("th");
+            let rows = table.querySelectorAll("tbody tr");
+
+            // Mindent visszaállítunk (mutatjuk)
+            headers.forEach((th, index) => {
+                th.style.display = "";
+                rows.forEach(row => {
+                    row.cells[index].style.display = "";
+                });
+            });
+
+            // Ha nem "minden", akkor csak Név + kiválasztott oszlop maradjon
+            if (filterValue !== "all") {
+                headers.forEach((th, index) => {
+                    if (
+                        (filterValue === "ar" && th.textContent.includes("Ár")) ||
+                        (filterValue === "hely" && th.textContent.includes("Származási")) ||
+                        (filterValue === "keszlet" && th.textContent.includes("Készlet")) ||
+                        (filterValue === "bio" && th.textContent.includes("Bio")) ||
+                        (filterValue === "szezonalis" && th.textContent.includes("Szezonális")) ||
+                        th.textContent.includes("Név")
+                    ) {
+                        // hagyjuk láthatón
+                    } else {
+                        th.style.display = "none";
+                        rows.forEach(row => {
+                            row.cells[index].style.display = "none";
+                        });
+                    }
+                });
+            }
+        }
+
+        // Alapértelmezés: az összeset megjeleníti
+        showAll('zoldseg');
+        showAll('gyumolcs');
+    </script>
+
+</body>
+</html>
+
