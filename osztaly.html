@@ -1,204 +1,168 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Osztályválasztó - Modern Dark</title>
-    <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Osztályok</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap');
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            color: #e0e6f1;
-            overflow-x: hidden;
-            user-select: none;
-        }
+  /* Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-            backdrop-filter: blur(15px);
-            background: rgba(255 255 255 / 0.05);
-            border-radius: 18px;
-            padding: 30px 50px;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            max-width: 500px;
-            width: 90vw;
-        }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Uncial Antiqua', cursive;
+    background: #1a002a;
+    color: #d9c9ff;
+    text-transform: uppercase;
+    font-weight: 900;
+    user-select: none;
+  }
 
-        header h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #00fff7;
-            letter-spacing: 2px;
-            text-shadow:
-                0 0 5px #00fff7,
-                0 0 10px #00fff7,
-                0 0 20px #00fff7;
-            margin-bottom: 10px;
-        }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
 
-        header p {
-            font-size: 1.3rem;
-            font-weight: 500;
-            color: #a0c9d8;
-            text-shadow: 0 0 3px rgba(0, 255, 247, 0.5);
-        }
+  /* Mozgó homályos lila háttér */
+  body::before {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+      radial-gradient(circle at 30% 30%, #7b3cffcc, transparent 40%),
+      radial-gradient(circle at 70% 70%, #b36cffcc, transparent 50%),
+      radial-gradient(circle at 60% 20%, #a66effcc, transparent 30%);
+    filter: blur(150px);
+    animation: backgroundMove 25s linear infinite;
+    z-index: -2;
+  }
 
-        main {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            max-width: 800px;
-            width: 90vw;
-        }
+  /* Plusz egy halvány áttetsző réteg a homály miatt */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(26,0,42,0.75);
+    backdrop-filter: blur(20px);
+    z-index: -1;
+  }
 
-        .nav-button {
-            position: relative;
-            background: rgba(0, 255, 247, 0.1);
-            border: 2px solid #00fff7;
-            border-radius: 16px;
-            padding: 20px 40px;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #00fff7;
-            text-decoration: none;
-            text-align: center;
-            width: 180px;
-            cursor: pointer;
-            transition:
-                background 0.3s ease,
-                box-shadow 0.3s ease,
-                transform 0.2s ease;
-            box-shadow:
-                0 0 15px rgba(0, 255, 247, 0.4);
-            user-select: none;
-            overflow: hidden;
-        }
+  @keyframes backgroundMove {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(20%, 10%);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
 
-        .nav-button::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                #00fff7,
-                transparent
-            );
-            animation: shine 3s linear infinite;
-            opacity: 0.4;
-            transform: rotate(25deg);
-            pointer-events: none;
-            z-index: 0;
-        }
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 900px;
+    justify-content: center;
+    width: 100%;
+  }
 
-        .nav-button:hover {
-            background: rgba(0, 255, 247, 0.3);
-            box-shadow:
-                0 0 30px #00fff7,
-                0 0 60px #00fff7;
-            transform: translateY(-5px) scale(1.05);
-            z-index: 10;
-            text-shadow:
-                0 0 5px #00fff7,
-                0 0 10px #00fff7;
-        }
+  a.nav-button {
+    position: relative;
+    background: rgba(123, 60, 255, 0.25);
+    border: 3px solid #b36cff;
+    border-radius: 18px;
+    padding: 25px 45px;
+    color: #d9c9ff;
+    font-size: 2rem;
+    font-weight: 900;
+    text-decoration: none;
+    text-align: center;
+    width: 200px;
+    letter-spacing: 4px;
+    box-shadow:
+      0 0 10px #7b3cff88,
+      0 0 20px #b36cffbb,
+      0 0 40px #a66effcc;
+    cursor: pointer;
+    transition:
+      background 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.2s ease;
+    text-shadow:
+      0 0 5px #b36cffcc,
+      0 0 15px #a66effcc;
+    user-select: none;
+  }
 
-        .nav-button:hover::before {
-            opacity: 0.7;
-            animation-duration: 1.5s;
-        }
+  a.nav-button:hover {
+    background: rgba(123, 60, 255, 0.6);
+    box-shadow:
+      0 0 20px #7b3cffdd,
+      0 0 40px #b36cffee,
+      0 0 70px #a66effff;
+    transform: translateY(-8px) scale(1.07);
+    text-shadow:
+      0 0 10px #d9c9ff,
+      0 0 25px #d9c9ffcc;
+    z-index: 10;
+  }
 
-        .back-button {
-            background: rgba(255, 85, 85, 0.15);
-            border-color: #ff5555;
-            color: #ff5555;
-            box-shadow:
-                0 0 15px rgba(255, 85, 85, 0.4);
-        }
+  /* Speciális stílus vissza gombnak - nincs emoji */
+  a.back-button {
+    background: rgba(255, 85, 85, 0.3);
+    border-color: #ff5555;
+    color: #ffdddd;
+    box-shadow:
+      0 0 10px #ff5555bb,
+      0 0 20px #ff4444cc;
+    letter-spacing: 6px;
+  }
 
-        .back-button::before {
-            background: linear-gradient(
-                45deg,
-                transparent,
-                #ff5555,
-                transparent
-            );
-        }
+  a.back-button:hover {
+    background: rgba(255, 85, 85, 0.6);
+    box-shadow:
+      0 0 25px #ff5555ee,
+      0 0 50px #ff2222ff;
+    color: #ffcccc;
+  }
 
-        .back-button:hover {
-            background: rgba(255, 85, 85, 0.35);
-            box-shadow:
-                0 0 40px #ff5555,
-                0 0 80px #ff5555;
-            color: #ff2222;
-            text-shadow:
-                0 0 5px #ff2222,
-                0 0 10px #ff2222;
-        }
+  /* Reszponzív */
+  @media (max-width: 650px) {
+    main {
+      gap: 20px;
+    }
 
-        /* Shine animation */
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%) rotate(25deg);
-            }
-            100% {
-                transform: translateX(100%) rotate(25deg);
-            }
-        }
-
-        /* Reszponzív */
-        @media (max-width: 600px) {
-            main {
-                gap: 18px;
-            }
-
-            .nav-button {
-                width: 100%;
-                padding: 15px 0;
-                font-size: 1.2rem;
-            }
-
-            header h1 {
-                font-size: 2.4rem;
-            }
-
-            header p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    a.nav-button {
+      width: 100%;
+      font-size: 1.6rem;
+      padding: 18px 0;
+      letter-spacing: 3px;
+    }
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Osztályválasztó</h1>
-        <p>Válassza ki az alábbi gombok egyikét, hogy továbblépjen!</p>
-    </header>
-    <main>
-        <a href="index.html" class="nav-button back-button">🔙 Vissza</a>
-        <a href="9.html" class="nav-button">9. Osztály</a>
-        <a href="10.html" class="nav-button">10. Osztály</a>
-        <a href="11.html" class="nav-button">11. Osztály</a>
-        <a href="12.html" class="nav-button">12. Osztály</a>
-        <a href="13.html" class="nav-button">13. Osztály</a>
-    </main>
+  <main>
+    <a href="index.html" class="nav-button back-button">VISSZA</a>
+    <a href="9.html" class="nav-button">9. OSZTÁLY</a>
+    <a href="10.html" class="nav-button">10. OSZTÁLY</a>
+    <a href="11.html" class="nav-button">11. OSZTÁLY</a>
+    <a href="12.html" class="nav-button">12. OSZTÁLY</a>
+    <a href="13.html" class="nav-button">13. OSZTÁLY</a>
+  </main>
 </body>
 </html>
