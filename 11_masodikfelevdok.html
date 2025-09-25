@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dokumentáció</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --primary: #007bff;
+      --muted: #666;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121212;
+        --text: #eaeaea;
+        --primary: #4dabf7;
+        --muted: #aaa;
+      }
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+    }
+
+    nav {
+      background-color: #f8f9fa;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav a {
+      margin-right: 1rem;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      color: var(--primary);
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: monospace;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Dokumentáció</h1>
+  </header>
+
+  <nav>
+    <a href="#bevezetes">Bevezetés</a>
+    <a href="#telepites">Telepítés</a>
+    <a href="#hasznalat">Használat</a>
+    <a href="#faq">GYIK</a>
+  </nav>
+
+  <main>
+    <section id="bevezetes">
+      <h2>Bevezetés</h2>
+      <p>Itt írd le, hogy miről szól ez a dokumentáció, mi a célja, ki használja.</p>
+    </section>
+
+    <section id="telepites">
+      <h2>Telepítés</h2>
+      <p>Írd le a telepítés lépéseit. Például:</p>
+      <pre><code>npm install projekt-nev</code></pre>
+    </section>
+
+    <section id="hasznalat">
+      <h2>Használat</h2>
+      <p>Mutasd be, hogyan kell használni. Például:</p>
+      <pre><code>import { modul } from 'projekt-nev';</code></pre>
+    </section>
+
+    <section id="faq">
+      <h2>Gyakran Ismételt Kérdések</h2>
+      <p>Itt válaszolhatsz a leggyakoribb kérdésekre.</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 A Te Neved. Minden jog fenntartva.
+  </footer>
+
+</body>
+</html>
 
