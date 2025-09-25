@@ -41,7 +41,7 @@
                 radial-gradient(circle at 70% 60%, #b688ffcc, transparent 50%),
                 radial-gradient(circle at 60% 20%, #925dffcc, transparent 30%);
             filter: blur(120px);
-            animation: moveBackground 30s linear infinite;
+            animation: moveBackground 60s linear infinite;
             z-index: -2;
         }
 
@@ -61,35 +61,7 @@
             100% { transform: translate(0, 0); }
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-            max-width: 550px;
-            width: 90vw;
-            background: rgba(255 255 255 / 0.07);
-            border-radius: 16px;
-            padding: 25px 45px;
-            box-shadow: 0 0 25px #b688ff66;
-            border: 1px solid #b688ff55;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            letter-spacing: 6px;
-            color: #bdaaff;
-            text-shadow:
-                0 0 8px #bdaaffaa,
-                0 0 16px #bdaaffcc;
-            margin-bottom: 12px;
-        }
-
-        header p {
-            font-size: 1.4rem;
-            color: #d3cfffcc;
-            text-shadow: 0 0 5px #bdaaffaa;
-            font-weight: 600;
-            letter-spacing: 3px;
-        }
+        /* Header eltávolítva, így nincs "Osztályválasztó" szöveg */
 
         main {
             display: flex;
@@ -110,7 +82,11 @@
             font-weight: 900;
             color: #d3cfff;
             text-decoration: none;
-            text-align: center;
+            text-align: center; /* középre igazítás */
+            vertical-align: middle;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 200px;
             letter-spacing: 5px;
             cursor: pointer;
@@ -206,14 +182,6 @@
 
         /* Reszponzív */
         @media (max-width: 650px) {
-            header h1 {
-                font-size: 2.4rem;
-                letter-spacing: 4px;
-            }
-            header p {
-                font-size: 1.1rem;
-                letter-spacing: 2px;
-            }
             main {
                 gap: 20px;
             }
@@ -227,10 +195,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Osztályválasztó</h1>
-        <p>Válassza ki az alábbi gombok egyikét, hogy továbblépjen!</p>
-    </header>
+
     <main>
         <a href="index.html" class="nav-button back-button">VISSZA</a>
         <a href="9.html" class="nav-button">9. OSZTÁLY</a>
@@ -239,5 +204,6 @@
         <a href="12.html" class="nav-button">12. OSZTÁLY</a>
         <a href="13.html" class="nav-button">13. OSZTÁLY</a>
     </main>
+
 </body>
 </html>
