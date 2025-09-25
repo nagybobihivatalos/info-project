@@ -1,0 +1,32 @@
+11. 1.félév:
+
+Packet Tracer:
+
+Routerek(R1_1, R2_1, R3_1):
+
+ - telnet:
+	password: cisco12345
+
+ - priv. exec mód:
+	password: cisco12345
+
+ - üzenet(banner motd)
+	üzenet: !!!NEM SZABAD!!!
+
+Switchek(S1_1, S1_2):
+
+ - telnet:
+	password: cisco12345
+
+ - priv. exec mód:
+	password: cisco12345
+
+ - üzenet(banner motd):
+	üzenet: !!!NEM SZABAD!!!
+
+Adatbázis:
+
+Az adatbázis fel van tőltve zöldségekkel.
+Ezeknek az ára(ft/kg), származási helye, készlet(kg), bio, szezonális.
+Van négy működő parancs: összes megjelenítése, 500 ft alatt, csak bio zöldségek,
+szezonális zöldségek.
