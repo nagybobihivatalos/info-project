@@ -1,42 +1,66 @@
-<html>
+<!DOCTYPE html>
+<html lang="hu">
 <head>
-	<meta charset="UTF_8">
-	<link rel="stylesheet" href="style.css">
-<title>13.-es projekt munkák</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Félév Választó</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 15px;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #0077cc;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #005fa3;
+      transform: scale(1.05);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn.vissza {
+      background-color: #555;
+    }
+
+    .btn.vissza:hover {
+      background-color: #333;
+    }
+  </style>
 </head>
-
 <body>
-<style>
-body {
-  background-image: url('bg.png');
-}
-img {
-    vertical-align: middle;
-}
-a:link {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:visited {
-  color: Lawngreen;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:hover {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
-
-a:active {
-  color: red;
-  background-color: transparent;
-  text-decoration: underline;
-}
-</style>
-<p><a href="osztaly.html"><-vissza</a></p>
+  <div class="container">
+    <button class="btn" onclick="alert('1. félév kiválasztva')">1. félév</button>
+    <button class="btn" onclick="alert('2. félév kiválasztva')">2. félév</button>
+    <button class="btn vissza" onclick="history.back()">Vissza</button>
+  </div>
 </body>
 </html>
