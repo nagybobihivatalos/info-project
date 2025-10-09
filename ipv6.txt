@@ -1,0 +1,29 @@
+1. IPv6 engedélyezése
+Router(config)# ipv6 unicast-routing
+
+2. DHCPv6 pool létrehozása
+Router(config)# ipv6 dhcp pool DHCPv6-POOL
+Router(config-dhcpv6)# address prefix 2001:DB8:1:1::/64
+Router(config-dhcpv6)# dns-server 2001:4860:4860::8888
+Router(config-dhcpv6)# domain-name example.local
+
+3. Interface konfigurálása, ahonnan a kliensek jönnek
+Router(config)# interface GigabitEthernet0/0
+Router(config-if)# ipv6 address 2001:DB8:1:1::1/64
+Router(config-if)# ipv6 enable
+Router(config-if)# ipv6 dhcp server DHCPv6-POOL
+Router(config-if)# ipv6 nd managed-config-flag
+
+💻 DHCPv6 kliens beállítása (másik Cisco routeren)
+Router(config)# interface GigabitEthernet0/0
+Router(config-if)# ipv6 enable
+Router(config-if)# ipv6 address dhcp
+Router(config-if)# ipv6 dhcp client request dns-domain
+Router(config-if)# ipv6 dhcp client request dns-nameserver
+
+ELLENŐTZÉS
+DHCP kötéseket megtekinteni:
+Router# show ipv6 dhcp binding
+
+DHCP pool állapota:
+Router# show ipv6 dhcp pool
