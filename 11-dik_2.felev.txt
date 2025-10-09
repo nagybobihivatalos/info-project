@@ -2,9 +2,29 @@
 
 Packet Tracer:
 
+Dhcp használat routereknél(R1_1, R2_1), IPv4-es és IPv6-os címekkel.
+Routerek(R1_1, R2_1):
+banner: !!!ON YOUR OWN RISK!!!
+telnet: password: cisco12345
+enable secret: password: cisco12345
+RIP(ek): 192.168.1.0, 192.168.10.0, 192.168.20.0 172.54.0.0
 
+R1_1:
+Gig. 0/0/0: 192.168.1.1 255.255.255.0
+Gig. 0/0/1: 192.168.10.1 255.255.255.0
+Ser. 0/1/0: 172.54.21.1 255.255.0.0
+R2_1:
+Gig. 0/0/0: 192.168.20.1 255.255.255.0
+Ser. 0/1/0: 172.54.21.2 255.255.0.0
+
+
+Switcheknél(S1_1, S1_2, S2_1):
+banner: !!!NEM SZABAD!!!
+telnet: password: cisco12345
+enable secret: password: cisco12345
 
 Adatbázis:
 
+HTML-ben csináltuk, nem pedig valamilyen sql-vel.
 Több táblás adatbázis, ami a zöldségekről(11. elsőfélév/5.projekt) és gyümölcsökről szól.
 Mindegyiknél 6 parancs/lekérés/szűrés van(Ár(Ft/kg), származási hely, készlet(kg), bio, szezonális).
