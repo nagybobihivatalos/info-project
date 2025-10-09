@@ -1,131 +1,172 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dokumentáció</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #ffffff;
-      --text: #111111;
-      --primary: #007bff;
-      --muted: #666;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #121212;
-        --text: #eaeaea;
-        --primary: #4dabf7;
-        --muted: #aaa;
-      }
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: var(--primary);
-      color: white;
-      padding: 1rem 2rem;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 1.75rem;
-    }
-
-    nav {
-      background-color: #f8f9fa;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid #ddd;
-    }
-
-    nav a {
-      margin-right: 1rem;
-      text-decoration: none;
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    main {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    h2 {
-      margin-top: 2rem;
-      color: var(--primary);
-    }
-
-    pre {
-      background: #f4f4f4;
-      padding: 1rem;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
-
-    code {
-      font-family: monospace;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11. évfolyam 2. félév - Dokumentáció</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        h1, h2, h3 {
+            color: #1a73e8;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        pre {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: monospace;
+            color: #d63384;
+        }
+        ul {
+            margin-top: 0.5rem;
+            padding-left: 1.5rem;
+        }
+        .ip-table {
+            margin-top: 1rem;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .ip-table th, .ip-table td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .ip-table th {
+            background-color: #e3f2fd;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>11. évfolyam 2. félév – Projekt Dokumentáció</h1>
 
-  <header>
-    <h1>Dokumentáció</h1>
-  </header>
+        <div class="section">
+            <h2>📡 Packet Tracer</h2>
+            <p>Feladat: DHCP használata IPv4-es és IPv6-os címekkel routereken (<strong>R1_1, R2_1</strong>).</p>
+            <ul>
+                <li><strong>DHCP támogatás:</strong> IPv4 & IPv6</li>
+                <li><strong>Routerek:</strong> R1_1, R2_1</li>
+                <li><strong>RIP hálózatok:</strong> 192.168.1.0, 192.168.10.0, 192.168.20.0, 172.54.0.0</li>
+            </ul>
+        </div>
 
-  <nav>
-    <a href="#bevezetes">Bevezetés</a>
-    <a href="#telepites">Telepítés</a>
-    <a href="#hasznalat">Használat</a>
-    <a href="#faq">GYIK</a>
-  </nav>
+        <div class="section">
+            <h2>📶 Router konfigurációk</h2>
 
-  <main>
-    <section id="bevezetes">
-      <h2>Bevezetés</h2>
-      <p>Itt írd le, hogy miről szól ez a dokumentáció, mi a célja, ki használja.</p>
-    </section>
+            <h3>R1_1</h3>
+            <ul>
+                <li><strong>Banner:</strong> <code>!!!ON YOUR OWN RISK!!!</code></li>
+                <li><strong>Telnet jelszó:</strong> <code>cisco12345</code></li>
+                <li><strong>Enable secret:</strong> <code>cisco12345</code></li>
+            </ul>
 
-    <section id="telepites">
-      <h2>Telepítés</h2>
-      <p>Írd le a telepítés lépéseit. Például:</p>
-      <pre><code>npm install projekt-nev</code></pre>
-    </section>
+            <table class="ip-table">
+                <tr>
+                    <th>Interfész</th>
+                    <th>IP-cím</th>
+                    <th>Alhálózati maszk</th>
+                </tr>
+                <tr>
+                    <td>Gig. 0/0/0</td>
+                    <td>192.168.1.1</td>
+                    <td>255.255.255.0</td>
+                </tr>
+                <tr>
+                    <td>Gig. 0/0/1</td>
+                    <td>192.168.10.1</td>
+                    <td>255.255.255.0</td>
+                </tr>
+                <tr>
+                    <td>Ser. 0/1/0</td>
+                    <td>172.54.21.1</td>
+                    <td>255.255.0.0</td>
+                </tr>
+            </table>
 
-    <section id="hasznalat">
-      <h2>Használat</h2>
-      <p>Mutasd be, hogyan kell használni. Például:</p>
-      <pre><code>import { modul } from 'projekt-nev';</code></pre>
-    </section>
+            <h3>R2_1</h3>
+            <ul>
+                <li><strong>Banner:</strong> <code>!!!ON YOUR OWN RISK!!!</code></li>
+                <li><strong>Telnet jelszó:</strong> <code>cisco12345</code></li>
+                <li><strong>Enable secret:</strong> <code>cisco12345</code></li>
+            </ul>
 
-    <section id="faq">
-      <h2>Gyakran Ismételt Kérdések</h2>
-      <p>Itt válaszolhatsz a leggyakoribb kérdésekre.</p>
-    </section>
-  </main>
+            <table class="ip-table">
+                <tr>
+                    <th>Interfész</th>
+                    <th>IP-cím</th>
+                    <th>Alhálózati maszk</th>
+                </tr>
+                <tr>
+                    <td>Gig. 0/0/0</td>
+                    <td>192.168.20.1</td>
+                    <td>255.255.255.0</td>
+                </tr>
+                <tr>
+                    <td>Ser. 0/1/0</td>
+                    <td>172.54.21.2</td>
+                    <td>255.255.0.0</td>
+                </tr>
+            </table>
+        </div>
 
-  <footer>
-    &copy; 2025 A Te Neved. Minden jog fenntartva.
-  </footer>
+        <div class="section">
+            <h2>🔌 Switchek (S1_1, S1_2, S2_1)</h2>
+            <ul>
+                <li><strong>Banner:</strong> <code>!!!NEM SZABAD!!!</code></li>
+                <li><strong>Telnet jelszó:</strong> <code>cisco12345</code></li>
+                <li><strong>Enable secret:</strong> <code>cisco12345</code></li>
+            </ul>
+        </div>
 
+        <div class="section">
+            <h2>📁 Adatbázis (HTML alapú)</h2>
+            <p>A zöldségekről és gyümölcsökről készült többtáblás adatbázis HTML-ben készült, nem SQL-ben.</p>
+            
+            <h3>Zöldségek és gyümölcsök táblák</h3>
+            <ul>
+                <li>Ár (Ft/kg)</li>
+                <li>Származási hely</li>
+                <li>Készlet (kg)</li>
+                <li>Bio</li>
+                <li>Szezonális</li>
+                <li>Szűrés / lekérdezések száma: 6/db</li>
+            </ul>
+        </div>
+
+        <footer>
+            &copy; 2025 11. évfolyam – Második félév | Projekt dokumentáció
+        </footer>
+    </div>
 </body>
 </html>
-
