@@ -25,6 +25,6 @@ enable secret: password: cisco12345
 
 Adatbázis:
 
-HTML-ben csináltuk, nem pedig valamilyen sql-vel.
+HTML-vel csináltuk az adatbázist, nem pedig sql-vel.
 Több táblás adatbázis, ami a zöldségekről(11. elsőfélév/5.projekt) és gyümölcsökről szól.
 Mindegyiknél 6 parancs/lekérés/szűrés van(Ár(Ft/kg), származási hely, készlet(kg), bio, szezonális).
