@@ -1,66 +1,58 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Félév Választó</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <title>12.-es projekt munkák</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000; /* teljesen fekete háttér */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
 
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        .btn {
+            background-color: #000; /* fekete gomb */
+            border: 2px solid #00ff66; /* vékony zöld keret */
+            color: #00ff66;
+            padding: 14px 32px;
+            margin: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
 
-    .container {
-      text-align: center;
-    }
+        .btn:hover {
+            color: #000;
+            background-color: #00ff66;
+            box-shadow: 0 0 20px #00ff66, 0 0 40px #00ff66, 0 0 60px #00ff66;
+            transform: scale(1.08);
+        }
 
-    .btn {
-      display: inline-block;
-      margin: 15px;
-      padding: 15px 30px;
-      font-size: 18px;
-      font-weight: 600;
-      color: #ffffff;
-      background-color: #0077cc;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-    }
+        .btn:active {
+            transform: scale(0.95);
+        }
 
-    .btn:hover {
-      background-color: #005fa3;
-      transform: scale(1.05);
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
-
-    .btn.vissza {
-      background-color: #555;
-    }
-
-    .btn.vissza:hover {
-      background-color: #333;
-    }
-  </style>
+        .container {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <button class="btn" onclick="alert('1. félév kiválasztva')">1. félév</button>
-    <button class="btn" onclick="alert('2. félév kiválasztva')">2. félév</button>
-    <button class="btn vissza" onclick="history.back()">Vissza</button>
-  </div>
+    <div class="container">
+        <a href="osztaly.html" class="btn">← Vissza</a>
+        <a href="felev1.html" class="btn">1. Félév</a>
+        <a href="felev2.html" class="btn">2. Félév</a>
+    </div>
 </body>
 </html>
+
