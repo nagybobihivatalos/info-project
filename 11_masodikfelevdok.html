@@ -3,169 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11. évfolyam 2. félév - Dokumentáció</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>11. évfolyam – 2. félév Dokumentáció</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #0f1116;
+            --card-bg: #1a1d24;
+            --text: #f0f0f0;
+            --subtext: #aaa;
+            --accent: #00c6ff;
+            --highlight: #ff8c00;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
             padding: 2rem;
         }
+
         h1, h2, h3 {
-            color: #1a73e8;
+            color: var(--accent);
+            margin-bottom: 1rem;
         }
+
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: auto;
-            background: #fff;
             padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 0 24px rgba(0, 255, 255, 0.05);
         }
+
         .section {
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border: 1px solid #333;
+            border-radius: 12px;
+            background-color: #16181e;
+            transition: transform 0.2s ease;
         }
-        pre {
-            background: #f0f0f0;
-            padding: 1rem;
-            border-radius: 8px;
-            overflow-x: auto;
+
+        .section:hover {
+            transform: scale(1.01);
         }
-        code {
-            font-family: monospace;
-            color: #d63384;
-        }
+
         ul {
             margin-top: 0.5rem;
             padding-left: 1.5rem;
         }
-        .ip-table {
-            margin-top: 1rem;
-            border-collapse: collapse;
-            width: 100%;
+
+        .section code {
+            background: #222;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--highlight);
         }
+
+        .ip-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
         .ip-table th, .ip-table td {
-            border: 1px solid #ddd;
-            padding: 0.75rem;
+            border: 1px solid #333;
+            padding: 0.8rem;
             text-align: left;
         }
+
         .ip-table th {
-            background-color: #e3f2fd;
+            background-color: #232630;
+            color: var(--accent);
         }
+
         footer {
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 4rem;
+            color: var(--subtext);
             font-size: 0.9rem;
-            color: #777;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            margin-left: 0.5rem;
+        }
+
+        .icon {
+            color: var(--highlight);
+            margin-right: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 0.5rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #00aaff;
+        }
+
+        .tooltip {
+            color: var(--subtext);
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>11. évfolyam 2. félév – Projekt Dokumentáció</h1>
+        <h1><i class="fa-solid fa-network-wired icon"></i>11. évfolyam – 2. félév Dokumentáció</h1>
 
+        <!-- Packet Tracer -->
         <div class="section">
-            <h2>📡 Packet Tracer</h2>
-            <p>Feladat: DHCP használata IPv4-es és IPv6-os címekkel routereken (<strong>R1_1, R2_1</strong>).</p>
+            <h2><i class="fa-solid fa-laptop-code icon"></i>Packet Tracer</h2>
+            <p>DHCP konfiguráció routereken IPv4 és IPv6 címzéssel. Hálózatokhoz RIP protokoll alkalmazva.</p>
             <ul>
-                <li><strong>DHCP támogatás:</strong> IPv4 & IPv6</li>
-                <li><strong>Routerek:</strong> R1_1, R2_1</li>
-                <li><strong>RIP hálózatok:</strong> 192.168.1.0, 192.168.10.0, 192.168.20.0, 172.54.0.0</li>
+                <li>Routerek: <strong>R1_1</strong>, <strong>R2_1</strong></li>
+                <li>Protokoll: <code>RIP</code></li>
+                <li>Hálózatok: <code>192.168.1.0</code>, <code>192.168.10.0</code>, <code>192.168.20.0</code>, <code>172.54.0.0</code></li>
+                <li>DHCP: <span class="badge">IPv4</span> <span class="badge">IPv6</span></li>
             </ul>
+            <a href="#" class="btn">Letöltés: Packet Tracer fájl</a>
         </div>
 
+        <!-- Routerek -->
         <div class="section">
-            <h2>📶 Router konfigurációk</h2>
+            <h2><i class="fa-solid fa-route icon"></i>Router konfigurációk</h2>
 
-            <h3>R1_1</h3>
+            <h3>R1_1 <span class="badge">Router</span></h3>
             <ul>
-                <li><strong>Banner:</strong> <code>!!!ON YOUR OWN RISK!!!</code></li>
-                <li><strong>Telnet jelszó:</strong> <code>cisco12345</code></li>
-                <li><strong>Enable secret:</strong> <code>cisco12345</code></li>
+                <li>Banner: <code>!!!ON YOUR OWN RISK!!!</code></li>
+                <li>Telnet jelszó: <code>cisco12345</code></li>
+                <li>Enable Secret: <code>cisco12345</code></li>
             </ul>
 
             <table class="ip-table">
-                <tr>
-                    <th>Interfész</th>
-                    <th>IP-cím</th>
-                    <th>Alhálózati maszk</th>
-                </tr>
-                <tr>
-                    <td>Gig. 0/0/0</td>
-                    <td>192.168.1.1</td>
-                    <td>255.255.255.0</td>
-                </tr>
-                <tr>
-                    <td>Gig. 0/0/1</td>
-                    <td>192.168.10.1</td>
-                    <td>255.255.255.0</td>
-                </tr>
-                <tr>
-                    <td>Ser. 0/1/0</td>
-                    <td>172.54.21.1</td>
-                    <td>255.255.0.0</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Interfész</th>
+                        <th>IP cím</th>
+                        <th>Maszk</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gig. 0/0/0</td>
+                        <td>192.168.1.1</td>
+                        <td>255.255.255.0</td>
+                    </tr>
+                    <tr>
+                        <td>Gig. 0/0/1</td>
+                        <td>192.168.10.1</td>
+                        <td>255.255.255.0</td>
+                    </tr>
+                    <tr>
+                        <td>Ser. 0/1/0</td>
+                        <td>172.54.21.1</td>
+                        <td>255.255.0.0</td>
+                    </tr>
+                </tbody>
             </table>
 
-            <h3>R2_1</h3>
+            <h3>R2_1 <span class="badge">Router</span></h3>
             <ul>
-                <li><strong>Banner:</strong> <code>!!!ON YOUR OWN RISK!!!</code></li>
-                <li><strong>Telnet jelszó:</strong> <code>cisco12345</code></li>
-                <li><strong>Enable secret:</strong> <code>cisco12345</code></li>
+                <li>Banner: <code>!!!ON YOUR OWN RISK!!!</code></li>
+                <li>Telnet jelszó: <code>cisco12345</code></li>
+                <li>Enable Secret: <code>cisco12345</code></li>
             </ul>
 
             <table class="ip-table">
-                <tr>
-                    <th>Interfész</th>
-                    <th>IP-cím</th>
-                    <th>Alhálózati maszk</th>
-                </tr>
-                <tr>
-                    <td>Gig. 0/0/0</td>
-                    <td>192.168.20.1</td>
-                    <td>255.255.255.0</td>
-                </tr>
-                <tr>
-                    <td>Ser. 0/1/0</td>
-                    <td>172.54.21.2</td>
-                    <td>255.255.0.0</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Interfész</th>
+                        <th>IP cím</th>
+                        <th>Maszk</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gig. 0/0/0</td>
+                        <td>192.168.20.1</td>
+                        <td>255.255.255.0</td>
+                    </tr>
+                    <tr>
+                        <td>Ser. 0/1/0</td>
+                        <td>172.54.21.2</td>
+                        <td>255.255.0.0</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
+        <!-- Switchek -->
         <div class="section">
-            <h2>🔌 Switchek (S1_1, S1_2, S2_1)</h2>
+            <h2><i class="fa-solid fa-server icon"></i>Switchek</h2>
+            <p>Eszközök: <code>S1_1</code>, <code>S1_2</code>, <code>S2_1</code></p>
             <ul>
-                <li><strong>Banner:</strong> <code>!!!NEM SZABAD!!!</code></li>
-                <li><strong>Telnet jelszó:</strong> <code>cisco12345</code></li>
-                <li><strong>Enable secret:</strong> <code>cisco12345</code></li>
+                <li>Banner: <code>!!!NEM SZABAD!!!</code></li>
+                <li>Telnet jelszó: <code>cisco12345</code></li>
+                <li>Enable Secret: <code>cisco12345</code></li>
             </ul>
         </div>
 
+        <!-- Adatbázis -->
         <div class="section">
-            <h2>📁 Adatbázis (HTML alapú)</h2>
-            <p>A zöldségekről és gyümölcsökről készült többtáblás adatbázis HTML-ben készült, nem SQL-ben.</p>
-            
-            <h3>Zöldségek és gyümölcsök táblák</h3>
+            <h2><i class="fa-solid fa-database icon"></i>HTML alapú adatbázis</h2>
+            <p><strong>Megjegyzés:</strong> Az adatbázis HTML-ben készült, nem SQL-lel.</p>
+
+            <h3>Zöldségek & Gyümölcsök</h3>
             <ul>
                 <li>Ár (Ft/kg)</li>
                 <li>Származási hely</li>
                 <li>Készlet (kg)</li>
-                <li>Bio</li>
-                <li>Szezonális</li>
-                <li>Szűrés / lekérdezések száma: 6/db</li>
+                <li>Bio (igen/nem)</li>
+                <li>Szezonális (igen/nem)</li>
             </ul>
+
+            <p class="tooltip">Minden tábla 6 lekérést/szűrést tartalmaz <span class="badge">Statikus HTML</span></p>
+            <a href="#" class="btn">Megnyitás: Adatbázis oldal</a>
         </div>
 
         <footer>
-            &copy; 2025 11. évfolyam – Második félév | Projekt dokumentáció
+            &copy; 2025 | 11. évfolyam – 2. félév | Minden jog fenntartva
         </footer>
     </div>
 </body>
