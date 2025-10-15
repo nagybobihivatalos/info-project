@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11. Első félév - Cisco Packet Tracer</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: rgba(255, 255, 255, 0.05);
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --danger: #ef4444;
+      --text: #e2e8f0;
+      --glass: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    /* Galéria */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
+      padding: 30px;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 16px;
+      transition: 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      opacity: 0.9;
+    }
+
+    .gallery img:hover {
+      transform: translateY(-6px) scale(1.03);
+      opacity: 1;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(6px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal img {
+      width: 80%;
+      max-width: 900px;
+      border-radius: 12px;
+      animation: zoomIn 0.3s ease;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .close, .arrow {
+      position: absolute;
+      color: var(--text);
+      font-size: 2.5rem;
+      cursor: pointer;
+      transition: 0.3s;
+      user-select: none;
+    }
+
+    .close {
+      top: 25px;
+      right: 40px;
+    }
+
+    .arrow-left, .arrow-right {
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--glass);
+      padding: 8px 14px;
+      border-radius: 50%;
+    }
+
+    .arrow-left:hover, .arrow-right:hover, .close:hover {
+      color: var(--accent);
+    }
+
+    .arrow-left { left: 40px; }
+    .arrow-right { right: 40px; }
+
+    /* Gombok */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 40px;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: #0f172a;
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .btn-danger:hover {
+      background: var(--danger);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>11. Első félév – Cisco Packet Tracer</h1>
+  </header>
+
+  <section class="gallery">
+    <img src="kepek/11_masodikfelevpkt/minden.png" alt="Minden">
+    <img src="kepek/11_masodikfelevpkt/PC1_1.png" alt="PC1_1">
+    <img src="kepek/11_masodikfelevpkt/PC1_2.png" alt="PC1_2">
+    <img src="kepek/11_masodikfelevpkt/PC2_1.png" alt="PC2_1">
+    <img src="kepek/11_masodikfelevpkt/R1_1GE0.png" alt="R1_1GE0">
+    <img src="kepek/11_masodikfelevpkt/R1_1GE1.png" alt="R1_1GE1">
+    <img src="kepek/11_masodikfelevpkt/R1_1S1.png" alt="R1_1S1">
+    <img src="kepek/11_masodikfelevpkt/R2_1GE0.png" alt="R2_1GE0">
+    <img src="kepek/11_masodikfelevpkt/R2_1S1.png" alt="R2_1S1">
+    <img src="kepek/11_masodikfelevpkt/Telefon.png" alt="Telefon">
+    <img src="kepek/11_masodikfelevpkt/WR1_1Setup.png" alt="WR1_1WirelessBasic">
+    <img src="kepek/11_masodikfelevpkt/WR1_1WirelessBasic.png" alt="WR1_1WirelessBasic">
+    <img src="kepek/11_masodikfelevpkt/WR1_1WirelessSecurity.png" alt="WR1_1WirelessSecurity">
+    <img src="kepek/11_masodikfelevpkt/R1_1RIP.png" alt="R1_1RIP">
+    <img src="kepek/11_masodikfelevpkt/R2_1RIP.png" alt="R2_1RIP">
+  </section>
+
+  <div class="modal" id="modal">
+    <span class="close" id="close">&times;</span>
+    <span class="arrow arrow-left" id="prev">&#10094;</span>
+    <img src="" alt="Kép nagyban" id="modalImg">
+    <span class="arrow arrow-right" id="next">&#10095;</span>
+  </div>
+
+  <div class="buttons">
+    <a href="11_masodikfelev.html" class="btn btn-danger">⬅ Vissza</a>
+    <a href="pkt/11_elsofelev.pkt" download class="btn">⬇ Letöltés (.pkt)</a>
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.gallery img');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const closeBtn = document.getElementById('close');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    let currentIndex = 0;
+
+    images.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImg.src = img.src;
+        currentIndex = index;
+      });
+    });
+
+    const showImage = (index) => {
+      currentIndex = (index + images.length) % images.length;
+      modalImg.src = images[currentIndex].src;
+    };
+
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
+    nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
+
+    document.addEventListener('keydown', e => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+      if (e.key === 'Escape') modal.classList.remove('active');
+    });
+  </script>
+
+</body>
+</html>

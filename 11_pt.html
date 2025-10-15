@@ -1,127 +1,162 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <title>11. Első félév Cisco Packet Tracer</title>
-	<link rel="stylesheet" href="ciscocss.css">
-    <style>
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            padding: 20px;
-            max-width: 90%;
-            margin: auto;
-        }
-        
-        .gallery img {
-            width: 100%;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .gallery img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11. Első félév - Cisco Packet Tracer</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #1e293b;
+      --accent: #22c55e;
+      --danger: #ef4444;
+      --bg: #f8fafc;
+      --text: #0f172a;
+    }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        .modal img {
-            width: 80%;
-            max-width: 900px;
-            border-radius: 10px;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-        .modal.active {
-            display: flex;
-        }
+    header {
+      background: var(--secondary);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 30px;
-            cursor: pointer;
-        }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
 
-        /* Nyilak stílusa */
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-            user-select: none;
-            z-index: 100; /* biztosítja, hogy mindig a kép felett legyenek */
-            padding: 10px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5); /* Enyhén átlátszó háttér */
-            transition: background-color 0.3s ease;
-        }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-        .arrow-left {
-            left: 15px;
-        }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
 
-        .arrow-right {
-            right: 15px;
-        }
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
 
-        /* Nyilak háttér színe változik, ha rájuk viszed az egeret */
-        .arrow:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-		/* Letöltés gomb */
-        .download-btn {
-            margin-top: 30px;
-            padding: 15px 25px;
-            font-size: 18px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
 
-        /* Vissza gomb stílusa (piros) */
-        .back-btn {
-            background-color: #f44336;
-        }
+    .modal.active {
+      display: flex;
+    }
 
-        .back-btn:hover {
-            background-color: #e53935;
-        }
+    .modal img {
+      width: 85%;
+      max-width: 1000px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s ease;
+    }
 
-        /* Vissza gomb */
-        .back-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .close, .arrow {
+      position: absolute;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.3s;
+      background: rgba(0,0,0,0.4);
+      border-radius: 50%;
+      padding: 8px 14px;
+    }
+
+    .close:hover, .arrow:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    .close {
+      top: 25px;
+      right: 35px;
+    }
+
+    .arrow-left { left: 30px; top: 50%; transform: translateY(-50%); }
+    .arrow-right { right: 30px; top: 50%; transform: translateY(-50%); }
+
+    .buttons {
+      text-align: center;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      color: white;
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-download { background: var(--accent); }
+    .btn-download:hover { background: #16a34a; }
+
+    .btn-back { background: var(--danger); }
+    .btn-back:hover { background: #dc2626; }
+  </style>
 </head>
 <body>
 
-<div class="gallery">
+  <header>
+    <h1>11. Első félév – Cisco Packet Tracer</h1>
+  </header>
+
+  <section class="gallery">
     <img src="kepek/11_elsofelevpkt/Azegesz.png" alt="Minden">
     <img src="kepek/11_elsofelevpkt/PC1_1FE0.png" alt="PC1_1FE0">
-    <img src="kepek/11_elsofelevpkt/PC1_2FE0.png" alt="PC1_FE0">
+    <img src="kepek/11_elsofelevpkt/PC1_2FE0.png" alt="PC1_2FE0">
     <img src="kepek/11_elsofelevpkt/PC2_1FE0.png" alt="PC2_1FE0">
     <img src="kepek/11_elsofelevpkt/PC3_1FE0.png" alt="PC3_1FE0">
     <img src="kepek/11_elsofelevpkt/R1_1GE0.png" alt="R1_1GE0">
@@ -135,24 +170,21 @@
     <img src="kepek/11_elsofelevpkt/R3_1S010.png" alt="R3_1S010">
     <img src="kepek/11_elsofelevpkt/R3_1S011.png" alt="R3_1S011">
     <img src="kepek/11_elsofelevpkt/RIP.png" alt="RIP">
-</div>
+  </section>
 
-<div class="modal" id="modal">
+  <div class="modal" id="modal">
     <span class="close" id="close">&times;</span>
-    <span class="arrow arrow-left" id="prev">&lt;</span>
+    <span class="arrow arrow-left" id="prev">&#10094;</span>
     <img src="" alt="Kép nagyban" id="modalImg">
-    <span class="arrow arrow-right" id="next">&gt;</span>
-</div>
+    <span class="arrow arrow-right" id="next">&#10095;</span>
+  </div>
 
-<div class="button-container">
-    <!-- Vissza gomb -->
-    <a href="11_elsofelev.html">Vissza</a>
+  <div class="buttons">
+    <a href="11_elsofelev.html" class="btn btn-back">⬅ Vissza</a>
+    <a href="pkt/11_elsofelev.pkt" download class="btn btn-download">⬇ A .pkt fájl letöltése</a>
+  </div>
 
-<!-- Letöltés gomb -->
-<a href="pkt/11_elsofelev.pkt" download class="download-btn" id="downloadBtn">A .pkt fálj letöltése</a>
-
-<script>
-    // Kép galéria és modal
+  <script>
     const images = document.querySelectorAll('.gallery img');
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
@@ -160,40 +192,33 @@
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
     let currentIndex = 0;
-    
-   // Megnyitja a modal ablakot
+
     images.forEach((img, index) => {
-        img.addEventListener('click', () => {
-            modal.classList.add('active');
-            modalImg.src = img.src;
-            currentIndex = index;
-        });
+      img.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImg.src = img.src;
+        currentIndex = index;
+      });
     });
 
-    // Bezárja a modal ablakot
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
+    const showImage = (index) => {
+      currentIndex = (index + images.length) % images.length;
+      modalImg.src = images[currentIndex].src;
+    };
 
-    // Kép váltása balra
-    prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-        modalImg.src = images[currentIndex].src;
-    });
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    prevBtn.addEventListener('click', () => showImage(currentIndex - 1));
+    nextBtn.addEventListener('click', () => showImage(currentIndex + 1));
+    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
 
-    // Kép váltása jobbra
-    nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-        modalImg.src = images[currentIndex].src;
+    // Navigáció billentyűkkel
+    document.addEventListener('keydown', e => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+      if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+      if (e.key === 'Escape') modal.classList.remove('active');
     });
-
-    // Modal bezárása kattintással a háttéren
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
-</script>
+  </script>
 
 </body>
 </html>
