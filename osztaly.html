@@ -4,192 +4,76 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Osztályválasztás</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Outfit', sans-serif;
         }
 
         body {
+            background-color: #0d0d0f;
+            color: #e0e0e0;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a0033, #3a1766, #4b1e91);
-            position: relative;
-            overflow-x: hidden;
-            color: #ddd9ff;
-            user-select: none;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 40px 20px;
-            text-transform: uppercase;
-            font-weight: 800;
         }
-
-        /* Homályos lila mozgó háttér */
-        body::before {
-            content: "";
-            position: fixed;
-            top: -40%;
-            left: -40%;
-            width: 180%;
-            height: 180%;
-            background:
-                radial-gradient(circle at 25% 30%, #8c5cffcc, transparent 40%),
-                radial-gradient(circle at 70% 60%, #b688ffcc, transparent 50%),
-                radial-gradient(circle at 60% 20%, #925dffcc, transparent 30%);
-            filter: blur(120px);
-            animation: moveBackground 60s linear infinite;
-            z-index: -2;
-        }
-
-        /* Áttetsző, sötét lila réteg */
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: rgba(26, 0, 51, 0.75);
-            backdrop-filter: blur(12px);
-            z-index: -1;
-        }
-
-        @keyframes moveBackground {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(20%, 15%); }
-            100% { transform: translate(0, 0); }
-        }
-
-        /* Header eltávolítva, így nincs "Osztályválasztó" szöveg */
 
         main {
             display: flex;
             flex-wrap: wrap;
+            gap: 24px;
+            max-width: 800px;
+            width: 100%;
             justify-content: center;
-            gap: 28px;
-            max-width: 850px;
-            width: 90vw;
         }
 
-        .nav-button {
-            position: relative;
-            background: rgba(107, 66, 255, 0.15);
-            border: 2.5px solid #b688ff;
-            border-radius: 18px;
-            padding: 22px 48px;
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: #d3cfff;
+        a.nav-button {
+            background-color: #1a1a1d;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 18px 36px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #f0f0f5;
             text-decoration: none;
-            text-align: center; /* középre igazítás */
-            vertical-align: middle;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 200px;
-            letter-spacing: 5px;
-            cursor: pointer;
-            box-shadow:
-                0 0 20px #b688ff99,
-                0 0 40px #8c5cffbb;
-            transition:
-                background 0.3s ease,
-                box-shadow 0.3s ease,
-                transform 0.2s ease;
-            overflow: hidden;
-            user-select: none;
+            letter-spacing: 2px;
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            position: relative;
         }
 
-        .nav-button::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                #b688ff88,
-                transparent
-            );
-            animation: shine 4s linear infinite;
-            opacity: 0.3;
-            transform: rotate(25deg);
-            pointer-events: none;
-            z-index: 0;
-            border-radius: 18px;
+        a.nav-button:hover {
+            background-color: #252529;
+            border-color: #555;
+            color: #ffffff;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 24px rgba(100, 100, 255, 0.1);
         }
 
-        .nav-button:hover {
-            background: rgba(107, 66, 255, 0.4);
-            box-shadow:
-                0 0 35px #b688ffcc,
-                0 0 75px #b688ffdd;
-            transform: translateY(-6px) scale(1.06);
-            color: #fff;
-            text-shadow:
-                0 0 8px #b688ffdd,
-                0 0 16px #b688ffdd;
-            z-index: 10;
+        a.back-button {
+            background-color: transparent;
+            color: #8888aa;
+            border: 1px solid #444;
         }
 
-        .nav-button:hover::before {
-            opacity: 0.6;
-            animation-duration: 2.2s;
+        a.back-button:hover {
+            background-color: #111117;
+            color: #ffffff;
+            border-color: #666;
         }
 
-        .back-button {
-            background: rgba(255, 85, 140, 0.12);
-            border-color: #ff5588;
-            color: #ff5588;
-            box-shadow:
-                0 0 18px rgba(255, 85, 140, 0.45);
-            letter-spacing: 6px;
-        }
-
-        .back-button::before {
-            background: linear-gradient(
-                45deg,
-                transparent,
-                #ff5588aa,
-                transparent
-            );
-            border-radius: 18px;
-        }
-
-        .back-button:hover {
-            background: rgba(255, 85, 140, 0.35);
-            box-shadow:
-                0 0 45px #ff5588dd,
-                0 0 90px #ff5588ee;
-            color: #ff3366;
-            text-shadow:
-                0 0 8px #ff5588cc,
-                0 0 16px #ff5588cc;
-        }
-
-        /* Shine animation */
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%) rotate(25deg);
-            }
-            100% {
-                transform: translateX(100%) rotate(25deg);
-            }
-        }
-
-        /* Reszponzív */
-        @media (max-width: 650px) {
-            main {
-                gap: 20px;
-            }
-            .nav-button {
+        @media (max-width: 600px) {
+            a.nav-button {
                 width: 100%;
-                font-size: 1.3rem;
-                padding: 16px 0;
-                letter-spacing: 3px;
+                font-size: 1.2rem;
+                padding: 16px;
             }
         }
     </style>
