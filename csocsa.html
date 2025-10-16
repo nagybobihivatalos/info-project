@@ -1,1 +1,475 @@
 
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tic‑Tac‑Toe P2P — Osztály Projekt</title>
+<style>
+  :root{
+    --bg:#070707; --panel:#0f0f12; --accent:#00e5ff; --muted:#9aa3ad;
+    --danger:#ff5c5c; --win:#6aff8d;
+  }
+  *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+  body{margin:0;background:linear-gradient(180deg,#050506 0%, #0b0b0c 100%);color:#e6eef3;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px}
+  .wrap{width:980px;max-width:100%;display:grid;grid-template-columns:420px 1fr;gap:20px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+  h1{margin:0 0 8px;font-size:20px;color:var(--accent)}
+  p.small{margin:6px 0 12px;color:var(--muted);font-size:13px}
+  /* Left panel controls */
+  .controls{display:flex;flex-direction:column;gap:10px}
+  textarea{width:100%;min-height:92px;background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:8px;color:#dbe9ee}
+  .row{display:flex;gap:8px}
+  button{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.06);color:var(--accent);padding:10px 12px;border-radius:8px;cursor:pointer}
+  button.ghost{background:transparent;color:var(--muted);border:1px dashed rgba(255,255,255,0.03)}
+  .status{padding:10px;border-radius:8px;background:rgba(0,0,0,0.4);color:var(--muted);font-size:13px}
+  .connected{color:#b8ffda}
+  /* Right: game area */
+  .game-area{display:flex;flex-direction:column;gap:12px}
+  .board{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));border-radius:12px}
+  .cell{aspect-ratio:1/1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:48px;color:#e6eef3;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.2));cursor:pointer;user-select:none}
+  .cell.disabled{opacity:0.45;cursor:not-allowed}
+  .meta{display:flex;gap:12px;align-items:center;justify-content:space-between}
+  .meta .info{color:var(--muted)}
+  .chat{display:flex;flex-direction:column;gap:8px}
+  .messages{height:150px;overflow:auto;background:rgba(0,0,0,0.35);padding:8px;border-radius:8px;color:var(--muted);font-size:14px}
+  .msg{margin-bottom:6px}
+  .msg.you{color:#9ee5ff}
+  .msg.them{color:#ffd9a3}
+  footer{margin-top:6px;color:var(--muted);font-size:12px;text-align:center}
+  .small-btn{padding:6px 8px;font-size:13px;border-radius:8px}
+  .win{background:linear-gradient(90deg,var(--win),rgba(255,255,255,0.03));color:#04160a}
+  .danger{background:linear-gradient(90deg,var(--danger),rgba(255,255,255,0.03));color:#2b0202}
+  pre{white-space:pre-wrap;word-break:break-all;max-height:160px;overflow:auto;padding:8px;border-radius:8px;background:rgba(0,0,0,0.25);color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>Tic‑Tac‑Toe P2P — Signaling</h1>
+    <p class="small">Használat: egy gép készít <b>Offer</b>-t (host). A partner beilleszti az offert, létrehozza az <b>Answer</b>-t, majd visszaküldi — ezzel létrejön a P2P kapcsolat.</p>
+
+    <div class="controls">
+      <div class="row">
+        <button id="createOffer">Create Offer (Host)</button>
+        <button id="createAnswer">Create Answer</button>
+      </div>
+
+      <label class="small">Local SDP (offer / answer):</label>
+      <textarea id="localSDP" readonly></textarea>
+
+      <label class="small">Remote SDP (paste ide a partnered szövegét):</label>
+      <textarea id="remoteSDP" placeholder="Paste remote offer/answer here..."></textarea>
+
+      <div class="row">
+        <button id="setRemote" class="small-btn">Set Remote Answer</button>
+        <button id="copyLocal" class="small-btn ghost">Copy Local</button>
+        <button id="clearSDP" class="small-btn ghost">Clear</button>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+        <div class="status" id="connStatus">Status: <span id="statusText">Disconnected</span></div>
+        <div style="flex:1"></div>
+        <button id="reset" class="small-btn ghost">Reset</button>
+      </div>
+
+      <hr style="border:none;height:1px;background:rgba(255,255,255,0.02);margin:12px 0">
+
+      <div>
+        <strong>Játékinfók</strong>
+        <div style="margin-top:8px" class="meta">
+          <div class="info">Te: <span id="yourMark">—</span></div>
+          <div class="info">Kezd: <span id="starter">—</span></div>
+          <div class="info">Állapot: <span id="gameState">Not started</span></div>
+        </div>
+      </div>
+      <footer>Egyszerű, szerver nélküli P2P demonstráció — oktatási céllal.</footer>
+    </div>
+  </div>
+
+  <div class="card game-area">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <h1>Játék</h1>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button id="newGame" class="small-btn">New Game</button>
+        <button id="undo" class="small-btn ghost">Undo (local)</button>
+      </div>
+    </div>
+
+    <div class="board" id="board">
+      <!-- 9 cells -->
+      <div class="cell" data-i="0"></div>
+      <div class="cell" data-i="1"></div>
+      <div class="cell" data-i="2"></div>
+      <div class="cell" data-i="3"></div>
+      <div class="cell" data-i="4"></div>
+      <div class="cell" data-i="5"></div>
+      <div class="cell" data-i="6"></div>
+      <div class="cell" data-i="7"></div>
+      <div class="cell" data-i="8"></div>
+    </div>
+
+    <div class="meta">
+      <div class="info">Turn: <strong id="turn">—</strong></div>
+      <div class="info">Result: <strong id="result">—</strong></div>
+    </div>
+
+    <div class="chat">
+      <label class="small">Chat</label>
+      <div class="messages" id="messages"></div>
+      <div style="display:flex;gap:8px;margin-top:6px">
+        <input id="chatInput" placeholder="Üzenet..." style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef3" />
+        <button id="sendChat" class="small-btn">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ----- Simple P2P Tic-Tac-Toe with manual signaling ----- */
+/* Connection and datachannel */
+let pc = null;
+let dc = null;
+let isHost = false;
+let connected = false;
+
+/* Game state */
+let boardState = Array(9).fill(null); // 'X' | 'O' | null
+let yourMark = null;
+let currentTurn = 'X';
+let gameActive = false;
+
+const cells = document.querySelectorAll('.cell');
+const localSDP = document.getElementById('localSDP');
+const remoteSDP = document.getElementById('remoteSDP');
+const createOfferBtn = document.getElementById('createOffer');
+const createAnswerBtn = document.getElementById('createAnswer');
+const setRemoteBtn = document.getElementById('setRemote');
+const copyLocalBtn = document.getElementById('copyLocal');
+const clearSDPBtn = document.getElementById('clearSDP');
+const statusText = document.getElementById('statusText');
+const connStatus = document.getElementById('connStatus');
+const yourMarkLabel = document.getElementById('yourMark');
+const starterLabel = document.getElementById('starter');
+const gameStateLabel = document.getElementById('gameState');
+const turnLabel = document.getElementById('turn');
+const resultLabel = document.getElementById('result');
+const newGameBtn = document.getElementById('newGame');
+const messages = document.getElementById('messages');
+const chatInput = document.getElementById('chatInput');
+const sendChatBtn = document.getElementById('sendChat');
+const resetBtn = document.getElementById('reset');
+const undoBtn = document.getElementById('undo');
+
+function logMsg(text, cls='them'){
+  const el = document.createElement('div');
+  el.className = 'msg ' + (cls === 'you' ? 'you' : 'them');
+  el.textContent = text;
+  messages.appendChild(el);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+/* Setup PeerConnection */
+function initPeer() {
+  if (pc) return;
+  pc = new RTCPeerConnection();
+  pc.onicecandidate = (e) => {
+    // wait for gathering to finish before showing SDP; we'll handle in createOffer/createAnswer
+  };
+  pc.onconnectionstatechange = () => {
+    console.log('pc state', pc.connectionState);
+    if (pc.connectionState === 'connected') {
+      connected = true;
+      statusText.textContent = 'Connected';
+      statusText.className = 'connected';
+      connStatus.style.boxShadow = '0 0 12px rgba(0,200,150,0.08)';
+      gameStateLabel.textContent = 'Connected';
+    } else if (pc.connectionState === 'disconnected' || pc.connectionState === 'failed' || pc.connectionState === 'closed') {
+      connected = false;
+      statusText.textContent = 'Disconnected';
+      statusText.className = '';
+      gameStateLabel.textContent = 'Not connected';
+    }
+  };
+  pc.ondatachannel = (ev) => {
+    setupDataChannel(ev.channel);
+  };
+}
+
+/* Data channel message handling */
+function setupDataChannel(channel) {
+  dc = channel;
+  dc.onopen = () => {
+    console.log('datachannel open');
+    statusText.textContent = 'Connected';
+    connected = true;
+    gameStateLabel.textContent = 'Connected';
+  };
+  dc.onmessage = (ev) => {
+    try {
+      const data = JSON.parse(ev.data);
+      if (data.type === 'move') {
+        applyRemoteMove(data.index, data.mark);
+      } else if (data.type === 'chat') {
+        logMsg('Partner: ' + data.text, 'them');
+      } else if (data.type === 'newgame') {
+        startGame(data.startMark === yourMark ? null : data.startMark, false, true);
+      }
+    } catch (e) {
+      console.warn('bad data', e);
+    }
+  };
+  dc.onclose = () => {
+    connected = false;
+    statusText.textContent = 'Disconnected';
+  };
+}
+
+/* Create Offer (host) */
+createOfferBtn.addEventListener('click', async () => {
+  initPeer();
+  isHost = true;
+  // create datachannel
+  const channel = pc.createDataChannel('game');
+  setupDataChannel(channel);
+
+  const offer = await pc.createOffer();
+  await pc.setLocalDescription(offer);
+  // wait for ICE gathering to complete
+  await waitForIceGatheringComplete(pc);
+  localSDP.value = JSON.stringify(pc.localDescription);
+  localSDP.select();
+  yourMark = 'X'; yourMarkLabel.textContent = yourMark; starterLabel.textContent = 'X';
+  gameStateLabel.textContent = 'Offer created — küldd el a partnernek';
+});
+
+/* Create Answer (for partner) */
+createAnswerBtn.addEventListener('click', async () => {
+  initPeer();
+  isHost = false;
+  const ro = remoteSDP.value.trim();
+  if (!ro) return alert('Illeszd be a host offerjét az "Remote SDP" mezőbe, majd nyomj Create Answer-et.');
+  try {
+    const offerDesc = new RTCSessionDescription(JSON.parse(ro));
+    await pc.setRemoteDescription(offerDesc);
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+    await waitForIceGatheringComplete(pc);
+    localSDP.value = JSON.stringify(pc.localDescription);
+    localSDP.select();
+    yourMark = 'O'; yourMarkLabel.textContent = yourMark; starterLabel.textContent = 'X';
+    gameStateLabel.textContent = 'Answer kész — küldd vissza hostnak';
+  } catch (e) {
+    alert('Hiba a offer feldolgozásában: ' + e.message);
+  }
+});
+
+/* Set Remote Answer (host pastes answer) */
+setRemoteBtn.addEventListener('click', async () => {
+  const ro = remoteSDP.value.trim();
+  if (!ro) return alert('Illeszd be a partner answerét.');
+  try {
+    const desc = new RTCSessionDescription(JSON.parse(ro));
+    await pc.setRemoteDescription(desc);
+    gameStateLabel.textContent = 'Remote set — vár kapcsolatot';
+    // After connection established, set up game
+    // when datachannel opens, both know marks
+    // host is X by default
+    if (isHost) {
+      yourMark = 'X'; yourMarkLabel.textContent = yourMark; starterLabel.textContent = 'X';
+    }
+    // optional: auto-start new game after connect
+  } catch (e) {
+    alert('Hiba a remote setnél: ' + e.message);
+  }
+});
+
+copyLocalBtn.addEventListener('click', () => {
+  localSDP.select();
+  document.execCommand('copy');
+});
+
+clearSDPBtn.addEventListener('click', () => {
+  localSDP.value = '';
+  remoteSDP.value = '';
+});
+
+resetBtn.addEventListener('click', () => {
+  if (pc) {
+    try { pc.close(); } catch(e){}
+  }
+  pc = null; dc = null; connected = false; isHost = false;
+  localSDP.value = ''; remoteSDP.value = '';
+  statusText.textContent = 'Disconnected'; gameStateLabel.textContent = 'Not started';
+  yourMark = null; yourMarkLabel.textContent = '—'; starterLabel.textContent = '—';
+});
+
+/* Utility: wait for ICE gathering to complete */
+function waitForIceGatheringComplete(pc) {
+  return new Promise((res) => {
+    if (pc.iceGatheringState === 'complete') return res();
+    function check() {
+      if (pc.iceGatheringState === 'complete') {
+        pc.removeEventListener('icegatheringstatechange', check);
+        res();
+      }
+    }
+    pc.addEventListener('icegatheringstatechange', check);
+  });
+}
+
+/* Game logic */
+function startGame(forceStarter=null, announce=true, remoteTriggered=false) {
+  boardState = Array(9).fill(null);
+  gameActive = true;
+  resultLabel.textContent = 'In progress';
+  currentTurn = 'X';
+  renderBoard();
+  turnLabel.textContent = currentTurn;
+  if (forceStarter !== null) {
+    starterLabel.textContent = forceStarter;
+  }
+  if (yourMark === null) yourMarkLabel.textContent = '—';
+  gameStateLabel.textContent = 'Playing';
+  if (announce && dc && dc.readyState === 'open' && !remoteTriggered) {
+    sendData({type:'newgame', startMark: currentTurn});
+  }
+}
+
+/* Apply remote move */
+function applyRemoteMove(index, mark) {
+  if (!gameActive) startGame(); // in case
+  if (boardState[index] !== null) return;
+  boardState[index] = mark;
+  currentTurn = (mark === 'X') ? 'O' : 'X';
+  renderBoard();
+  checkResult();
+}
+
+/* Send data over channel */
+function sendData(obj) {
+  if (dc && dc.readyState === 'open') {
+    dc.send(JSON.stringify(obj));
+  } else {
+    console.warn('Datachannel not open');
+  }
+}
+
+/* Cell click */
+cells.forEach(c => c.addEventListener('click', () => {
+  const i = Number(c.dataset.i);
+  if (!gameActive) {
+    alert('A játék még nem indult. Nyomj New Game-et, vagy várj, míg partner indítja.');
+    return;
+  }
+  if (!yourMark) { alert('Nem vagy azonosítva (nem host/guest?)'); return; }
+  if (currentTurn !== yourMark) { alert('Nem a te köröd.'); return; }
+  if (boardState[i]) return;
+  boardState[i] = yourMark;
+  // send move
+  sendData({type:'move', index:i, mark:yourMark});
+  // update local
+  currentTurn = (yourMark === 'X') ? 'O' : 'X';
+  renderBoard();
+  checkResult();
+}));
+
+/* Render board UI */
+function renderBoard() {
+  cells.forEach((cell, idx) => {
+    const val = boardState[idx];
+    cell.textContent = val ? val : '';
+    if (!gameActive || (val !== null)) {
+      cell.classList.add('disabled');
+    } else {
+      cell.classList.remove('disabled');
+    }
+    cell.style.transition = 'transform 120ms ease';
+  });
+  turnLabel.textContent = currentTurn;
+}
+
+/* Check win/draw */
+function checkResult() {
+  const lines = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+  for (const [a,b,c] of lines) {
+    if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+      // win
+      gameActive = false;
+      resultLabel.textContent = boardState[a] + ' wins';
+      resultLabel.className = '';
+      highlightWin([a,b,c]);
+      if (boardState[a] === yourMark) {
+        resultLabel.textContent = 'Te nyertél! (' + boardState[a] + ')';
+      } else {
+        resultLabel.textContent = 'Partner nyert (' + boardState[a] + ')';
+      }
+      gameStateLabel.textContent = 'Finished';
+      return;
+    }
+  }
+  if (boardState.every(x => x !== null)) {
+    gameActive = false;
+    resultLabel.textContent = 'Döntetlen';
+    gameStateLabel.textContent = 'Finished';
+  }
+}
+
+/* highlight winning cells */
+function highlightWin(idxArr) {
+  cells.forEach((c, i) => {
+    if (idxArr.includes(i)) {
+      c.classList.add('win');
+    }
+  });
+}
+
+/* New game button */
+newGameBtn.addEventListener('click', () => {
+  startGame(null, true);
+});
+
+/* Chat */
+sendChatBtn.addEventListener('click', () => {
+  const t = chatInput.value.trim();
+  if (!t) return;
+  logMsg('Te: ' + t, 'you');
+  sendData({type:'chat', text:t});
+  chatInput.value = '';
+});
+
+/* Undo local (only local) */
+undoBtn.addEventListener('click', () => {
+  // simple local undo: remove last non-null
+  for (let i=8;i>=0;i--) {
+    if (boardState[i]) {
+      boardState[i] = null;
+      renderBoard();
+      break;
+    }
+  }
+});
+
+/* On load: initialize small UI state */
+(function init() {
+  renderBoard();
+  yourMarkLabel.textContent = '—';
+  starterLabel.textContent = '—';
+  gameStateLabel.textContent = 'Not started';
+  statusText.textContent = 'Disconnected';
+  resultLabel.textContent = '—';
+})();
+
+/* Helpful: detect page visibility reload */
+window.addEventListener('beforeunload', () => {
+  if (pc) try { pc.close(); } catch(e){}
+});
+
+</script>
+
+</body>
+</html>
