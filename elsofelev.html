@@ -4,7 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Második Félév</title>
-    <link rel="stylesheet" href="masodikfelev.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1f2a3d;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #2c3e50;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 450px;
+        }
+
+        .buttons {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #6a7f91, #3b4c63);
+            color: white;
+            font-size: 18px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: linear-gradient(135deg, #3f5a6a, #2b3c48);
+            transform: translateY(-5px);
+        }
+
+        .button:active {
+            transform: translateY(2px);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #4b5f6d;
+            color: white;
+            padding: 18px 25px;
+            border-radius: 30px;
+            font-size: 18px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #3a4c5b;
+            transform: translateY(-5px);
+        }
+
+        .back-button:active {
+            transform: translateY(2px);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,71 +90,3 @@
     </div>
 </body>
 </html>
-
-<style>
-/* Alap stílusok */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #2d3e50; /* Kékes-szürke háttér */
-    font-family: 'Arial', sans-serif;
-}
-
-/* Konténer, ami tartalmazza a gombokat */
-.container {
-    text-align: center;
-    background-color: #3c4a61; /* Sötétebb szürke-kék konténer */
-    border-radius: 20px;
-    padding: 50px;
-    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.5);
-    width: 400px;
-}
-
-/* Gombok konténerének stílusa */
-.buttons {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* Térköz a gombok között */
-}
-
-/* Gombok stílusa */
-.button {
-    background: linear-gradient(135deg, #4c6e8f, #2a3d58); /* Kékes színátmenet */
-    color: white;
-    font-size: 18px;
-    padding: 15px 40px;
-    border: none;
-    border-radius: 50px; /* Lekerekített gombok */
-    cursor: pointer;
-    transition: transform 0.3s ease, background 0.3s ease; /* Animáció */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.button:hover {
-    background: linear-gradient(135deg, #3f5f7f, #1f2c3d); /* Hover állapotban más kék árnyalat */
-    transform: scale(1.1); /* Gombok nagyobbodása hoverre */
-}
-
-/* Vissza gomb stílusa */
-.back-button {
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    background-color: #6c8e9f; /* Világosabb kékes szín */
-    color: white;
-    padding: 18px 21px;
-    border-radius: 30px;
-    font-size: 18px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #5a7d92; /* Sötétebb kék hover */
-    transform: scale(1.1); /* Vissza gomb animálása */
-}
