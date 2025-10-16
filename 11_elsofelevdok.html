@@ -1,132 +1,144 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Packet Tracer - 1. félév</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background-color: #f4f7fa;
-      color: #333;
-      padding: 2rem;
-    }
-
-    h1, h2 {
-      color: #2a2e35;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    .section {
-      background-color: #fff;
-      padding: 1.5rem 2rem;
-      margin-bottom: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-    }
-
-    .card-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .card {
-      background-color: #eef2f5;
-      padding: 1rem;
-      border-radius: 8px;
-      flex: 1 1 250px;
-    }
-
-    .banner {
-      background-color: #ffdddd;
-      border-left: 6px solid #ff4444;
-      padding: 1rem;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-
-    .commands ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    .commands li {
-      background-color: #d9f5e7;
-      border-left: 4px solid #32a875;
-      margin-bottom: 0.5rem;
-      padding: 0.75rem;
-      border-radius: 6px;
-      font-weight: 500;
-    }
-
-    @media (max-width: 600px) {
-      .card-grid {
-        flex-direction: column;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zöldség Adatbázis és Cisco Packet Tracer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1f1f1f;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #2d2d2d;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        h1 {
+            color: #00e676;
+            font-size: 36px;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            background-color: #333;
+            width: 80%;
+        }
+        h2 {
+            color: #00e676;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #bbb;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+        code {
+            color: #ff4081;
+            background-color: #333;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .table-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 80%;
+        }
+        .table th, .table td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: center;
+        }
+        .table th {
+            background-color: #444;
+        }
+        .table tr:nth-child(even) {
+            background-color: #555;
+        }
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .filter-buttons button {
+            background-color: #00e676;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .filter-buttons button:hover {
+            background-color: #00796b;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Packet Tracer - 1. félév konfiguráció</h1>
 
-    <div class="section">
-      <h2>Routerek (R1_1, R2_1, R3_1)</h2>
-      <div class="card-grid">
-        <div class="card">
-          <p><strong>Telnet jelszó:</strong> cisco12345</p>
-          <p><strong>Priv. Exec mód jelszó:</strong> cisco12345</p>
-          <p><strong>Banner MOTD:</p>
-          <div class="banner">!!!NEM SZABAD!!!</div>
-        </div>
-      </div>
-    </div>
+<header>
+    <h1>Zöldség Adatbázis & Cisco Packet Tracer</h1>
+</header>
 
-    <div class="section">
-      <h2>Switchek (S1_1, S1_2)</h2>
-      <div class="card-grid">
-        <div class="card">
-          <p><strong>Telnet jelszó:</strong> cisco12345</p>
-          <p><strong>Priv. Exec mód jelszó:</strong> cisco12345</p>
-          <p><strong>Banner MOTD:</p>
-          <div class="banner">!!!NEM SZABAD!!!</div>
-        </div>
-      </div>
-    </div>
+<section>
+    <h2>Zöldség Adatbázis</h2>
+    <p>A táblázat információkat tartalmaz különböző zöldségekről, mint például az ár, származási hely, készlet, bio minőség és szezonális jellemzők. A táblázat sötét háttérrel és zöld színnel van kiemelve, hogy könnyebben áttekinthető legyen.</p>
+    
+    <h3>A táblázat oszlopai:</h3>
+    <ul>
+        <li><strong>Név:</strong> A zöldség neve.</li>
+        <li><strong>Ár (Ft/kg):</strong> A zöldség kilogrammonkénti ára magyar forintban.</li>
+        <li><strong>Származási hely:</strong> A zöldség származási helye (pl. Magyarország, Spanyolország, stb.).</li>
+        <li><strong>Készlet (kg):</strong> Az adott zöldség elérhető készlete kilogrammban.</li>
+        <li><strong>BIO:</strong> Jelzi, hogy a zöldség bio minőségű-e. A "Igen" zöld színnel van jelölve, míg a "Nem" piros színnel.</li>
+        <li><strong>Szezonális:</strong> Jelzi, hogy a zöldség szezonális-e. A "Igen" zöld színnel, a "Nem" piros színnel van feltüntetve.</li>
+    </ul>
+    
+    <h3>Részletes információk az egyes zöldségekről:</h3>
+    <ul>
+        <li><strong>Paradicsom:</strong> 780 Ft/kg, Származás: Magyarország, Készlet: 120.5 kg, Bio: Igen, Szezonális: Igen</li>
+        <li><strong>Uborka:</strong> 450 Ft/kg, Származás: Spanyolország, Készlet: 95.3 kg, Bio: Nem, Szezonális: Igen</li>
+        <li><strong>Répa:</strong> 320 Ft/kg, Származás: Magyarország, Készlet: 200 kg, Bio: Igen, Szezonális: Nem</li>
+        <li><strong>Paprika:</strong> 990 Ft/kg, Származás: Hollandia, Készlet: 50 kg, Bio: Nem, Szezonális: Igen</li>
+        <li><strong>Zeller:</strong> 370 Ft/kg, Származás: Szlovákia, Készlet: 80 kg, Bio: Igen, Szezonális: Nem</li>
+        <li><strong>Káposzta:</strong> 290 Ft/kg, Származás: Magyarország, Készlet: 180.7 kg, Bio: Nem, Szezonális: Igen</li>
+        <li><strong>Céklá:</strong> 400 Ft/kg, Származás: Románia, Készlet: 60.2 kg, Bio: Igen, Szezonális: Nem</li>
+        <li><strong>Hagyma:</strong> 250 Ft/kg, Származás: Magyarország, Készlet: 300 kg, Bio: Nem, Szezonális: Igen</li>
+    </ul>
 
-    <div class="section">
-      <h2>Adatbázis információ</h2>
-      <p>Az adatbázis zöldségeket tartalmaz az alábbi mezőkkel:</p>
-      <ul>
-        <li>Ár (Ft/kg)</li>
-        <li>Származási hely</li>
-        <li>Készlet (kg)</li>
-        <li>Bio</li>
-        <li>Szezonális</li>
-      </ul>
+    <div class="table-container">
+     
+</section>
 
-      <div class="commands">
-        <h3>Működő parancsok:</h3>
-        <ul>
-          <li>Összes megjelenítése</li>
-          <li>500 Ft alatti zöldségek</li>
-          <li>Csak bio zöldségek</li>
-          <li>Szezonális zöldségek</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<section>
+    <h2>Cisco Packet Tracer</h2>
+    <p>A képen a Cisco Packet Tracer programban található különböző eszközök konfigurációs felületei láthatóak. Minden egyes képernyő egy adott eszközhöz tartozó beállításokat mutat, például routerek, switchek, és számítógépek IP címzését, interfész beállításait és más hálózati paramétereket.</p>
+    <ul>
+        <li><strong>Eszközök konfigurációja:</strong> A képek bemutatják az eszközök IP címzését és egyéb beállításokat, például a routerekhez tartozó interfészbeállításokat (pl. Ethernet vagy serial portok) és a megfelelő eszközként való azonosítást.</li>
+        <li><strong>Alapbeállítások:</strong> Az eszközök (routerek, switchek, számítógépek) hálózati kapcsolatainak létrehozása és azok alapbeállításai történnek.</li>
+        <li><strong>Részletes eszközinformációk:</strong> Az eszközökön található paraméterek, mint a routereknél a routing információk, vagy a switchek VLAN konfigurációi is megjelenhetnek.</li>
+    </ul>
+</section>
+
 </body>
 </html>
-
