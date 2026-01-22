@@ -18,12 +18,11 @@
         }
 
         /* Gombok konténere */
-        .button-container {
-            display: flex;
-            flex-direction: column; /* Egymás alá kerüljenek (opcionális) */
-            gap: 20px;              /* Távolság a gombok között */
-        }
-
+    .button-container {
+  display: flex;       /* Bekapcsolja a flexbox elrendezést */
+  gap: 10px;           /* Távolság a gombok között */
+  justify-content: flex-start; /* Itt állíthatod: center, flex-end, stb. */
+}
         /* Gombok stílusa */
         .btn {
             padding: 15px 30px;
