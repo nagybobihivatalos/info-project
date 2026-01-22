@@ -2,17 +2,68 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Saját Weboldalam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gombok Középen</title>
+    <style>
+        /* Teljes oldal beállítása */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Vízszintes középre igazítás */
+            align-items: center;     /* Függőleges középre igazítás */
+            height: 100vh;           /* Teljes képernyőmagasság */
+            background-color: black; /* Fekete háttér */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Gombok konténere */
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Egymás alá kerüljenek (opcionális) */
+            gap: 20px;              /* Távolság a gombok között */
+        }
+
+        /* Gombok stílusa */
+        .btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            min-width: 200px;
+        }
+
+        /* Interakció: ha rávisszük az egeret */
+        .btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Vissza gomb egyedi stílusa (opcionális) */
+        .btn-back {
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+
+        .btn-back:hover {
+            background-color: #ff4444;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Üdvözöllek a weboldalamon!</h1>
-    <p>Ez egy egyszerű bekezdés HTML nyelven.</p>
-
-    <ul>
-        <li>Első elem</li>
-        <li>Második elem</li>
-    </ul>
+    <div class="button-container">
+        <a href="#" class="btn">Cisco</a>
+        <a href="#" class="btn">Dokumentáció</a>
+        <a href="javascript:history.back()" class="btn btn-back">Vissza</a>
+    </div>
 
 </body>
 </html>
