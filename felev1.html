@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gombok Oldal</title>
+    <style>
+        /* Fekete háttér és teljes magasság */
+        body {
+            background-color: #000000;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: sans-serif;
+        }
 
+        /* Gombok konténere (egymás mellé teszi őket) */
+        .button-container {
+            display: flex;
+            gap: 20px; /* Távolság a gombok között */
+        }
+
+        /* Alap gomb stílus */
+        .btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            background: transparent;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        /* Hover effektus (ha ráviszed az egeret) */
+        .btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Dokumentáció gomb kiemelése (opcionális) */
+        .btn-docs {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-container">
+        <a href="javascript:history.back()" class="btn">Vissza</a>
+        <a href="dokumentacio.html" class="btn btn-docs">Dokumentáció</a>
+    </div>
+
+</body>
+</html>
