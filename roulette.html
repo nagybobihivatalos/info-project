@@ -1,1 +1,281 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casino Roulette</title>
+
+<style>
+:root{
+  --green:#16a34a;
+  --red:#dc2626;
+  --black:#020617;
+  --gold:#facc15;
+}
+
+*{box-sizing:border-box;font-family:Inter,system-ui}
+
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#1e293b,#020617);
+  color:#e5e7eb;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.casino{
+  width:100%;
+  max-width:1200px;
+  padding:20px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px;
+}
+
+/* WHEEL */
+.wheel-area{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+.wheel{
+  width:350px;
+  height:350px;
+  border-radius:50%;
+  border:12px solid #0f172a;
+  background:conic-gradient(
+    #16a34a 0deg 9deg,
+    #dc2626 9deg 18deg,
+    #020617 18deg 27deg,
+    #dc2626 27deg 36deg,
+    #020617 36deg 45deg,
+    #dc2626 45deg 54deg,
+    #020617 54deg 63deg,
+    #dc2626 63deg 72deg,
+    #020617 72deg 81deg,
+    #dc2626 81deg 90deg
+  );
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:transform 4s cubic-bezier(.17,.67,.12,1);
+}
+
+.ball{
+  width:14px;
+  height:14px;
+  background:white;
+  border-radius:50%;
+  position:absolute;
+  top:10px;
+}
+
+/* BET AREA */
+.bet-area{
+  background:#020617aa;
+  border-radius:16px;
+  padding:20px;
+}
+
+.timer{
+  font-size:1.4rem;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.bets{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:6px;
+}
+
+.bet-num{
+  background:#1e293b;
+  padding:8px;
+  text-align:center;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.bet-red{background:var(--red)}
+.bet-black{background:#020617}
+.bet-green{background:var(--green)}
+
+.controls{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+button{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.spin{background:var(--gold);color:#422006}
+
+/* HUD */
+.hud{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:#020617cc;
+  padding:12px 20px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+.modal.show{
+  opacity:1;
+  pointer-events:auto;
+}
+.modal-box{
+  padding:40px;
+  border-radius:20px;
+  font-size:2rem;
+  font-weight:800;
+  animation:pop .4s ease;
+}
+.win{background:var(--green)}
+.lose{background:var(--red)}
+@keyframes pop{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="casino">
+  <div class="wheel-area">
+    <div class="wheel" id="wheel">
+      <div class="ball"></div>
+    </div>
+  </div>
+
+  <div class="bet-area">
+    <div class="timer">Fogadási idő: <span id="time">10</span>s</div>
+
+    <div class="bets" id="bets"></div>
+
+    <div class="controls">
+      <button class="spin" id="spinBtn">SPIN</button>
+    </div>
+  </div>
+</div>
+
+<div class="hud">💰 Egyenleg: <span id="money">1000</span></div>
+
+<div class="modal" id="modal">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script>
+const wheel=document.getElementById('wheel');
+const betsDiv=document.getElementById('bets');
+const timeEl=document.getElementById('time');
+const moneyEl=document.getElementById('money');
+const modal=document.getElementById('modal');
+const modalBox=document.getElementById('modalBox');
+
+let money=1000;
+let bets=[];
+let time=10;
+let betting=true;
+
+const redNums=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+
+function createBets(){
+  for(let i=0;i<=36;i++){
+    const d=document.createElement('div');
+    d.className='bet-num';
+    if(i===0)d.classList.add('bet-green');
+    else if(redNums.includes(i))d.classList.add('bet-red');
+    else d.classList.add('bet-black');
+    d.textContent=i;
+    d.onclick=()=>placeBet(i,'number');
+    betsDiv.appendChild(d);
+  }
+  ['red','black'].forEach(c=>{
+    const d=document.createElement('div');
+    d.className='bet-num '+(c==='red'?'bet-red':'bet-black');
+    d.textContent=c.toUpperCase();
+    d.onclick=()=>placeBet(c,'color');
+    betsDiv.appendChild(d);
+  });
+}
+
+function placeBet(val,type){
+  if(!betting||money<10)return;
+  bets.push({val,type,amount:10});
+  money-=10;
+  moneyEl.textContent=money;
+}
+
+function countdown(){
+  timeEl.textContent=time;
+  if(time--<=0){
+    betting=false;
+    spin();
+  } else setTimeout(countdown,1000);
+}
+
+function spin(){
+  const result=Math.floor(Math.random()*37);
+  const rotation=360*5+result*9.7;
+  wheel.style.transform=`rotate(${rotation}deg)`;
+
+  setTimeout(()=>resolve(result),4000);
+}
+
+function resolve(num){
+  let win=0;
+  bets.forEach(b=>{
+    if(b.type==='number'&&b.val===num)win+=b.amount*36;
+    if(b.type==='color'){
+      if(b.val==='red'&&redNums.includes(num))win+=b.amount*2;
+      if(b.val==='black'&&!redNums.includes(num)&&num!==0)win+=b.amount*2;
+    }
+  });
+  money+=win;
+  showModal(win>0?`NYERTÉL +${win}`:'VESZTETTÉL',win>0);
+  bets=[];
+  time=10;
+  betting=true;
+  setTimeout(()=>countdown(),2000);
+}
+
+function showModal(text,win){
+  modalBox.textContent=text;
+  modalBox.className='modal-box '+(win?'win':'lose');
+  modal.classList.add('show');
+  setTimeout(()=>modal.classList.remove('show'),2000);
+}
+
+createBets();
+countdown();
+</script>
+</body>
+</html>
 
