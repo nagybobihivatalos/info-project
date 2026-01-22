@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Casino Roulette</title>
+<title>Modern Roulette</title>
 
 <style>
 :root{
-  --green:#16a34a;
-  --red:#dc2626;
-  --black:#020617;
+  --felt:#0a5c3b;
+  --felt-dark:#064e3b;
+  --red:#c81e1e;
+  --black:#0b0f19;
+  --green:#15803d;
   --gold:#facc15;
 }
 
@@ -19,121 +21,131 @@ body{
   margin:0;
   background:radial-gradient(circle at top,#1e293b,#020617);
   color:#e5e7eb;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
 }
 
 .casino{
-  width:100%;
-  max-width:1200px;
-  padding:20px;
   display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:20px;
+  grid-template-columns:420px 1fr;
+  gap:30px;
+  padding:30px;
+  max-width:1400px;
+  margin:auto;
 }
 
-/* WHEEL */
-.wheel-area{
-  display:flex;
-  justify-content:center;
-  align-items:center;
+/* ================= WHEEL ================= */
+
+.wheel-wrapper{
   position:relative;
+  width:420px;
+  height:420px;
+  margin:auto;
 }
 
 .wheel{
-  width:350px;
-  height:350px;
+  width:100%;
+  height:100%;
   border-radius:50%;
-  border:12px solid #0f172a;
-  background:conic-gradient(
-    #16a34a 0deg 9deg,
-    #dc2626 9deg 18deg,
-    #020617 18deg 27deg,
-    #dc2626 27deg 36deg,
-    #020617 36deg 45deg,
-    #dc2626 45deg 54deg,
-    #020617 54deg 63deg,
-    #dc2626 63deg 72deg,
-    #020617 72deg 81deg,
-    #dc2626 81deg 90deg
-  );
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  transition:transform 4s cubic-bezier(.17,.67,.12,1);
+  background:
+    radial-gradient(circle at center,#444 0%,#111 35%,transparent 36%),
+    conic-gradient(
+      #15803d 0deg 9.7deg,
+      #0b0f19 9.7deg 19.4deg,
+      #c81e1e 19.4deg 29.1deg,
+      #0b0f19 29.1deg 38.8deg,
+      #c81e1e 38.8deg 48.5deg,
+      #0b0f19 48.5deg 58.2deg,
+      #c81e1e 58.2deg 67.9deg,
+      #0b0f19 67.9deg 77.6deg,
+      #c81e1e 77.6deg 87.3deg
+    );
+  border:14px solid #1e293b;
+  box-shadow:inset 0 0 30px #000,0 30px 60px rgba(0,0,0,.7);
+  transition:transform 6s cubic-bezier(.1,.6,.1,1);
 }
 
 .ball{
+  position:absolute;
   width:14px;
   height:14px;
   background:white;
   border-radius:50%;
-  position:absolute;
-  top:10px;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  box-shadow:0 0 10px rgba(255,255,255,.8);
+  transition:transform 6s cubic-bezier(.1,.6,.1,1);
 }
 
-/* BET AREA */
-.bet-area{
-  background:#020617aa;
-  border-radius:16px;
+/* ================= TABLE ================= */
+
+.table{
+  background:linear-gradient(180deg,var(--felt),var(--felt-dark));
+  border-radius:20px;
   padding:20px;
+  box-shadow:0 30px 60px rgba(0,0,0,.6);
 }
 
-.timer{
-  font-size:1.4rem;
-  font-weight:800;
-  margin-bottom:10px;
-}
-
-.bets{
+.grid{
   display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:6px;
+  grid-template-columns:60px repeat(3,1fr);
+  gap:4px;
 }
 
-.bet-num{
-  background:#1e293b;
-  padding:8px;
-  text-align:center;
+.zero{
+  grid-row:1 / span 12;
+  background:var(--green);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:1.2rem;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.cell{
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
   border-radius:6px;
   cursor:pointer;
+  position:relative;
 }
 
-.bet-red{background:var(--red)}
-.bet-black{background:#020617}
-.bet-green{background:var(--green)}
+.red{background:var(--red)}
+.black{background:var(--black)}
 
-.controls{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
+.cell:hover,.zero:hover{
+  outline:2px solid var(--gold);
 }
 
-button{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-}
+/* ================= HUD ================= */
 
-.spin{background:var(--gold);color:#422006}
-
-/* HUD */
 .hud{
   position:fixed;
   bottom:20px;
   left:20px;
   background:#020617cc;
-  padding:12px 20px;
-  border-radius:12px;
+  padding:14px 20px;
+  border-radius:14px;
   font-weight:700;
+  display:flex;
+  gap:20px;
 }
 
-/* MODAL */
+/* ================= TIMER ================= */
+
+.timer{
+  text-align:center;
+  font-size:1.4rem;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+/* ================= MODAL ================= */
+
 .modal{
   position:fixed;
   inset:0;
@@ -145,19 +157,19 @@ button{
   pointer-events:none;
   transition:.3s;
 }
-.modal.show{
-  opacity:1;
-  pointer-events:auto;
-}
+.modal.show{opacity:1;pointer-events:auto}
+
 .modal-box{
-  padding:40px;
-  border-radius:20px;
-  font-size:2rem;
-  font-weight:800;
+  padding:40px 60px;
+  border-radius:24px;
+  font-size:2.2rem;
+  font-weight:900;
   animation:pop .4s ease;
 }
-.win{background:var(--green)}
-.lose{background:var(--red)}
+
+.win{background:#16a34a;color:#022c22}
+.lose{background:#dc2626;color:#450a0a}
+
 @keyframes pop{
   from{transform:scale(.7);opacity:0}
   to{transform:scale(1);opacity:1}
@@ -168,114 +180,91 @@ button{
 <body>
 
 <div class="casino">
-  <div class="wheel-area">
-    <div class="wheel" id="wheel">
-      <div class="ball"></div>
-    </div>
+  <div class="wheel-wrapper">
+    <div class="wheel" id="wheel"></div>
+    <div class="ball" id="ball"></div>
   </div>
 
-  <div class="bet-area">
-    <div class="timer">Fogadási idő: <span id="time">10</span>s</div>
-
-    <div class="bets" id="bets"></div>
-
-    <div class="controls">
-      <button class="spin" id="spinBtn">SPIN</button>
-    </div>
+  <div class="table">
+    <div class="timer">Fogadás: <span id="time">10</span>s</div>
+    <div class="grid" id="grid"></div>
   </div>
 </div>
 
-<div class="hud">💰 Egyenleg: <span id="money">1000</span></div>
+<div class="hud">
+  💰 Egyenleg: <span id="money">1000</span>
+</div>
 
 <div class="modal" id="modal">
   <div class="modal-box" id="modalBox"></div>
 </div>
 
 <script>
+const redNums=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+const grid=document.getElementById('grid');
 const wheel=document.getElementById('wheel');
-const betsDiv=document.getElementById('bets');
+const ball=document.getElementById('ball');
 const timeEl=document.getElementById('time');
 const moneyEl=document.getElementById('money');
 const modal=document.getElementById('modal');
 const modalBox=document.getElementById('modalBox');
 
-let money=1000;
-let bets=[];
-let time=10;
-let betting=true;
+let money=1000, bets=[], time=10, betting=true;
 
-const redNums=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+/* TABLE */
+const zero=document.createElement('div');
+zero.className='zero';
+zero.textContent='0';
+zero.onclick=()=>bet(0);
+grid.appendChild(zero);
 
-function createBets(){
-  for(let i=0;i<=36;i++){
-    const d=document.createElement('div');
-    d.className='bet-num';
-    if(i===0)d.classList.add('bet-green');
-    else if(redNums.includes(i))d.classList.add('bet-red');
-    else d.classList.add('bet-black');
-    d.textContent=i;
-    d.onclick=()=>placeBet(i,'number');
-    betsDiv.appendChild(d);
-  }
-  ['red','black'].forEach(c=>{
-    const d=document.createElement('div');
-    d.className='bet-num '+(c==='red'?'bet-red':'bet-black');
-    d.textContent=c.toUpperCase();
-    d.onclick=()=>placeBet(c,'color');
-    betsDiv.appendChild(d);
-  });
+for(let i=1;i<=36;i++){
+  const d=document.createElement('div');
+  d.className='cell '+(redNums.includes(i)?'red':'black');
+  d.textContent=i;
+  d.onclick=()=>bet(i);
+  grid.appendChild(d);
 }
 
-function placeBet(val,type){
+function bet(n){
   if(!betting||money<10)return;
-  bets.push({val,type,amount:10});
+  bets.push(n);
   money-=10;
   moneyEl.textContent=money;
 }
 
-function countdown(){
+/* TIMER */
+(function countdown(){
   timeEl.textContent=time;
-  if(time--<=0){
-    betting=false;
-    spin();
-  } else setTimeout(countdown,1000);
-}
+  if(time--<=0){betting=false;spin();}
+  else setTimeout(countdown,1000);
+})();
 
+/* SPIN */
 function spin(){
   const result=Math.floor(Math.random()*37);
-  const rotation=360*5+result*9.7;
-  wheel.style.transform=`rotate(${rotation}deg)`;
-
-  setTimeout(()=>resolve(result),4000);
+  const rot=360*6+result*9.7;
+  wheel.style.transform=`rotate(${rot}deg)`;
+  ball.style.transform=`translateX(-50%) rotate(${-rot}deg)`;
+  setTimeout(()=>resolve(result),6000);
 }
 
 function resolve(num){
-  let win=0;
-  bets.forEach(b=>{
-    if(b.type==='number'&&b.val===num)win+=b.amount*36;
-    if(b.type==='color'){
-      if(b.val==='red'&&redNums.includes(num))win+=b.amount*2;
-      if(b.val==='black'&&!redNums.includes(num)&&num!==0)win+=b.amount*2;
-    }
-  });
+  let win=bets.filter(b=>b===num).length*360;
   money+=win;
-  showModal(win>0?`NYERTÉL +${win}`:'VESZTETTÉL',win>0);
+  moneyEl.textContent=money;
+  show(win>0?`NYERTÉL ${win}`:`VESZTETTÉL`,win>0);
   bets=[];
   time=10;
   betting=true;
-  setTimeout(()=>countdown(),2000);
+  setTimeout(()=>location.reload(),2500);
 }
 
-function showModal(text,win){
+function show(text,win){
   modalBox.textContent=text;
   modalBox.className='modal-box '+(win?'win':'lose');
   modal.classList.add('show');
-  setTimeout(()=>modal.classList.remove('show'),2000);
 }
-
-createBets();
-countdown();
 </script>
 </body>
 </html>
-
