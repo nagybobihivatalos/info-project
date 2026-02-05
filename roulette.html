@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modern Roulette</title>
+<title>Dark Roulette</title>
 
 <style>
 :root{
-  --felt:#0a5c3b;
-  --felt-dark:#064e3b;
-  --red:#c81e1e;
-  --black:#0b0f19;
-  --green:#15803d;
+  --bg:#020617;
+  --panel:#020617cc;
+  --felt:#064e3b;
+  --green:#16a34a;
+  --red:#dc2626;
+  --black:#020617;
   --gold:#facc15;
 }
 
@@ -23,164 +24,195 @@ body{
   color:#e5e7eb;
 }
 
+/* ===== LAYOUT ===== */
 .casino{
   display:grid;
-  grid-template-columns:420px 1fr;
-  gap:30px;
-  padding:30px;
+  grid-template-columns:460px 1fr;
+  gap:40px;
+  padding:40px;
   max-width:1400px;
   margin:auto;
 }
 
-/* ================= WHEEL ================= */
-
+/* ===== WHEEL ===== */
 .wheel-wrapper{
   position:relative;
-  width:420px;
-  height:420px;
+  width:460px;
+  height:460px;
   margin:auto;
+}
+
+.pointer{
+  position:absolute;
+  top:-6px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;height:0;
+  border-left:14px solid transparent;
+  border-right:14px solid transparent;
+  border-bottom:24px solid var(--gold);
+  filter:drop-shadow(0 0 10px #facc15aa);
+  z-index:5;
 }
 
 .wheel{
   width:100%;
   height:100%;
   border-radius:50%;
-  background:
-    radial-gradient(circle at center,#444 0%,#111 35%,transparent 36%),
-    conic-gradient(
-      #15803d 0deg 9.7deg,
-      #0b0f19 9.7deg 19.4deg,
-      #c81e1e 19.4deg 29.1deg,
-      #0b0f19 29.1deg 38.8deg,
-      #c81e1e 38.8deg 48.5deg,
-      #0b0f19 48.5deg 58.2deg,
-      #c81e1e 58.2deg 67.9deg,
-      #0b0f19 67.9deg 77.6deg,
-      #c81e1e 77.6deg 87.3deg
-    );
-  border:14px solid #1e293b;
-  box-shadow:inset 0 0 30px #000,0 30px 60px rgba(0,0,0,.7);
-  transition:transform 6s cubic-bezier(.1,.6,.1,1);
+  border:16px solid #020617;
+  box-shadow:
+    inset 0 0 40px #000,
+    0 40px 80px rgba(0,0,0,.8);
+  background:conic-gradient(
+    #16a34a 0deg 9.73deg,
+    #020617 9.73deg 19.46deg,
+    #dc2626 19.46deg 29.19deg,
+    #020617 29.19deg 38.92deg,
+    #dc2626 38.92deg 48.65deg,
+    #020617 48.65deg 58.38deg,
+    #dc2626 58.38deg 68.11deg,
+    #020617 68.11deg 77.84deg,
+    #dc2626 77.84deg 87.57deg,
+    #020617 87.57deg 97.3deg,
+    #dc2626 97.3deg 107.03deg,
+    #020617 107.03deg 116.76deg,
+    #dc2626 116.76deg 126.49deg,
+    #020617 126.49deg 136.22deg,
+    #dc2626 136.22deg 145.95deg,
+    #020617 145.95deg 155.68deg,
+    #dc2626 155.68deg 165.41deg,
+    #020617 165.41deg 175.14deg,
+    #dc2626 175.14deg 184.87deg,
+    #020617 184.87deg 194.6deg,
+    #dc2626 194.6deg 204.33deg,
+    #020617 204.33deg 214.06deg,
+    #dc2626 214.06deg 223.79deg,
+    #020617 223.79deg 233.52deg,
+    #dc2626 233.52deg 243.25deg,
+    #020617 243.25deg 252.98deg,
+    #dc2626 252.98deg 262.71deg,
+    #020617 262.71deg 272.44deg,
+    #dc2626 272.44deg 282.17deg,
+    #020617 282.17deg 291.9deg,
+    #dc2626 291.9deg 301.63deg,
+    #020617 301.63deg 311.36deg,
+    #dc2626 311.36deg 321.09deg,
+    #020617 321.09deg 330.82deg,
+    #dc2626 330.82deg 340.55deg,
+    #020617 340.55deg 350.28deg,
+    #dc2626 350.28deg 360deg
+  );
+  transition:transform 7s cubic-bezier(.08,.6,.05,1);
 }
 
 .ball{
   position:absolute;
-  width:14px;
-  height:14px;
+  width:14px;height:14px;
   background:white;
   border-radius:50%;
   top:18px;
   left:50%;
   transform:translateX(-50%);
-  box-shadow:0 0 10px rgba(255,255,255,.8);
-  transition:transform 6s cubic-bezier(.1,.6,.1,1);
+  box-shadow:0 0 14px white;
+  z-index:4;
+  transition:transform 7s cubic-bezier(.08,.6,.05,1);
 }
 
-/* ================= TABLE ================= */
-
+/* ===== TABLE ===== */
 .table{
-  background:linear-gradient(180deg,var(--felt),var(--felt-dark));
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 30px 60px rgba(0,0,0,.6);
+  background:linear-gradient(180deg,#064e3b,#022c22);
+  border-radius:24px;
+  padding:30px;
+  box-shadow:0 40px 80px rgba(0,0,0,.7);
+}
+
+.timer{
+  text-align:center;
+  font-size:1.4rem;
+  font-weight:900;
+  margin-bottom:20px;
 }
 
 .grid{
   display:grid;
   grid-template-columns:60px repeat(3,1fr);
-  gap:4px;
+  gap:6px;
 }
 
 .zero{
-  grid-row:1 / span 12;
+  grid-row:1/span 12;
   background:var(--green);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:800;
-  font-size:1.2rem;
-  border-radius:8px;
+  font-weight:900;
+  font-size:1.3rem;
+  border-radius:10px;
   cursor:pointer;
 }
 
 .cell{
-  height:42px;
+  height:46px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:700;
-  border-radius:6px;
+  font-weight:800;
+  border-radius:8px;
   cursor:pointer;
-  position:relative;
 }
 
 .red{background:var(--red)}
-.black{background:var(--black)}
+.black{background:#020617}
 
 .cell:hover,.zero:hover{
   outline:2px solid var(--gold);
 }
 
-/* ================= HUD ================= */
-
+/* ===== HUD ===== */
 .hud{
   position:fixed;
-  bottom:20px;
-  left:20px;
-  background:#020617cc;
-  padding:14px 20px;
-  border-radius:14px;
-  font-weight:700;
-  display:flex;
-  gap:20px;
-}
-
-/* ================= TIMER ================= */
-
-.timer{
-  text-align:center;
-  font-size:1.4rem;
+  bottom:24px;
+  left:24px;
+  background:var(--panel);
+  padding:16px 24px;
+  border-radius:16px;
   font-weight:800;
-  margin-bottom:10px;
+  backdrop-filter:blur(10px);
 }
 
-/* ================= MODAL ================= */
-
+/* ===== MODAL ===== */
 .modal{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.6);
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   opacity:0;
   pointer-events:none;
   transition:.3s;
 }
+
 .modal.show{opacity:1;pointer-events:auto}
 
 .modal-box{
-  padding:40px 60px;
-  border-radius:24px;
-  font-size:2.2rem;
+  padding:40px 70px;
+  border-radius:26px;
+  font-size:2.4rem;
   font-weight:900;
-  animation:pop .4s ease;
 }
 
 .win{background:#16a34a;color:#022c22}
 .lose{background:#dc2626;color:#450a0a}
-
-@keyframes pop{
-  from{transform:scale(.7);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
 </style>
 </head>
 
 <body>
 
 <div class="casino">
+
   <div class="wheel-wrapper">
+    <div class="pointer"></div>
     <div class="wheel" id="wheel"></div>
     <div class="ball" id="ball"></div>
   </div>
@@ -189,11 +221,10 @@ body{
     <div class="timer">Fogadás: <span id="time">10</span>s</div>
     <div class="grid" id="grid"></div>
   </div>
+
 </div>
 
-<div class="hud">
-  💰 Egyenleg: <span id="money">1000</span>
-</div>
+<div class="hud">💰 Egyenleg: <span id="money">1000</span></div>
 
 <div class="modal" id="modal">
   <div class="modal-box" id="modalBox"></div>
@@ -201,15 +232,15 @@ body{
 
 <script>
 const redNums=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
-const grid=document.getElementById('grid');
 const wheel=document.getElementById('wheel');
 const ball=document.getElementById('ball');
+const grid=document.getElementById('grid');
 const timeEl=document.getElementById('time');
 const moneyEl=document.getElementById('money');
 const modal=document.getElementById('modal');
 const modalBox=document.getElementById('modalBox');
 
-let money=1000, bets=[], time=10, betting=true;
+let money=1000,bets=[],time=10,betting=true;
 
 /* TABLE */
 const zero=document.createElement('div');
@@ -234,37 +265,39 @@ function bet(n){
 }
 
 /* TIMER */
-(function countdown(){
+(function tick(){
   timeEl.textContent=time;
   if(time--<=0){betting=false;spin();}
-  else setTimeout(countdown,1000);
+  else setTimeout(tick,1000);
 })();
 
 /* SPIN */
 function spin(){
   const result=Math.floor(Math.random()*37);
-  const rot=360*6+result*9.7;
+  const slice=360/37;
+  const rot=360*8 + result*slice;
   wheel.style.transform=`rotate(${rot}deg)`;
   ball.style.transform=`translateX(-50%) rotate(${-rot}deg)`;
-  setTimeout(()=>resolve(result),6000);
+  setTimeout(()=>resolve(result),7000);
 }
 
 function resolve(num){
-  let win=bets.filter(b=>b===num).length*360;
+  const win=bets.filter(b=>b===num).length*360;
   money+=win;
   moneyEl.textContent=money;
   show(win>0?`NYERTÉL ${win}`:`VESZTETTÉL`,win>0);
   bets=[];
   time=10;
   betting=true;
-  setTimeout(()=>location.reload(),2500);
+  setTimeout(()=>modal.classList.remove('show'),2500);
 }
 
-function show(text,win){
-  modalBox.textContent=text;
+function show(txt,win){
+  modalBox.textContent=txt;
   modalBox.className='modal-box '+(win?'win':'lose');
   modal.classList.add('show');
 }
 </script>
+
 </body>
 </html>
