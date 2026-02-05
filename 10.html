@@ -108,39 +108,6 @@
     <button onclick="addItem()">Hozzáadás</button>
 
     <ul id="itemList"></ul>
-
-    <script>
-        // 1. Adatok betöltése az oldal indulásakor
-        window.onload = function() {
-            const savedData = JSON.parse(localStorage.getItem('myList')) || [];
-            savedData.forEach(text => renderItem(text));
-        };
-
-        function addItem() {
-            const input = document.getElementById('itemInput');
-            const text = input.value.trim();
-
-            if (text) {
-                renderItem(text);
-                saveToStorage(text);
-                input.value = ''; // Mező ürítése
-            }
-        }
-
-        // Megjelenítés a listában
-        function renderItem(text) {
-            const li = document.createElement('li');
-            li.textContent = text;
-            document.getElementById('itemList').appendChild(li);
-        }
-
-        // 2. Mentés LocalStorage-be
-        function saveToStorage(newItem) {
-            const currentData = JSON.parse(localStorage.getItem('myList')) || [];
-            currentData.push(newItem);
-            localStorage.setItem('myList', JSON.stringify(currentData));
-        }
-    </script>
     <main>
         <div class="button-container">
             <a href="elsofelev.html" class="nav-button">1.félév</a>
@@ -156,4 +123,5 @@
 </body>
 </html>
     
+
 
