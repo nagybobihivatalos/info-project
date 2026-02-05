@@ -1,310 +1,411 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shuffle Roulette</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Roulette Pro</title>
+    <style>
+        :root {
+            --bg: #05070a;
+            --panel: #0f172a;
+            --accent: #38bdf8;
+            --gold: #fbbf24;
+            --red: #f43f5e;
+            --black: #1e293b;
+            --green: #10b981;
+            --text: #f8fafc;
+        }
 
-<style>
-:root{
-  --bg:#0b0f19;
-  --panel:#111827;
-  --ring:#020617;
-  --red:#ef4444;
-  --black:#020617;
-  --green:#22c55e;
-  --gold:#facc15;
-}
+        * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
 
-*{box-sizing:border-box;font-family:Inter,system-ui}
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #05070a 70%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
 
-body{
-  margin:0;
-  background:radial-gradient(circle at top,#1e293b,#020617);
-  color:#e5e7eb;
-}
+        /* === KERÉK STÍLUS === */
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px;
+            max-width: 1400px;
+            width: 100%;
+        }
 
-/* ===== LAYOUT ===== */
-.app{
-  max-width:1200px;
-  margin:auto;
-  padding:40px;
-  display:grid;
-  grid-template-columns:520px 1fr;
-  gap:40px;
-}
+        .wheel-section {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
 
-/* ===== WHEEL ===== */
-.wheel-wrap{
-  position:relative;
-  width:520px;
-  height:520px;
-  margin:auto;
-}
+        .wheel-outer {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 12px solid #334155;
+            position: relative;
+            background: #020617;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(0,0,0,0.5);
+            transition: transform 6s cubic-bezier(0.1, 0, 0.1, 1);
+        }
 
-.pointer{
-  position:absolute;
-  top:-6px;
-  left:50%;
-  transform:translateX(-50%);
-  width:0;height:0;
-  border-left:14px solid transparent;
-  border-right:14px solid transparent;
-  border-bottom:26px solid var(--gold);
-  filter:drop-shadow(0 0 12px #facc15aa);
-  z-index:5;
-}
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            width: 30px;
+            filter: drop-shadow(0 0 5px var(--gold));
+        }
 
-.wheel{
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  background:conic-gradient(
-    #22c55e 0deg 9.73deg,
-    #020617 9.73deg 19.46deg,
-    #ef4444 19.46deg 29.19deg,
-    #020617 29.19deg 38.92deg,
-    #ef4444 38.92deg 48.65deg,
-    #020617 48.65deg 58.38deg,
-    #ef4444 58.38deg 68.11deg,
-    #020617 68.11deg 77.84deg,
-    #ef4444 77.84deg 87.57deg,
-    #020617 87.57deg 97.3deg,
-    #ef4444 97.3deg 107.03deg,
-    #020617 107.03deg 116.76deg,
-    #ef4444 116.76deg 126.49deg,
-    #020617 126.49deg 136.22deg,
-    #ef4444 136.22deg 145.95deg,
-    #020617 145.95deg 155.68deg,
-    #ef4444 155.68deg 165.41deg,
-    #020617 165.41deg 175.14deg,
-    #ef4444 175.14deg 184.87deg,
-    #020617 184.87deg 194.6deg,
-    #ef4444 194.6deg 204.33deg,
-    #020617 204.33deg 214.06deg,
-    #ef4444 214.06deg 223.79deg,
-    #020617 223.79deg 233.52deg,
-    #ef4444 233.52deg 243.25deg,
-    #020617 243.25deg 252.98deg,
-    #ef4444 252.98deg 262.71deg,
-    #020617 262.71deg 272.44deg,
-    #ef4444 272.44deg 282.17deg,
-    #020617 282.17deg 291.9deg,
-    #ef4444 291.9deg 301.63deg,
-    #020617 301.63deg 311.36deg,
-    #ef4444 311.36deg 321.09deg,
-    #020617 321.09deg 330.82deg,
-    #ef4444 330.82deg 340.55deg,
-    #020617 340.55deg 350.28deg,
-    #ef4444 350.28deg 360deg
-  );
-  border:18px solid var(--ring);
-  box-shadow:
-    inset 0 0 40px #000,
-    0 40px 90px rgba(0,0,0,.9);
-  transition:transform 8s cubic-bezier(.08,.6,.05,1);
-}
+        /* === TÁBLA STÍLUS === */
+        .betting-table {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            backdrop-filter: blur(10px);
+            display: grid;
+            gap: 10px;
+        }
 
-.ball-track{
-  position:absolute;
-  inset:20px;
-  border-radius:50%;
-  pointer-events:none;
-}
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: 50px repeat(12, 60px);
+            grid-template-rows: repeat(3, 60px);
+            gap: 4px;
+        }
 
-.ball{
-  position:absolute;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:14px;
-  height:14px;
-  background:white;
-  border-radius:50%;
-  box-shadow:0 0 14px white;
-  transition:transform 8s cubic-bezier(.1,.7,.1,1);
-}
+        .zero { grid-row: 1 / span 3; background: var(--green); }
+        
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            position: relative;
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-/* ===== UI ===== */
-.panel{
-  background:var(--panel);
-  border-radius:24px;
-  padding:30px;
-  box-shadow:0 30px 70px rgba(0,0,0,.7);
-}
+        .cell:hover { transform: scale(1.05); z-index: 2; border-color: var(--gold); }
+        
+        .cell.red { background: var(--red); }
+        .cell.black { background: var(--black); }
 
-.timer{
-  text-align:center;
-  font-size:1.4rem;
-  font-weight:900;
-  margin-bottom:20px;
-}
+        .chip-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--gold);
+            color: black;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 10px;
+            display: none;
+        }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:8px;
-}
+        .special-bets {
+            display: grid;
+            grid-template-columns: 50px repeat(3, 1fr);
+            gap: 4px;
+            margin-top: 4px;
+        }
 
-.bet{
-  height:42px;
-  border-radius:10px;
-  font-weight:800;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-}
+        .outside-bets {
+            display: grid;
+            grid-template-columns: 50px repeat(6, 1fr);
+            gap: 4px;
+            margin-top: 4px;
+        }
 
-.red{background:#ef4444}
-.black{background:#020617}
-.green{background:#22c55e}
+        .outside-cell {
+            height: 50px;
+            background: #1e293b;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
 
-.bet:hover{outline:2px solid var(--gold)}
+        /* === HUD === */
+        .status-bar {
+            width: 100%;
+            background: #0f172a;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.hud{
-  position:fixed;
-  bottom:24px;
-  left:24px;
-  background:#020617cc;
-  padding:16px 24px;
-  border-radius:16px;
-  font-weight:800;
-  backdrop-filter:blur(10px);
-}
+        .balance { font-size: 1.5rem; color: var(--gold); font-weight: 900; }
+        .timer { font-size: 1.2rem; font-family: monospace; }
+        
+        .btn-clear {
+            background: #475569;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
 
-/* ===== RESULT ===== */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-}
+        /* === MODAL === */
+        #modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
 
-.modal.show{opacity:1;pointer-events:auto}
-
-.result{
-  padding:40px 70px;
-  border-radius:28px;
-  font-size:2.4rem;
-  font-weight:900;
-}
-
-.win{background:#22c55e;color:#052e16}
-.lose{background:#ef4444;color:#450a0a}
-</style>
+        .win-text { font-size: 4rem; font-weight: 900; margin: 0; }
+        .num-circle { 
+            width: 100px; height: 100px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; margin-bottom: 20px; border: 5px solid white;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="app">
-
-  <div class="wheel-wrap">
-    <div class="pointer"></div>
-    <div class="wheel" id="wheel"></div>
-    <div class="ball-track">
-      <div class="ball" id="ball"></div>
-    </div>
-  </div>
-
-  <div class="panel">
-    <div class="timer">Fogadás lezár: <span id="time">10</span>s</div>
-    <div class="grid" id="grid"></div>
-  </div>
-
+<div class="status-bar">
+    <div class="timer">KÖVETKEZŐ KÖR: <span id="time">15</span>s</div>
+    <div class="balance">EGYENLEG: <span id="money">5000</span> Ft</div>
+    <button class="btn-clear" onclick="clearBets()">Törlés</button>
 </div>
 
-<div class="hud">💰 <span id="money">1000</span></div>
+<div class="game-container">
+    <div class="wheel-section">
+        <svg class="pointer" viewBox="0 0 30 30"><path fill="#fbbf24" d="M15 30L0 0h30z"/></svg>
+        <canvas id="wheelCanvas" width="400" height="400" class="wheel-outer"></canvas>
+    </div>
 
-<div class="modal" id="modal">
-  <div class="result" id="resultBox"></div>
+    <div class="betting-table">
+        <div class="numbers-grid" id="grid">
+            <div class="cell zero" onclick="placeBet('0')">0<span class="chip-count"></span></div>
+            </div>
+        
+        <div class="special-bets">
+            <div></div>
+            <div class="outside-cell" onclick="placeBet('1st12')">1st 12<span class="chip-count"></span></div>
+            <div class="outside-cell" onclick="placeBet('2nd12')">2nd 12<span class="chip-count"></span></div>
+            <div class="outside-cell" onclick="placeBet('3rd12')">3rd 12<span class="chip-count"></span></div>
+        </div>
+
+        <div class="outside-bets">
+            <div></div>
+            <div class="outside-cell" onclick="placeBet('low')">1-18<span class="chip-count"></span></div>
+            <div class="outside-cell" onclick="placeBet('even')">Even<span class="chip-count"></span></div>
+            <div class="outside-cell red" onclick="placeBet('red')">Red</div>
+            <div class="outside-cell black" onclick="placeBet('black')">Black</div>
+            <div class="outside-cell" onclick="placeBet('odd')">Odd<span class="chip-count"></span></div>
+            <div class="outside-cell" onclick="placeBet('high')">19-36<span class="chip-count"></span></div>
+        </div>
+    </div>
+</div>
+
+<div id="modal">
+    <div class="num-circle" id="winningNumCircle">?</div>
+    <h1 class="win-text" id="resultMsg">NYERTÉL!</h1>
+    <p id="winAmount" style="font-size: 1.5rem; color: var(--gold)"></p>
 </div>
 
 <script>
-const redNums=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
-const order=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+    const redNums = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+    const order = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
+    
+    let money = 5000;
+    let currentBets = {}; // { betId: amount }
+    let isBettingOpen = true;
+    let timeLeft = 15;
 
-const wheel=document.getElementById('wheel');
-const ball=document.getElementById('ball');
-const grid=document.getElementById('grid');
-const timeEl=document.getElementById('time');
-const moneyEl=document.getElementById('money');
-const modal=document.getElementById('modal');
-const resultBox=document.getElementById('resultBox');
+    // Kerék rajzolása Canvas-szal a textúra miatt
+    function drawWheel() {
+        const canvas = document.getElementById('wheelCanvas');
+        const ctx = canvas.getContext('2d');
+        const slice = (Math.PI * 2) / 37;
 
-let money=1000,bets=[],time=10,betting=true,interval;
-
-/* BUILD BETS */
-for(let i=0;i<=36;i++){
-  const b=document.createElement('div');
-  b.className='bet '+(i===0?'green':redNums.includes(i)?'red':'black');
-  b.textContent=i;
-  b.onclick=()=>bet(i);
-  grid.appendChild(b);
-}
-
-function bet(n){
-  if(!betting||money<10)return;
-  bets.push(n);
-  money-=10;
-  moneyEl.textContent=money;
-}
-
-/* TIMER */
-function startTimer(){
-  clearInterval(interval);
-  time=10;
-  betting=true;
-  timeEl.textContent=time;
-  interval=setInterval(()=>{
-    time--;
-    timeEl.textContent=time;
-    if(time<=0){
-      clearInterval(interval);
-      betting=false;
-      spin();
+        order.forEach((num, i) => {
+            const angle = i * slice;
+            ctx.beginPath();
+            ctx.fillStyle = num === 0 ? "#10b981" : (redNums.includes(num) ? "#f43f5e" : "#1e293b");
+            ctx.moveTo(200, 200);
+            ctx.arc(200, 200, 190, angle, angle + slice);
+            ctx.fill();
+            
+            ctx.save();
+            ctx.translate(200, 200);
+            ctx.rotate(angle + slice / 2);
+            ctx.fillStyle = "white";
+            ctx.font = "bold 14px Arial";
+            ctx.fillText(num, 150, 5);
+            ctx.restore();
+        });
     }
-  },1000);
-}
-startTimer();
 
-/* SPIN */
-function spin(){
-  const result=order[Math.floor(Math.random()*order.length)];
-  const slice=360/37;
-  const index=order.indexOf(result);
+    // Tábla generálása
+    function initGrid() {
+        const grid = document.getElementById('grid');
+        // A rulett tábla 3 soros, oszloponként töltjük fel
+        for (let col = 1; col <= 12; col++) {
+            for (let row = 3; row >= 1; row--) {
+                const num = (col - 1) * 3 + row;
+                const cell = document.createElement('div');
+                cell.className = `cell ${redNums.includes(num) ? 'red' : 'black'}`;
+                cell.innerHTML = `${num}<span class="chip-count"></span>`;
+                cell.style.gridColumn = col + 1;
+                cell.style.gridRow = 4 - row;
+                cell.onclick = () => placeBet(num.toString());
+                grid.appendChild(cell);
+            }
+        }
+    }
 
-  const wheelRot=360*6 + index*slice;
-  const ballRot=-(360*9 + index*slice + 20);
+    function placeBet(id) {
+        if (!isBettingOpen || money < 100) return;
+        
+        money -= 100;
+        currentBets[id] = (currentBets[id] || 0) + 100;
+        updateUI();
+    }
 
-  wheel.style.transform=`rotate(${wheelRot}deg)`;
-  ball.style.transform=`translateX(-50%) rotate(${ballRot}deg)`;
+    function clearBets() {
+        if (!isBettingOpen) return;
+        Object.values(currentBets).forEach(v => money += v);
+        currentBets = {};
+        updateUI();
+    }
 
-  setTimeout(()=>resolve(result),8000);
-}
+    function updateUI() {
+        document.getElementById('money').textContent = money;
+        document.querySelectorAll('.chip-count').forEach(el => {
+            const betId = el.parentElement.getAttribute('onclick')?.match(/'([^']+)'/)[1];
+            if (currentBets[betId]) {
+                el.textContent = currentBets[betId];
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        });
+    }
 
-function resolve(num){
-  const win=bets.filter(b=>b===num).length*360;
-  money+=win;
-  moneyEl.textContent=money;
-  show(win>0?`NYERTÉL ${win}`:`VESZTETTÉL`,win>0);
-  bets=[];
-  setTimeout(()=>{
-    modal.classList.remove('show');
+    function startTimer() {
+        const timerEl = document.getElementById('time');
+        const interval = setInterval(() => {
+            timeLeft--;
+            timerEl.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                isBettingOpen = false;
+                spin();
+            }
+        }, 1000);
+    }
+
+    function spin() {
+        const winningNum = order[Math.floor(Math.random() * 37)];
+        const index = order.indexOf(winningNum);
+        const deg = (index * (360 / 37));
+        const totalDeg = 3600 + (360 - deg); // 10 kör + pozíció
+
+        const wheel = document.getElementById('wheelCanvas');
+        wheel.style.transform = `rotate(${totalDeg}deg)`;
+
+        setTimeout(() => resolveGame(winningNum), 6500);
+    }
+
+    function resolveGame(winNum) {
+        let totalWin = 0;
+        const isRed = redNums.includes(winNum);
+        
+        for (let [bet, amount] of Object.entries(currentBets)) {
+            // Szám találat (35:1)
+            if (bet == winNum.toString()) totalWin += amount * 36;
+            
+            // Szín
+            if (bet === 'red' && isRed) totalWin += amount * 2;
+            if (bet === 'black' && winNum !== 0 && !isRed) totalWin += amount * 2;
+            
+            // Páros/Páratlan
+            if (bet === 'even' && winNum !== 0 && winNum % 2 === 0) totalWin += amount * 2;
+            if (bet === 'odd' && winNum !== 0 && winNum % 2 !== 0) totalWin += amount * 2;
+
+            // Kicsi/Nagy
+            if (bet === 'low' && winNum >= 1 && winNum <= 18) totalWin += amount * 2;
+            if (bet === 'high' && winNum >= 19 && winNum <= 36) totalWin += amount * 2;
+
+            // Tucatok (3:1)
+            if (bet === '1st12' && winNum >= 1 && winNum <= 12) totalWin += amount * 3;
+            if (bet === '2nd12' && winNum >= 13 && winNum <= 24) totalWin += amount * 3;
+            if (bet === '3rd12' && winNum >= 25 && winNum <= 36) totalWin += amount * 3;
+        }
+
+        money += totalWin;
+        showResult(winNum, totalWin);
+    }
+
+    function showResult(num, win) {
+        const modal = document.getElementById('modal');
+        const circle = document.getElementById('winningNumCircle');
+        const msg = document.getElementById('resultMsg');
+        const amt = document.getElementById('winAmount');
+
+        circle.textContent = num;
+        circle.style.background = num === 0 ? var(--green) : (redNums.includes(num) ? '#f43f5e' : '#1e293b');
+        
+        msg.textContent = win > 0 ? "NYERTÉL!" : "VESZTETTÉL";
+        msg.style.color = win > 0 ? "#10b981" : "#f43f5e";
+        amt.textContent = win > 0 ? `+ ${win} Ft` : "";
+
+        modal.style.display = 'flex';
+
+        setTimeout(() => {
+            modal.style.display = 'none';
+            resetRound();
+        }, 4000);
+    }
+
+    function resetRound() {
+        currentBets = {};
+        isBettingOpen = true;
+        timeLeft = 15;
+        document.getElementById('wheelCanvas').style.transition = 'none';
+        document.getElementById('wheelCanvas').style.transform = 'rotate(0deg)';
+        setTimeout(() => {
+            document.getElementById('wheelCanvas').style.transition = 'transform 6s cubic-bezier(0.1, 0, 0.1, 1)';
+        }, 50);
+        updateUI();
+        startTimer();
+    }
+
+    // Indítás
+    drawWheel();
+    initGrid();
     startTimer();
-  },3000);
-}
-
-function show(txt,win){
-  resultBox.textContent=txt;
-  resultBox.className='result '+(win?'win':'lose');
-  modal.classList.add('show');
-}
 </script>
 
 </body>
