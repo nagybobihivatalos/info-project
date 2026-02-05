@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Roulette</title>
+<title>Shuffle Roulette</title>
 
 <style>
 :root{
   --bg:#0b0f19;
   --panel:#111827;
-  --panel2:#020617;
+  --ring:#020617;
   --red:#ef4444;
   --black:#020617;
   --green:#22c55e;
@@ -20,7 +20,7 @@
 
 body{
   margin:0;
-  background:linear-gradient(180deg,#020617,#0b0f19);
+  background:radial-gradient(circle at top,#1e293b,#020617);
   color:#e5e7eb;
 }
 
@@ -28,84 +28,119 @@ body{
 .app{
   max-width:1200px;
   margin:auto;
-  padding:30px;
+  padding:40px;
+  display:grid;
+  grid-template-columns:520px 1fr;
+  gap:40px;
 }
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-}
-
-.balance{
-  background:var(--panel);
-  padding:14px 22px;
-  border-radius:14px;
-  font-weight:800;
-}
-
-/* ===== ROULETTE ===== */
-.roulette-wrap{
+/* ===== WHEEL ===== */
+.wheel-wrap{
   position:relative;
-  overflow:hidden;
-  border-radius:20px;
-  background:var(--panel2);
-  box-shadow:0 30px 80px rgba(0,0,0,.7);
-  padding:30px 0;
-  margin-bottom:30px;
+  width:520px;
+  height:520px;
+  margin:auto;
 }
 
 .pointer{
   position:absolute;
-  top:0;
-  bottom:0;
+  top:-6px;
   left:50%;
-  width:2px;
-  background:var(--gold);
-  box-shadow:0 0 12px var(--gold);
+  transform:translateX(-50%);
+  width:0;height:0;
+  border-left:14px solid transparent;
+  border-right:14px solid transparent;
+  border-bottom:26px solid var(--gold);
+  filter:drop-shadow(0 0 12px #facc15aa);
   z-index:5;
 }
 
-.track{
-  display:flex;
-  gap:12px;
-  transform:translateX(0);
-  transition:transform 6s cubic-bezier(.1,.7,.1,1);
-  padding:0 50%;
+.wheel{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:conic-gradient(
+    #22c55e 0deg 9.73deg,
+    #020617 9.73deg 19.46deg,
+    #ef4444 19.46deg 29.19deg,
+    #020617 29.19deg 38.92deg,
+    #ef4444 38.92deg 48.65deg,
+    #020617 48.65deg 58.38deg,
+    #ef4444 58.38deg 68.11deg,
+    #020617 68.11deg 77.84deg,
+    #ef4444 77.84deg 87.57deg,
+    #020617 87.57deg 97.3deg,
+    #ef4444 97.3deg 107.03deg,
+    #020617 107.03deg 116.76deg,
+    #ef4444 116.76deg 126.49deg,
+    #020617 126.49deg 136.22deg,
+    #ef4444 136.22deg 145.95deg,
+    #020617 145.95deg 155.68deg,
+    #ef4444 155.68deg 165.41deg,
+    #020617 165.41deg 175.14deg,
+    #ef4444 175.14deg 184.87deg,
+    #020617 184.87deg 194.6deg,
+    #ef4444 194.6deg 204.33deg,
+    #020617 204.33deg 214.06deg,
+    #ef4444 214.06deg 223.79deg,
+    #020617 223.79deg 233.52deg,
+    #ef4444 233.52deg 243.25deg,
+    #020617 243.25deg 252.98deg,
+    #ef4444 252.98deg 262.71deg,
+    #020617 262.71deg 272.44deg,
+    #ef4444 272.44deg 282.17deg,
+    #020617 282.17deg 291.9deg,
+    #ef4444 291.9deg 301.63deg,
+    #020617 301.63deg 311.36deg,
+    #ef4444 311.36deg 321.09deg,
+    #020617 321.09deg 330.82deg,
+    #ef4444 330.82deg 340.55deg,
+    #020617 340.55deg 350.28deg,
+    #ef4444 350.28deg 360deg
+  );
+  border:18px solid var(--ring);
+  box-shadow:
+    inset 0 0 40px #000,
+    0 40px 90px rgba(0,0,0,.9);
+  transition:transform 8s cubic-bezier(.08,.6,.05,1);
 }
 
-.tile{
-  min-width:80px;
-  height:80px;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  font-size:1.4rem;
-  box-shadow:inset 0 0 0 1px #ffffff10;
+.ball-track{
+  position:absolute;
+  inset:20px;
+  border-radius:50%;
+  pointer-events:none;
 }
 
-.red{background:linear-gradient(180deg,#ef4444,#991b1b)}
-.black{background:linear-gradient(180deg,#020617,#000)}
-.green{background:linear-gradient(180deg,#22c55e,#166534)}
+.ball{
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:14px;
+  height:14px;
+  background:white;
+  border-radius:50%;
+  box-shadow:0 0 14px white;
+  transition:transform 8s cubic-bezier(.1,.7,.1,1);
+}
 
-/* ===== BETTING ===== */
+/* ===== UI ===== */
 .panel{
   background:var(--panel);
-  border-radius:20px;
-  padding:24px;
+  border-radius:24px;
+  padding:30px;
+  box-shadow:0 30px 70px rgba(0,0,0,.7);
 }
 
 .timer{
   text-align:center;
-  font-size:1.3rem;
+  font-size:1.4rem;
   font-weight:900;
   margin-bottom:20px;
 }
 
-.numbers{
+.grid{
   display:grid;
   grid-template-columns:repeat(12,1fr);
   gap:8px;
@@ -121,11 +156,24 @@ body{
   cursor:pointer;
 }
 
-.bet:hover{
-  outline:2px solid var(--gold);
+.red{background:#ef4444}
+.black{background:#020617}
+.green{background:#22c55e}
+
+.bet:hover{outline:2px solid var(--gold)}
+
+.hud{
+  position:fixed;
+  bottom:24px;
+  left:24px;
+  background:#020617cc;
+  padding:16px 24px;
+  border-radius:16px;
+  font-weight:800;
+  backdrop-filter:blur(10px);
 }
 
-/* ===== MODAL ===== */
+/* ===== RESULT ===== */
 .modal{
   position:fixed;
   inset:0;
@@ -142,8 +190,8 @@ body{
 
 .result{
   padding:40px 70px;
-  border-radius:26px;
-  font-size:2.2rem;
+  border-radius:28px;
+  font-size:2.4rem;
   font-weight:900;
 }
 
@@ -156,24 +204,22 @@ body{
 
 <div class="app">
 
-  <div class="top">
-    <h2>ROULETTE</h2>
-    <div class="balance">💰 <span id="money">1000</span></div>
-  </div>
-
-  <!-- ROULETTE -->
-  <div class="roulette-wrap">
+  <div class="wheel-wrap">
     <div class="pointer"></div>
-    <div class="track" id="track"></div>
+    <div class="wheel" id="wheel"></div>
+    <div class="ball-track">
+      <div class="ball" id="ball"></div>
+    </div>
   </div>
 
-  <!-- BETTING -->
   <div class="panel">
     <div class="timer">Fogadás lezár: <span id="time">10</span>s</div>
-    <div class="numbers" id="numbers"></div>
+    <div class="grid" id="grid"></div>
   </div>
 
 </div>
+
+<div class="hud">💰 <span id="money">1000</span></div>
 
 <div class="modal" id="modal">
   <div class="result" id="resultBox"></div>
@@ -183,8 +229,9 @@ body{
 const redNums=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
 const order=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
 
-const track=document.getElementById('track');
-const numbers=document.getElementById('numbers');
+const wheel=document.getElementById('wheel');
+const ball=document.getElementById('ball');
+const grid=document.getElementById('grid');
 const timeEl=document.getElementById('time');
 const moneyEl=document.getElementById('money');
 const modal=document.getElementById('modal');
@@ -192,22 +239,13 @@ const resultBox=document.getElementById('resultBox');
 
 let money=1000,bets=[],time=10,betting=true,interval;
 
-/* BUILD TRACK */
-for(let i=0;i<120;i++){
-  const n=order[i%order.length];
-  const d=document.createElement('div');
-  d.className='tile '+(n===0?'green':redNums.includes(n)?'red':'black');
-  d.textContent=n;
-  track.appendChild(d);
-}
-
 /* BUILD BETS */
 for(let i=0;i<=36;i++){
   const b=document.createElement('div');
   b.className='bet '+(i===0?'green':redNums.includes(i)?'red':'black');
   b.textContent=i;
   b.onclick=()=>bet(i);
-  numbers.appendChild(b);
+  grid.appendChild(b);
 }
 
 function bet(n){
@@ -217,7 +255,7 @@ function bet(n){
   moneyEl.textContent=money;
 }
 
-/* TIMER FIX */
+/* TIMER */
 function startTimer(){
   clearInterval(interval);
   time=10;
@@ -233,17 +271,21 @@ function startTimer(){
     }
   },1000);
 }
-
 startTimer();
 
 /* SPIN */
 function spin(){
   const result=order[Math.floor(Math.random()*order.length)];
-  const index=60+order.indexOf(result);
-  const offset=index*92;
-  track.style.transform=`translateX(${-offset}px)`;
+  const slice=360/37;
+  const index=order.indexOf(result);
 
-  setTimeout(()=>resolve(result),6000);
+  const wheelRot=360*6 + index*slice;
+  const ballRot=-(360*9 + index*slice + 20);
+
+  wheel.style.transform=`rotate(${wheelRot}deg)`;
+  ball.style.transform=`translateX(-50%) rotate(${ballRot}deg)`;
+
+  setTimeout(()=>resolve(result),8000);
 }
 
 function resolve(num){
@@ -254,12 +296,8 @@ function resolve(num){
   bets=[];
   setTimeout(()=>{
     modal.classList.remove('show');
-    track.style.transition='none';
-    track.style.transform='translateX(0)';
-    void track.offsetWidth;
-    track.style.transition='transform 6s cubic-bezier(.1,.7,.1,1)';
     startTimer();
-  },2500);
+  },3000);
 }
 
 function show(txt,win){
