@@ -2,136 +2,146 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Projekt Chat - Csoportos Fix</title>
+    <title>Projekt Chat - Fix ID & Írás</title>
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #020617; color: #f8fafc; margin: 0; display: flex; flex-direction: column; height: 100vh; }
-        .nav { background: #0f172a; padding: 15px; display: flex; gap: 10px; align-items: center; border-bottom: 2px solid #3b82f6; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        #chat { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .input-bar { padding: 20px; background: #0f172a; display: flex; gap: 10px; }
-        input { padding: 12px; border-radius: 8px; border: 1px solid #1e293b; background: #020617; color: white; outline: none; transition: 0.3s; }
-        input:focus { border-color: #3b82f6; }
-        button { padding: 10px 20px; border-radius: 8px; border: none; background: #3b82f6; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        button:hover { background: #2563eb; transform: scale(1.05); }
-        .msg { padding: 10px 15px; border-radius: 12px; max-width: 70%; position: relative; }
-        .sent { background: #3b82f6; align-self: flex-end; }
-        .recv { background: #1e293b; align-self: flex-start; }
-        .sys { font-size: 0.8rem; color: #64748b; align-self: center; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px; }
-        #myIdBox { color: #3b82f6; font-weight: 900; background: #000; padding: 8px 12px; border-radius: 6px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        .header { background: #1e293b; padding: 15px; display: flex; gap: 10px; align-items: center; border-bottom: 2px solid #38bdf8; flex-wrap: wrap; }
+        #chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0f172a; }
+        .footer { padding: 20px; background: #1e293b; display: flex; gap: 10px; }
+        input { padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; }
+        button { padding: 10px 20px; border-radius: 8px; border: none; background: #38bdf8; color: #0f172a; font-weight: bold; cursor: pointer; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .msg { padding: 10px 15px; border-radius: 12px; max-width: 80%; word-wrap: break-word; }
+        .sent { background: #38bdf8; color: #0f172a; align-self: flex-end; }
+        .recv { background: #334155; color: white; align-self: flex-start; }
+        .system { font-size: 0.8rem; color: #94a3b8; align-self: center; background: rgba(255,255,255,0.05); padding: 5px 15px; border-radius: 20px; }
+        #displayMyId { color: #38bdf8; font-weight: bold; background: #000; padding: 5px 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-<div class="nav">
-    <button onclick="initPeer()" id="initBtn">1. GENERÁLÁS</button>
-    <div id="myIdBox">ID: -----</div>
-    <input type="text" id="nick" placeholder="Beceneved" style="width:100px">
-    <input type="text" id="targetId" placeholder="Partner ID-ja" style="width:120px">
-    <button onclick="connect()" style="background:#8b5cf6">2. CSATLAKOZÁS</button>
+<div class="header">
+    <input type="text" id="userName" placeholder="Beceneved..." style="width: 120px;">
+    <button id="genBtn" onclick="startPeer()">1. SAJÁT ID KÉRÉSE</button>
+    <span id="displayMyId">ID: -----</span>
+    <input type="text" id="joinId" placeholder="Partner 5 jegyű ID-ja" style="width: 150px;">
+    <button onclick="connectToPartner()" style="background: #a855f7; color: white;">2. CSATLAKOZÁS</button>
 </div>
 
-<div id="chat">
-    <div class="sys">Indítsd el a generálást, majd csatlakozz a társaidhoz!</div>
+<div id="chatBox">
+    <div class="system">Kérj saját ID-t, add meg a neved, és indulhat a chat!</div>
 </div>
 
-<div class="input-bar">
-    <input type="text" id="msgIn" placeholder="Üzenet küldése a csoportnak..." style="flex:1">
-    <button onclick="send()">KÜLDÉS</button>
+<div class="footer">
+    <input type="text" id="msgInput" placeholder="Üzenet írása..." style="flex: 1;">
+    <button onclick="sendMsg()">KÜLDÉS</button>
 </div>
 
 <script>
     let peer = null;
-    let conns = {}; // Objektumként tároljuk a kapcsolatokat az ID alapján
+    let connections = [];
 
-    function initPeer() {
-        const shortId = Math.floor(10000 + Math.random() * 90000).toString();
-        peer = new Peer(shortId, {
-            config: {'iceServers': [{ url: 'stun:stun.l.google.com:19302' }, { url: 'stun:stun1.l.google.com:19302' }]}
+    // 1. Peer inicializálása véletlen 5 jegyű ID-val
+    function startPeer() {
+        const customId = Math.floor(10000 + Math.random() * 90000).toString();
+        peer = new Peer(customId, {
+            config: {'iceServers': [
+                { url: 'stun:stun.l.google.com:19302' },
+                { url: 'stun:stun1.l.google.com:19302' }
+            ]}
         });
 
         peer.on('open', id => {
-            document.getElementById('myIdBox').innerText = "ID: " + id;
-            document.getElementById('initBtn').disabled = true;
-            log("Saját profil aktív. ID: " + id);
+            document.getElementById('displayMyId').innerText = "ID: " + id;
+            document.getElementById('genBtn').disabled = true;
+            addMsg("Rendszer", "Készen állsz a fogadásra! ID-d: " + id, "system");
         });
 
-        peer.on('connection', c => {
-            setup(c);
+        // Ha valaki csatlakozik hozzánk
+        peer.on('connection', conn => {
+            handleConn(conn);
+        });
+
+        peer.on('error', err => {
+            if(err.type === 'id-taken') startPeer();
+            else alert("Hiba történt: " + err.type);
         });
     }
 
-    function connect() {
-        const tId = document.getElementById('targetId').value.trim();
-        if(!tId || conns[tId]) return;
-        
-        const c = peer.connect(tId, { metadata: { user: getNick() } });
-        setup(c);
+    // 2. Csatlakozás valakihez
+    function connectToPartner() {
+        const targetId = document.getElementById('joinId').value;
+        if(!peer) return alert("Előbb kérj saját ID-t!");
+        if(!targetId) return alert("Írd be a partner ID-ját!");
+
+        const conn = peer.connect(targetId);
+        handleConn(conn);
     }
 
-    function setup(c) {
-        c.on('open', () => {
-            if (conns[c.peer]) return; // Ne engedjük a duplikációt
-            
-            conns[c.peer] = c;
-            const pName = c.metadata?.user || "Valaki";
-            log(pName + " csatlakozott!");
+    // Kapcsolat kezelése (üzenet fogadás és továbbítás)
+    function handleConn(conn) {
+        conn.on('open', () => {
+            // Ellenőrizzük, ne legyen duplikált kapcsolat
+            if (!connections.find(c => c.peer === conn.peer)) {
+                connections.push(conn);
+            }
+            addMsg("Rendszer", "Sikeres kapcsolat: " + conn.peer, "system");
 
-            // Automatikus névküldés válaszként
-            c.send({ type: 'handshake', user: getNick() });
-
-            c.on('data', data => {
-                if(data.type === 'chat') {
-                    display(data.user, data.msg, 'recv');
-                } else if(data.type === 'handshake') {
-                    // Ha új nevet kapunk a kapcsolat után
-                    log(data.user + " azonosítva.");
-                }
+            conn.on('data', data => {
+                // Megjelenítjük a kapott üzenetet
+                addMsg(data.user, data.msg, "recv");
+                
+                // TOVÁBBÍTÁS (Hogy mindenki lássa mindenkiét a csoportban)
+                connections.forEach(c => {
+                    if (c.peer !== conn.peer && c.open) {
+                        c.send(data);
+                    }
+                });
             });
+        });
 
-            c.on('close', () => {
-                log("Kapcsolat megszakadt egy taggal.");
-                delete conns[c.peer];
-            });
+        conn.on('close', () => {
+            connections = connections.filter(c => c.peer !== conn.peer);
+            addMsg("Rendszer", "Valaki kilépett a chatből.", "system");
         });
     }
 
-    function send() {
-        const m = document.getElementById('msgIn').value.trim();
-        if(!m) return;
+    // Üzenet küldése
+    function sendMsg() {
+        const msgText = document.getElementById('msgInput').value;
+        const user = document.getElementById('userName').value || "Névtelen";
 
-        const data = { type: 'chat', user: getNick(), msg: m };
-        display("Te", m, 'sent');
+        if (!msgText) return;
 
-        // Minden aktív kapcsolatnak elküldjük
-        Object.values(conns).forEach(c => {
-            if(c.open) c.send(data);
+        const data = { user: user, msg: msgText };
+
+        // Saját képernyőre kiírjuk
+        addMsg("Te", msgText, "sent");
+
+        // Mindenkinek elküldjük, akihez kapcsolódunk
+        connections.forEach(c => {
+            if (c.open) c.send(data);
         });
 
-        document.getElementById('msgIn').value = "";
+        document.getElementById('msgInput').value = "";
     }
 
-    function getNick() {
-        return document.getElementById('nick').value.trim() || "Névtelen";
+    // Üzenet megjelenítése a buborékban
+    function addMsg(user, text, type) {
+        const div = document.createElement('div');
+        div.className = `msg ${type}`;
+        div.innerHTML = `<strong>${user}:</strong> ${text}`;
+        const chatBox = document.getElementById('chatBox');
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    function display(u, m, type) {
-        const d = document.createElement('div');
-        d.className = "msg " + type;
-        d.innerHTML = `<small style="display:block;opacity:0.6;font-size:0.7rem">${u}</small>${m}`;
-        const chat = document.getElementById('chat');
-        chat.appendChild(d);
-        chat.scrollTop = chat.scrollHeight;
-    }
-
-    function log(m) {
-        const d = document.createElement('div');
-        d.className = "sys";
-        d.innerText = m;
-        document.getElementById('chat').appendChild(d);
-        document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
-    }
-
-    document.getElementById('msgIn').onkeypress = e => { if(e.key === 'Enter') send(); };
+    // Enter gomb kezelése
+    document.getElementById('msgInput').addEventListener('keypress', e => {
+        if (e.key === 'Enter') sendMsg();
+    });
 </script>
+
 </body>
 </html>
