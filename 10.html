@@ -2,194 +2,124 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projekt Chat - P2P</title>
+    <title>Projekt Chat - 5 Jegyű ID</title>
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0f172a;
-            --panel: #1e293b;
-            --accent: #38bdf8;
-            --text: #f8fafc;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        /* Kapcsolati Panel */
-        .setup-bar {
-            background: var(--panel);
-            padding: 15px 25px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            border-bottom: 1px solid #334155;
-            flex-wrap: wrap;
-        }
-
-        input, button {
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: white;
-            outline: none;
-        }
-
-        button {
-            background: var(--accent);
-            color: #0f172a;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-        }
-
-        button:hover { opacity: 0.9; }
-
-        #myIdDisplay { color: var(--accent); font-weight: bold; cursor: pointer; }
-
-        /* Chat terület */
-        #chatBox {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .msg {
-            padding: 10px 15px;
-            border-radius: 12px;
-            max-width: 70%;
-            word-wrap: break-word;
-        }
-
-        .msg.received { background: #334155; align-self: flex-start; }
-        .msg.sent { background: var(--accent); color: #0f172a; align-self: flex-end; }
-        .msg.system { background: transparent; color: #64748b; font-size: 0.8rem; align-self: center; }
-
-        /* Üzenetküldő */
-        .input-area {
-            background: var(--panel);
-            padding: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        #messageInput { flex: 1; }
+        body { font-family: sans-serif; background: #0f172a; color: white; margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        .nav { background: #1e293b; padding: 15px; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #334155; }
+        #chat { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .input-bar { padding: 20px; background: #1e293b; display: flex; gap: 10px; }
+        input { padding: 10px; border-radius: 5px; border: 1px solid #334155; background: #0f172a; color: white; }
+        button { padding: 10px 15px; border-radius: 5px; border: none; background: #38bdf8; color: #0f172a; font-weight: bold; cursor: pointer; }
+        .msg { padding: 8px 12px; border-radius: 10px; max-width: 70%; }
+        .sent { background: #38bdf8; color: #0f172a; align-self: flex-end; }
+        .recv { background: #334155; align-self: flex-start; }
+        .sys { font-size: 0.8rem; color: #64748b; align-self: center; }
+        #myId { color: #38bdf8; font-weight: bold; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
-    <div class="setup-bar">
-        <div>ID-m: <span id="myIdDisplay">Betöltés...</span></div>
-        <input type="text" id="peerIdInput" placeholder="Partner ID-ja...">
-        <button onclick="connectToPeer()">Csatlakozás</button>
-        <input type="text" id="usernameInput" placeholder="Neved..." style="width: 100px;">
-    </div>
+<div class="nav">
+    <button onclick="initPeer()">SAJÁT ID GENERÁLÁSA</button>
+    <div id="myId">ID: -----</div>
+    <input type="text" id="targetId" placeholder="Partner 5 jegyű ID-ja" style="width:150px">
+    <button onclick="connect()">CSATLAKOZÁS</button>
+    <input type="text" id="nick" placeholder="Becenév" style="width:80px">
+</div>
 
-    <div id="chatBox">
-        <div class="msg system">Várj, amíg megkapod a saját ID-dat, majd oszd meg a többiekkel!</div>
-    </div>
+<div id="chat"></div>
 
-    <div class="input-area">
-        <input type="text" id="messageInput" placeholder="Írj valamit..." onkeypress="handleKey(event)">
-        <button onclick="sendMessage()">Küldés</button>
-    </div>
+<div class="input-bar">
+    <input type="text" id="msgIn" placeholder="Üzenet..." style="flex:1">
+    <button onclick="send()">KÜLDÉS</button>
+</div>
 
-    <script>
-        let peer;
-        let connections = [];
-        const chatBox = document.getElementById('chatBox');
-        const myIdDisplay = document.getElementById('myIdDisplay');
+<script>
+    let peer = null;
+    let conns = [];
 
-        // Peer inicializálása
-        peer = new Peer();
-
-        peer.on('open', (id) => {
-            myIdDisplay.innerText = id;
-            addMessage('Rendszer', 'Azonosítód elkészült: ' + id, 'system');
+    // Rövid 5 jegyű ID generálása
+    function initPeer() {
+        const shortId = Math.floor(10000 + Math.random() * 90000).toString();
+        
+        // STUN szerverek hozzáadása a tűzfalon való átjutáshoz
+        peer = new Peer(shortId, {
+            config: {'iceServers': [
+                { url: 'stun:stun.l.google.com:19302' },
+                { url: 'stun:stun1.l.google.com:19302' }
+            ]}
         });
 
-        // Ha valaki csatlakozik hozzánk
-        peer.on('connection', (conn) => {
-            setupConnection(conn);
+        peer.on('open', id => {
+            document.getElementById('myId').innerText = "ID: " + id;
+            log("Saját ID kész: " + id);
         });
 
-        function connectToPeer() {
-            const targetId = document.getElementById('peerIdInput').value;
-            if (!targetId) return;
-            const conn = peer.connect(targetId);
-            setupConnection(conn);
-        }
+        peer.on('connection', c => {
+            setup(c);
+            log("Valaki csatlakozott hozzád!");
+        });
 
-        function setupConnection(conn) {
-            conn.on('open', () => {
-                connections.push(conn);
-                addMessage('Rendszer', 'Csatlakozva: ' + conn.peer, 'system');
-                
-                conn.on('data', (data) => {
-                    addMessage(data.user, data.msg, 'received');
-                    // Továbbítás a többieknek (Mesh hálózat)
-                    broadcast(data, conn.peer);
+        peer.on('error', err => {
+            if(err.type === 'id-taken') {
+                initPeer(); // Ha foglalt az ID, generál újat
+            } else {
+                alert("Hiba: " + err.type);
+            }
+        });
+    }
+
+    function connect() {
+        const id = document.getElementById('targetId').value;
+        if(!id || !peer) return alert("Előbb generálj saját ID-t!");
+        const c = peer.connect(id);
+        setup(c);
+    }
+
+    function setup(c) {
+        c.on('open', () => {
+            if(!conns.find(x => x.peer === c.peer)) conns.push(c);
+            log("Kapcsolat létrejött: " + c.peer);
+            
+            c.on('data', data => {
+                display(data.user, data.msg, 'recv');
+                // Mesh hálózat: továbbküldjük a többieknek
+                conns.forEach(conn => {
+                    if(conn.peer !== c.peer && conn.open) conn.send(data);
                 });
             });
-        }
+        });
+    }
 
-        function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const user = document.getElementById('usernameInput').value || 'Névtelen';
-            const msg = input.value;
+    function send() {
+        const m = document.getElementById('msgIn').value;
+        const u = document.getElementById('nick').value || "Névtelen";
+        if(!m || conns.length === 0) return;
 
-            if (!msg) return;
+        const data = {user: u, msg: m};
+        display("Te", m, 'sent');
+        conns.forEach(c => { if(c.open) c.send(data); });
+        document.getElementById('msgIn').value = "";
+    }
 
-            const data = { user: user, msg: msg };
-            
-            // Megjelenítés nálam
-            addMessage('Te', msg, 'sent');
-            
-            // Küldés mindenkinek
-            connections.forEach(conn => {
-                if (conn.open) conn.send(data);
-            });
+    function display(u, m, type) {
+        const d = document.createElement('div');
+        d.className = "msg " + type;
+        d.innerHTML = `<strong>${u}:</strong> ${m}`;
+        document.getElementById('chat').appendChild(d);
+        document.getElementById('chat').scrollTop = 99999;
+    }
 
-            input.value = '';
-        }
+    function log(m) {
+        const d = document.createElement('div');
+        d.className = "sys";
+        d.innerText = m;
+        document.getElementById('chat').appendChild(d);
+    }
 
-        function broadcast(data, senderPeerId) {
-            connections.forEach(conn => {
-                if (conn.open && conn.peer !== senderPeerId) {
-                    conn.send(data);
-                }
-            });
-        }
+    document.getElementById('msgIn').onkeypress = e => { if(e.key === 'Enter') send(); };
+</script>
 
-        function addMessage(user, text, type) {
-            const div = document.createElement('div');
-            div.className = `msg ${type}`;
-            div.innerHTML = `<strong>${user}:</strong> ${text}`;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function handleKey(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
-
-        // ID másolása kattintásra
-        myIdDisplay.onclick = () => {
-            navigator.clipboard.writeText(myIdDisplay.innerText);
-            alert('ID másolva a vágólapra!');
-        };
-    </script>
 </body>
 </html>
