@@ -3,386 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blackjack Astra Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Blackjack Astra Neo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05070a;
-            --panel: #0d1117;
-            --accent: #00ff59;
-            --astra-blue: #3b82f6;
-            --astra-purple: #8b5cf6;
-            --red: #ff4757;
-            --text: #ffffff;
-            --card-w: 100px;
-            --card-h: 140px;
+            --bg: #030508;
+            --card-glass: rgba(255, 255, 255, 0.03);
+            --accent: #00ff88;
+            --blue: #22d3ee;
+            --red: #ff3366;
+            --panel: rgba(13, 17, 23, 0.6);
         }
 
         * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg); color: var(--text); margin: 0; overflow: hidden; }
+        body { background: var(--bg); color: #fff; margin: 0; overflow: hidden; height: 100vh; }
 
-        /* HEADER */
-        .header {
-            padding: 20px 40px;
-            background: rgba(13, 17, 23, 0.8);
+        /* HEADER & BALANCE */
+        .top-nav {
+            position: fixed; top: 0; width: 100%; padding: 25px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            z-index: 100;
+        }
+
+        .balance-group { display: flex; align-items: center; gap: 15px; }
+        .money-box {
+            background: rgba(255,255,255,0.05);
+            padding: 12px 25px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #1e293b;
-            position: fixed;
-            top: 0; width: 100%; z-index: 100;
+            font-weight: 800; font-size: 1.1rem;
+        }
+        .money-box span { color: var(--accent); margin-right: 5px; }
+
+        .btn-refill {
+            background: var(--accent); color: #000;
+            border: none; padding: 12px 20px; border-radius: 100px;
+            font-weight: 800; cursor: pointer; transition: 0.3s;
+        }
+        .btn-refill:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0,255,136,0.4); }
+
+        /* TABLE AREA */
+        .table {
+            height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 40px;
+            perspective: 1200px;
         }
 
-        .balance-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .hand-area { position: relative; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        
+        /* SCORE BUBBLE */
+        .score-indicator {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            padding: 6px 18px; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 800;
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0; transition: 0.5s;
+        }
+        .score-indicator.visible { opacity: 1; }
+
+        /* THE SHOE */
+        .shoe-box {
+            position: absolute; right: -250px; top: 0;
+            width: 130px; height: 190px;
+            background: #111; border: 2px solid #333;
+            border-radius: 10px; transform: rotate(-15deg);
+            box-shadow: -30px 30px 60px rgba(0,0,0,0.8);
         }
 
-        .balance-box {
-            background: #000;
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: 1px solid #334155;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-        }
-        .balance-box span { color: var(--accent); margin-left: 8px; }
-
-        .refill-btn {
-            background: #1e293b;
-            border: none;
-            color: #94a3b8;
-            padding: 10px 15px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .refill-btn:hover { background: #334155; color: white; }
-
-        /* GAME AREA */
-        .game-world {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 80px;
-            position: relative;
-        }
-
-        /* CARD SHOE (A kártyatartó box) */
-        .card-shoe {
-            position: absolute;
-            right: 50px;
-            top: 50%;
-            transform: translateY(-50%) rotate(-5deg);
-            width: 120px;
-            height: 180px;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border-radius: 10px;
-            border: 3px solid #334155;
-            box-shadow: -20px 20px 40px rgba(0,0,0,0.5);
-            z-index: 5;
-        }
-        .shoe-slot {
-            width: 100%;
-            height: 20px;
-            background: #000;
-            margin-top: 20px;
-            border-bottom: 2px solid #334155;
-        }
-
-        .hand {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            min-height: 200px;
-        }
-
-        .cards-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            perspective: 1000px;
-        }
-
-        /* CARD ANIMATION */
+        /* CARDS */
+        .cards-container { display: flex; gap: 15px; min-height: 150px; }
         .card {
-            width: var(--card-w);
-            height: var(--card-h);
-            background: white;
-            border-radius: 12px;
-            color: #000;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 10px;
-            font-weight: 800;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            position: relative;
-            animation: dealFromShoe 0.9s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            width: 105px; height: 150px;
+            background: #fff; border-radius: 10px;
+            color: #000; padding: 10px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            font-weight: 900; font-size: 1.3rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            animation: slideFromShoe 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes dealFromShoe {
-            from { 
-                transform: translate(400px, -200px) rotate(45deg); 
-                opacity: 0; 
-            }
-            to { 
-                transform: translate(0, 0) rotate(0deg); 
-                opacity: 1; 
-            }
+        @keyframes slideFromShoe {
+            0% { transform: translate(500px, -300px) rotate(45deg); opacity: 0; filter: blur(10px); }
+            100% { transform: translate(0, 0) rotate(0); opacity: 1; filter: blur(0); }
         }
 
-        .card.hidden { background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: 2px solid white; }
+        .card.hidden { background: linear-gradient(145deg, #1e293b, #030508); border: 2px solid #334155; }
         .card.red { color: var(--red); }
 
-        /* CONTROLS (ASTRA STYLE) */
-        .astra-box {
+        /* CONTROLS BOX */
+        .control-panel {
             background: var(--panel);
-            padding: 30px;
-            border-radius: 40px;
-            width: 480px;
-            border: 1px solid #1e293b;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            margin-top: 30px;
+            backdrop-filter: blur(20px);
+            padding: 35px; border-radius: 40px;
+            width: 480px; border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
         }
 
-        .bet-input-container {
-            display: flex;
-            background: #000;
-            border-radius: 50px;
-            padding: 8px;
-            margin-bottom: 25px;
-            border: 1px solid #1e293b;
+        .bet-input-box {
+            display: flex; background: rgba(0,0,0,0.4);
+            border-radius: 20px; padding: 10px; margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .bet-input-box input {
+            background: transparent; border: none; color: #fff;
+            padding-left: 15px; flex: 1; font-size: 1.2rem; font-weight: 700; outline: none;
         }
 
-        .bet-input-container input {
-            background: transparent;
-            border: none;
-            color: white;
-            padding: 0 20px;
-            flex: 1;
-            font-size: 1.2rem;
-            font-weight: 700;
-            outline: none;
+        .btn-action {
+            padding: 20px; border: none; border-radius: 20px;
+            font-weight: 800; letter-spacing: 1px; cursor: pointer;
+            transition: 0.3s; text-transform: uppercase;
         }
 
-        .astra-btn {
-            padding: 18px;
-            border: none;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .btn-deal { background: var(--accent); color: #000; width: 100%; margin-bottom: 15px; }
+        .btn-hit { background: var(--blue); color: #000; }
+        .btn-stand { background: rgba(255,255,255,0.05); color: #fff; }
+
+        .btn-action:hover:not(:disabled) { transform: translateY(-5px); filter: brightness(1.2); }
+        .btn-action:disabled { opacity: 0.1; cursor: not-allowed; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        /* OVERLAY */
+        .modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 1000;
         }
-
-        .btn-deal { background: var(--accent); color: #000; width: 100%; box-shadow: 0 0 20px rgba(0, 255, 89, 0.2); }
-        .btn-hit { background: var(--astra-blue); color: white; }
-        .btn-stand { background: #1e293b; color: white; }
-
-        .astra-btn:hover:not(:disabled) { transform: translateY(-5px) scale(1.02); filter: brightness(1.2); }
-        .astra-btn:active { transform: translateY(0); }
-        .astra-btn:disabled { opacity: 0.1; cursor: not-allowed; }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-
-        /* RESULT */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-        }
-        .res-text { font-size: 6rem; font-weight: 900; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .modal h1 { font-size: 7rem; margin: 0; font-weight: 900; letter-spacing: -5px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div style="font-weight: 900; font-size: 1.5rem;">BLACKJACK</div>
-        <div class="balance-container">
-            <button class="refill-btn" onclick="refill()">+ ÚJRATÖLTÉS</button>
-            <div class="balance-box"><span id="moneyText">5,000</span><span>HUF</span></div>
+    <div class="top-nav">
+        <div style="font-weight: 800; font-size: 1.5rem; letter-spacing: -1px;">BLACKJACK <span style="color:var(--accent)">ASTRA</span></div>
+        <div class="balance-group">
+            <button class="btn-refill" onclick="refill()">REFILL</button>
+            <div class="money-box"><span id="moneyText">5,000</span> HUF</div>
         </div>
     </div>
 
-    <div class="game-world">
-        <div class="card-shoe">
-            <div class="shoe-slot"></div>
+    <div class="table">
+        <div class="hand-area">
+            <div class="shoe-box"></div>
+            <div class="score-indicator" id="dScore">DEALER: 0</div>
+            <div class="cards-container" id="dCards"></div>
         </div>
 
-        <div class="hand">
-            <div id="dealerCards" class="cards-row"></div>
+        <div class="hand-area">
+            <div class="score-indicator" id="pScore">PLAYER: 0</div>
+            <div class="cards-container" id="pCards"></div>
         </div>
 
-        <div class="hand">
-            <div id="playerCards" class="cards-row"></div>
-        </div>
-
-        <div class="astra-box">
-            <div class="bet-input-container">
+        <div class="control-panel">
+            <div class="bet-input-box">
                 <input type="number" id="betInput" value="500">
-                <button onclick="setBet(0.5)" style="background:transparent; color:#64748b; border:none; font-weight:700; cursor:pointer;">1/2</button>
-                <button onclick="setBet(2)" style="background:transparent; color:#64748b; border:none; font-weight:700; cursor:pointer; margin-left:10px;">2X</button>
+                <button onclick="quickBet(0.5)" style="background:none; border:none; color:rgba(255,255,255,0.4); font-weight:700; cursor:pointer;">1/2</button>
+                <button onclick="quickBet(2)" style="background:none; border:none; color:rgba(255,255,255,0.4); font-weight:700; cursor:pointer; margin-left:10px;">2X</button>
             </div>
             
-            <button class="astra-btn btn-deal" id="dealBtn" onclick="startRound()">OSZTÁS</button>
-            
-            <div class="grid-2" style="margin-top: 15px;">
-                <button class="astra-btn btn-hit" id="hitBtn" onclick="hit()" disabled>HIT</button>
-                <button class="astra-btn btn-stand" id="standBtn" onclick="stand()" disabled>STAND</button>
+            <button class="btn-action btn-deal" id="dealBtn" onclick="start()">OSZTÁS</button>
+            <div class="grid">
+                <button class="btn-action btn-hit" id="hitBtn" onclick="hit()" disabled>HIT</button>
+                <button class="btn-action btn-stand" id="standBtn" onclick="stand()" disabled>STAND</button>
             </div>
         </div>
     </div>
 
-    <div class="overlay" id="overlay">
-        <div class="res-text" id="resMsg">WINNER</div>
-        <div id="resAmt" style="color:var(--accent); font-size: 2.5rem; font-weight: 800; margin-top: 10px;"></div>
+    <div class="modal" id="modal">
+        <h1 id="mTitle">WINNER</h1>
+        <div id="mAmt" style="font-size: 2.5rem; font-weight: 700;"></div>
     </div>
 
 <script>
-    let money = 5000, currentBet = 0, pHand = [], dHand = [], deck = [];
+    let money = 5000, bet = 0, pHand = [], dHand = [], deck = [];
     const suits = ['♠','♥','♦','♣'], ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
 
-    function createDeck() {
-        let d = [];
-        suits.forEach(s => ranks.forEach(r => d.push({r, s, red: (s==='♥'||s==='♦')})));
-        return d.sort(() => Math.random() - 0.5);
-    }
-
-    function getScore(hand) {
+    const getVal = h => {
         let v = 0, a = 0;
-        hand.forEach(c => {
+        h.forEach(c => {
             if(['J','Q','K'].includes(c.r)) v += 10;
             else if(c.r==='A') { v += 11; a++; }
             else v += parseInt(c.r);
         });
         while(v > 21 && a > 0) { v -= 10; a--; }
         return v;
-    }
+    };
 
-    function renderCard(card, hidden = false) {
-        if(hidden) return `<div class="card hidden"></div>`;
-        return `<div class="card ${card.red ? 'red' : ''}">
-            <div style="font-size:1.2rem">${card.r}</div>
-            <div style="font-size:2.5rem; align-self:center">${card.s}</div>
-            <div style="transform:rotate(180deg); font-size:1.2rem">${card.r}</div>
-        </div>`;
-    }
+    const render = (c, h) => h ? `<div class="card hidden"></div>` : 
+        `<div class="card ${c.red?'red':''}"><div>${c.r}</div><div style="font-size:3rem;align-self:center">${c.s}</div><div style="transform:rotate(180deg)">${c.r}</div></div>`;
 
-    async function startRound() {
-        let betVal = parseInt(document.getElementById('betInput').value);
-        
-        // LIMIT ELLENŐRZÉS
-        if(betVal > money) {
-            alert("Nincs elég egyenleged!");
-            return;
-        }
-        if(betVal <= 0) return;
+    async function start() {
+        let b = parseInt(document.getElementById('betInput').value);
+        if(b > money || b <= 0) return alert("Nincs elég HUF!");
 
-        money -= betVal;
-        currentBet = betVal;
-        updateUI();
-        
-        pHand = []; dHand = []; deck = createDeck();
-        document.getElementById('playerCards').innerHTML = '';
-        document.getElementById('dealerCards').innerHTML = '';
+        money -= b; bet = b; updateUI();
+        pHand = []; dHand = []; deck = suits.flatMap(s => ranks.map(r => ({r, s, red: s==='♥'||s==='♦'}))).sort(()=>Math.random()-0.5);
+
+        document.getElementById('pCards').innerHTML = ''; document.getElementById('dCards').innerHTML = '';
+        document.querySelectorAll('.score-indicator').forEach(el => el.classList.remove('visible'));
         document.getElementById('dealBtn').disabled = true;
 
-        // LASSÚ, SZEKVENCIÁLIS OSZTÁS A SHOE-BÓL
-        await deal('p'); await sleep(600);
-        await deal('d'); await sleep(600);
-        await deal('p'); await sleep(600);
-        await deal('d', true);
+        await add('p'); await sleep(500);
+        await add('d'); await sleep(500);
+        await add('p'); await sleep(500);
+        await add('d', true);
 
+        document.getElementById('pScore').classList.add('visible');
         document.getElementById('hitBtn').disabled = false;
         document.getElementById('standBtn').disabled = false;
-
-        if(getScore(pHand) === 21) stand();
+        
+        if(getVal(pHand) === 21) stand();
     }
 
-    async function deal(target, hidden = false) {
-        const card = deck.pop();
-        if(target === 'p') {
-            pHand.push(card);
-            document.getElementById('playerCards').innerHTML += renderCard(card);
+    async function add(t, h = false) {
+        const c = deck.pop();
+        if(t === 'p') {
+            pHand.push(c);
+            document.getElementById('pCards').innerHTML += render(c);
+            document.getElementById('pScore').textContent = `PLAYER: ${getVal(pHand)}`;
         } else {
-            dHand.push(card);
-            document.getElementById('dealerCards').innerHTML += renderCard(card, hidden);
+            dHand.push(c);
+            document.getElementById('dCards').innerHTML += render(c, h);
         }
     }
 
     async function hit() {
-        await deal('p');
-        if(getScore(pHand) >= 21) stand();
+        await add('p');
+        if(getVal(pHand) >= 21) stand();
     }
 
     async function stand() {
-        document.getElementById('hitBtn').disabled = true;
-        document.getElementById('standBtn').disabled = true;
+        document.getElementById('hitBtn').disabled = true; document.getElementById('standBtn').disabled = true;
+        document.getElementById('dCards').innerHTML = dHand.map(c => render(c)).join('');
+        document.getElementById('dScore').textContent = `DEALER: ${getVal(dHand)}`;
+        document.getElementById('dScore').classList.add('visible');
 
-        // Felfedés
-        document.getElementById('dealerCards').innerHTML = dHand.map(c => renderCard(c)).join('');
+        while(getVal(dHand) < 17) { await sleep(700); await add('d'); document.getElementById('dScore').textContent = `DEALER: ${getVal(dHand)}`; }
         
-        while(getScore(dHand) < 17) {
-            await sleep(800);
-            await deal('d');
-            document.getElementById('dealerCards').innerHTML = dHand.map(c => renderCard(c)).join('');
-        }
-        finish();
-    }
+        const p = getVal(pHand), d = getVal(dHand);
+        let win = 0, m = "";
 
-    function finish() {
-        const p = getScore(pHand), d = getScore(dHand);
-        let win = 0, msg = "";
-
-        if(p > 21) { msg = "BUSTED"; win = 0; }
-        else if(d > 21 || p > d) { msg = "YOU WIN"; win = currentBet * 2; }
-        else if(p === d) { msg = "PUSH"; win = currentBet; }
-        else { msg = "DEALER"; win = 0; }
+        if(p > 21) { m = "BUSTED"; win = 0; }
+        else if(d > 21 || p > d) { m = "YOU WIN"; win = bet * 2; }
+        else if(p === d) { m = "PUSH"; win = bet; }
+        else { m = "LOST"; win = 0; }
 
         money += win;
-        showResult(msg, win);
+        setTimeout(() => showModal(m, win), 800);
     }
 
-    function showResult(m, w) {
-        const ov = document.getElementById('overlay');
-        document.getElementById('resMsg').textContent = m;
-        document.getElementById('resAmt').textContent = w > 0 ? `+ ${w.toLocaleString()} HUF` : `- ${currentBet.toLocaleString()} HUF`;
-        document.getElementById('resMsg').style.color = w > currentBet ? 'var(--accent)' : (w === 0 ? 'var(--red)' : 'white');
-        
-        ov.style.display = 'flex';
-        setTimeout(() => {
-            ov.style.display = 'none';
-            document.getElementById('dealBtn').disabled = false;
-            updateUI();
-        }, 2500);
+    function showModal(m, w) {
+        document.getElementById('mTitle').textContent = m;
+        document.getElementById('mTitle').style.color = w > bet ? 'var(--accent)' : (w === 0 ? 'var(--red)' : 'white');
+        document.getElementById('mAmt').textContent = w > 0 ? `+ ${w.toLocaleString()} HUF` : `-${bet.toLocaleString()} HUF`;
+        document.getElementById('modal').style.display = 'flex';
+        setTimeout(() => { document.getElementById('modal').style.display = 'none'; document.getElementById('dealBtn').disabled = false; updateUI(); }, 2500);
     }
 
-    function setBet(m) {
-        let val = Math.floor(document.getElementById('betInput').value * m);
-        if(val > money) val = money;
-        document.getElementById('betInput').value = val;
-    }
-
-    function refill() { money = 5000; updateUI(); }
+    function quickBet(x) { let v = Math.floor(document.getElementById('betInput').value * x); document.getElementById('betInput').value = v > money ? money : v; }
+    function refill() { money += 5000; updateUI(); }
     function updateUI() { document.getElementById('moneyText').textContent = money.toLocaleString(); }
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-    updateUI();
 </script>
 </body>
 </html>
