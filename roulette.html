@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Roulette</title>
+<title>Crypto Roulette</title>
 
 <style>
 :root{
-  --bg:#020617;
-  --panel:#020617cc;
-  --felt:#064e3b;
-  --green:#16a34a;
-  --red:#dc2626;
+  --bg:#0b0f19;
+  --panel:#111827;
+  --panel2:#020617;
+  --red:#ef4444;
   --black:#020617;
+  --green:#22c55e;
   --gold:#facc15;
 }
 
@@ -20,164 +20,109 @@
 
 body{
   margin:0;
-  background:radial-gradient(circle at top,#1e293b,#020617);
+  background:linear-gradient(180deg,#020617,#0b0f19);
   color:#e5e7eb;
 }
 
 /* ===== LAYOUT ===== */
-.casino{
-  display:grid;
-  grid-template-columns:460px 1fr;
-  gap:40px;
-  padding:40px;
-  max-width:1400px;
+.app{
+  max-width:1200px;
   margin:auto;
+  padding:30px;
 }
 
-/* ===== WHEEL ===== */
-.wheel-wrapper{
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.balance{
+  background:var(--panel);
+  padding:14px 22px;
+  border-radius:14px;
+  font-weight:800;
+}
+
+/* ===== ROULETTE ===== */
+.roulette-wrap{
   position:relative;
-  width:460px;
-  height:460px;
-  margin:auto;
+  overflow:hidden;
+  border-radius:20px;
+  background:var(--panel2);
+  box-shadow:0 30px 80px rgba(0,0,0,.7);
+  padding:30px 0;
+  margin-bottom:30px;
 }
 
 .pointer{
   position:absolute;
-  top:-6px;
+  top:0;
+  bottom:0;
   left:50%;
-  transform:translateX(-50%);
-  width:0;height:0;
-  border-left:14px solid transparent;
-  border-right:14px solid transparent;
-  border-bottom:24px solid var(--gold);
-  filter:drop-shadow(0 0 10px #facc15aa);
+  width:2px;
+  background:var(--gold);
+  box-shadow:0 0 12px var(--gold);
   z-index:5;
 }
 
-.wheel{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  border:16px solid #020617;
-  box-shadow:
-    inset 0 0 40px #000,
-    0 40px 80px rgba(0,0,0,.8);
-  background:conic-gradient(
-    #16a34a 0deg 9.73deg,
-    #020617 9.73deg 19.46deg,
-    #dc2626 19.46deg 29.19deg,
-    #020617 29.19deg 38.92deg,
-    #dc2626 38.92deg 48.65deg,
-    #020617 48.65deg 58.38deg,
-    #dc2626 58.38deg 68.11deg,
-    #020617 68.11deg 77.84deg,
-    #dc2626 77.84deg 87.57deg,
-    #020617 87.57deg 97.3deg,
-    #dc2626 97.3deg 107.03deg,
-    #020617 107.03deg 116.76deg,
-    #dc2626 116.76deg 126.49deg,
-    #020617 126.49deg 136.22deg,
-    #dc2626 136.22deg 145.95deg,
-    #020617 145.95deg 155.68deg,
-    #dc2626 155.68deg 165.41deg,
-    #020617 165.41deg 175.14deg,
-    #dc2626 175.14deg 184.87deg,
-    #020617 184.87deg 194.6deg,
-    #dc2626 194.6deg 204.33deg,
-    #020617 204.33deg 214.06deg,
-    #dc2626 214.06deg 223.79deg,
-    #020617 223.79deg 233.52deg,
-    #dc2626 233.52deg 243.25deg,
-    #020617 243.25deg 252.98deg,
-    #dc2626 252.98deg 262.71deg,
-    #020617 262.71deg 272.44deg,
-    #dc2626 272.44deg 282.17deg,
-    #020617 282.17deg 291.9deg,
-    #dc2626 291.9deg 301.63deg,
-    #020617 301.63deg 311.36deg,
-    #dc2626 311.36deg 321.09deg,
-    #020617 321.09deg 330.82deg,
-    #dc2626 330.82deg 340.55deg,
-    #020617 340.55deg 350.28deg,
-    #dc2626 350.28deg 360deg
-  );
-  transition:transform 7s cubic-bezier(.08,.6,.05,1);
+.track{
+  display:flex;
+  gap:12px;
+  transform:translateX(0);
+  transition:transform 6s cubic-bezier(.1,.7,.1,1);
+  padding:0 50%;
 }
 
-.ball{
-  position:absolute;
-  width:14px;height:14px;
-  background:white;
-  border-radius:50%;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%);
-  box-shadow:0 0 14px white;
-  z-index:4;
-  transition:transform 7s cubic-bezier(.08,.6,.05,1);
+.tile{
+  min-width:80px;
+  height:80px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:1.4rem;
+  box-shadow:inset 0 0 0 1px #ffffff10;
 }
 
-/* ===== TABLE ===== */
-.table{
-  background:linear-gradient(180deg,#064e3b,#022c22);
-  border-radius:24px;
-  padding:30px;
-  box-shadow:0 40px 80px rgba(0,0,0,.7);
+.red{background:linear-gradient(180deg,#ef4444,#991b1b)}
+.black{background:linear-gradient(180deg,#020617,#000)}
+.green{background:linear-gradient(180deg,#22c55e,#166534)}
+
+/* ===== BETTING ===== */
+.panel{
+  background:var(--panel);
+  border-radius:20px;
+  padding:24px;
 }
 
 .timer{
   text-align:center;
-  font-size:1.4rem;
+  font-size:1.3rem;
   font-weight:900;
   margin-bottom:20px;
 }
 
-.grid{
+.numbers{
   display:grid;
-  grid-template-columns:60px repeat(3,1fr);
-  gap:6px;
+  grid-template-columns:repeat(12,1fr);
+  gap:8px;
 }
 
-.zero{
-  grid-row:1/span 12;
-  background:var(--green);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  font-size:1.3rem;
+.bet{
+  height:42px;
   border-radius:10px;
-  cursor:pointer;
-}
-
-.cell{
-  height:46px;
+  font-weight:800;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:800;
-  border-radius:8px;
   cursor:pointer;
 }
 
-.red{background:var(--red)}
-.black{background:#020617}
-
-.cell:hover,.zero:hover{
+.bet:hover{
   outline:2px solid var(--gold);
-}
-
-/* ===== HUD ===== */
-.hud{
-  position:fixed;
-  bottom:24px;
-  left:24px;
-  background:var(--panel);
-  padding:16px 24px;
-  border-radius:16px;
-  font-weight:800;
-  backdrop-filter:blur(10px);
 }
 
 /* ===== MODAL ===== */
@@ -195,66 +140,74 @@ body{
 
 .modal.show{opacity:1;pointer-events:auto}
 
-.modal-box{
+.result{
   padding:40px 70px;
   border-radius:26px;
-  font-size:2.4rem;
+  font-size:2.2rem;
   font-weight:900;
 }
 
-.win{background:#16a34a;color:#022c22}
-.lose{background:#dc2626;color:#450a0a}
+.win{background:#22c55e;color:#052e16}
+.lose{background:#ef4444;color:#450a0a}
 </style>
 </head>
 
 <body>
 
-<div class="casino">
+<div class="app">
 
-  <div class="wheel-wrapper">
-    <div class="pointer"></div>
-    <div class="wheel" id="wheel"></div>
-    <div class="ball" id="ball"></div>
+  <div class="top">
+    <h2>ROULETTE</h2>
+    <div class="balance">💰 <span id="money">1000</span></div>
   </div>
 
-  <div class="table">
-    <div class="timer">Fogadás: <span id="time">10</span>s</div>
-    <div class="grid" id="grid"></div>
+  <!-- ROULETTE -->
+  <div class="roulette-wrap">
+    <div class="pointer"></div>
+    <div class="track" id="track"></div>
+  </div>
+
+  <!-- BETTING -->
+  <div class="panel">
+    <div class="timer">Fogadás lezár: <span id="time">10</span>s</div>
+    <div class="numbers" id="numbers"></div>
   </div>
 
 </div>
 
-<div class="hud">💰 Egyenleg: <span id="money">1000</span></div>
-
 <div class="modal" id="modal">
-  <div class="modal-box" id="modalBox"></div>
+  <div class="result" id="resultBox"></div>
 </div>
 
 <script>
 const redNums=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
-const wheel=document.getElementById('wheel');
-const ball=document.getElementById('ball');
-const grid=document.getElementById('grid');
+const order=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+
+const track=document.getElementById('track');
+const numbers=document.getElementById('numbers');
 const timeEl=document.getElementById('time');
 const moneyEl=document.getElementById('money');
 const modal=document.getElementById('modal');
-const modalBox=document.getElementById('modalBox');
+const resultBox=document.getElementById('resultBox');
 
-let money=1000,bets=[],time=10,betting=true;
+let money=1000,bets=[],time=10,betting=true,interval;
 
-/* TABLE */
-const zero=document.createElement('div');
-zero.className='zero';
-zero.textContent='0';
-zero.onclick=()=>bet(0);
-grid.appendChild(zero);
-
-for(let i=1;i<=36;i++){
+/* BUILD TRACK */
+for(let i=0;i<120;i++){
+  const n=order[i%order.length];
   const d=document.createElement('div');
-  d.className='cell '+(redNums.includes(i)?'red':'black');
-  d.textContent=i;
-  d.onclick=()=>bet(i);
-  grid.appendChild(d);
+  d.className='tile '+(n===0?'green':redNums.includes(n)?'red':'black');
+  d.textContent=n;
+  track.appendChild(d);
+}
+
+/* BUILD BETS */
+for(let i=0;i<=36;i++){
+  const b=document.createElement('div');
+  b.className='bet '+(i===0?'green':redNums.includes(i)?'red':'black');
+  b.textContent=i;
+  b.onclick=()=>bet(i);
+  numbers.appendChild(b);
 }
 
 function bet(n){
@@ -264,21 +217,33 @@ function bet(n){
   moneyEl.textContent=money;
 }
 
-/* TIMER */
-(function tick(){
+/* TIMER FIX */
+function startTimer(){
+  clearInterval(interval);
+  time=10;
+  betting=true;
   timeEl.textContent=time;
-  if(time--<=0){betting=false;spin();}
-  else setTimeout(tick,1000);
-})();
+  interval=setInterval(()=>{
+    time--;
+    timeEl.textContent=time;
+    if(time<=0){
+      clearInterval(interval);
+      betting=false;
+      spin();
+    }
+  },1000);
+}
+
+startTimer();
 
 /* SPIN */
 function spin(){
-  const result=Math.floor(Math.random()*37);
-  const slice=360/37;
-  const rot=360*8 + result*slice;
-  wheel.style.transform=`rotate(${rot}deg)`;
-  ball.style.transform=`translateX(-50%) rotate(${-rot}deg)`;
-  setTimeout(()=>resolve(result),7000);
+  const result=order[Math.floor(Math.random()*order.length)];
+  const index=60+order.indexOf(result);
+  const offset=index*92;
+  track.style.transform=`translateX(${-offset}px)`;
+
+  setTimeout(()=>resolve(result),6000);
 }
 
 function resolve(num){
@@ -287,14 +252,19 @@ function resolve(num){
   moneyEl.textContent=money;
   show(win>0?`NYERTÉL ${win}`:`VESZTETTÉL`,win>0);
   bets=[];
-  time=10;
-  betting=true;
-  setTimeout(()=>modal.classList.remove('show'),2500);
+  setTimeout(()=>{
+    modal.classList.remove('show');
+    track.style.transition='none';
+    track.style.transform='translateX(0)';
+    void track.offsetWidth;
+    track.style.transition='transform 6s cubic-bezier(.1,.7,.1,1)';
+    startTimer();
+  },2500);
 }
 
 function show(txt,win){
-  modalBox.textContent=txt;
-  modalBox.className='modal-box '+(win?'win':'lose');
+  resultBox.textContent=txt;
+  resultBox.className='result '+(win?'win':'lose');
   modal.classList.add('show');
 }
 </script>
