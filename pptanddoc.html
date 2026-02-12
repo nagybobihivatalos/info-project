@@ -1,119 +1,185 @@
-
 <!DOCTYPE html>
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AstroSat Dokumentum Portál</title>
+<title>Dokumentum Portál</title>
 
 <style>
-body {
+
+/* ===== RESET ===== */
+* {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #05070d;
+    color: #e6f1ff;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-/* Csillag animáció */
+/* ===== Animated Background Glow ===== */
 body::before {
     content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: url('https://www.transparenttextures.com/patterns/stardust.png');
-    animation: moveStars 60s linear infinite;
-    opacity: 0.3;
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0,150,255,0.25), transparent 70%);
+    top: -200px;
+    left: -200px;
+    animation: floatGlow 12s ease-in-out infinite alternate;
+    filter: blur(80px);
 }
 
-@keyframes moveStars {
-    from { transform: translate(0, 0); }
-    to { transform: translate(-500px, -500px); }
+body::after {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(180,0,255,0.2), transparent 70%);
+    bottom: -200px;
+    right: -200px;
+    animation: floatGlow 15s ease-in-out infinite alternate;
+    filter: blur(100px);
 }
 
+@keyframes floatGlow {
+    from { transform: translateY(0px); }
+    to { transform: translateY(60px); }
+}
+
+/* ===== Container ===== */
 .container {
     position: relative;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(15px);
-    padding: 40px;
-    border-radius: 20px;
-    width: 500px;
-    text-align: center;
-    box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+    width: 100%;
+    max-width: 1000px;
+    padding: 60px 40px;
     z-index: 2;
 }
 
+/* ===== Title ===== */
 h1 {
-    margin-bottom: 10px;
-    font-size: 32px;
-    background: linear-gradient(90deg, #00f2ff, #4facfe);
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-p {
-    opacity: 0.85;
-    margin-bottom: 30px;
+.subtitle {
+    color: #8aa4c9;
+    margin-bottom: 60px;
+    font-size: 18px;
 }
 
-.section {
+/* ===== Cards Layout ===== */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* ===== Card ===== */
+.card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(20px);
+    transition: 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(0,200,255,0.5);
+    box-shadow: 0 0 40px rgba(0,150,255,0.2);
+}
+
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    color: #8aa4c9;
     margin-bottom: 25px;
+    font-size: 14px;
 }
 
+/* ===== Download Button ===== */
 .download-btn {
     display: inline-block;
-    padding: 12px 25px;
-    margin: 10px;
-    border-radius: 30px;
+    padding: 12px 22px;
+    border-radius: 50px;
     text-decoration: none;
-    color: white;
-    font-weight: bold;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #00f2fe;
+    border: 1px solid #00f2fe;
     transition: 0.3s ease;
-    box-shadow: 0 0 15px rgba(0, 150, 255, 0.6);
+    position: relative;
+    overflow: hidden;
 }
 
 .download-btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 25px rgba(0, 200, 255, 1);
+    background: #00f2fe;
+    color: #05070d;
+    box-shadow: 0 0 25px #00f2fe;
 }
 
+/* ===== Footer ===== */
 .footer {
-    margin-top: 20px;
+    margin-top: 60px;
     font-size: 13px;
-    opacity: 0.6;
+    color: #5c6f8f;
 }
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <h1>🚀 AstroSat Dokumentum Portál</h1>
-    <p>Itt találod a projekt dokumentációját és a prezentációt.  
-    Kattints a letöltéshez.</p>
 
-    <div class="section">
-        <h3>📄 Projekt Dokumentum</h3>
-        <a href="dokumentum.pdf" download class="download-btn">
-            Letöltés (.PDF)
-        </a>
-    </div>
+    <h1>Space Document Hub</h1>
+    <p class="subtitle">
+        Projekt fájlok és prezentációk modern, űr-tematikus felületen.
+    </p>
 
-    <div class="section">
-        <h3>📊 Projekt Prezentáció</h3>
-        <a href="prezentacio.pptx" download class="download-btn">
-            Letöltés (.PPTX)
-        </a>
+    <div class="cards">
+
+        <div class="card">
+            <h2>📄 Projekt Dokumentáció</h2>
+            <p>Teljes technikai dokumentáció PDF formátumban.</p>
+            <a href="dokumentum.pdf" download class="download-btn">
+                Letöltés PDF
+            </a>
+        </div>
+
+        <div class="card">
+            <h2>📊 Projekt Prezentáció</h2>
+            <p>Prezentáció PowerPoint formátumban (.pptx).</p>
+            <a href="prezentacio.pptx" download class="download-btn">
+                Letöltés PPTX
+            </a>
+        </div>
+
     </div>
 
     <div class="footer">
-        © 2026 AstroSat | Space Design Interface
+        © 2026 • Secure Astro Interface
     </div>
+
 </div>
 
 </body>
