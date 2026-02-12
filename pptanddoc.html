@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dokumentum Portál</title>
+<title>PPT & DOC</title>
 
 <style>
 
@@ -16,130 +16,155 @@
 
 body {
     font-family: "Inter", sans-serif;
-    background: #05070d;
+    background: #04060b;
     color: #e6f1ff;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow-x: hidden;
+    cursor: none;
 }
 
-/* ===== Animated Background Glow ===== */
-body::before {
-    content: "";
+/* ===== Mouse Glow ===== */
+.mouse-glow {
     position: fixed;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(0,150,255,0.25), transparent 70%);
-    top: -200px;
-    left: -200px;
-    animation: floatGlow 12s ease-in-out infinite alternate;
-    filter: blur(80px);
+    width: 500px;
+    height: 500px;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(0,255,255,0.15) 0%, transparent 60%);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    filter: blur(60px);
 }
 
-body::after {
-    content: "";
+/* ===== Custom Crosshair ===== */
+.cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00f2fe;
+    border-radius: 50%;
     position: fixed;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(180,0,255,0.2), transparent 70%);
-    bottom: -200px;
-    right: -200px;
-    animation: floatGlow 15s ease-in-out infinite alternate;
-    filter: blur(100px);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 15px #00f2fe;
 }
 
-@keyframes floatGlow {
-    from { transform: translateY(0px); }
-    to { transform: translateY(60px); }
+.cursor::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: #00f2fe;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cursor::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #00f2fe;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* ===== Container ===== */
 .container {
     position: relative;
-    width: 100%;
-    max-width: 1000px;
-    padding: 60px 40px;
     z-index: 2;
+    max-width: 1000px;
+    margin: auto;
+    padding: 80px 40px;
+}
+
+/* ===== Back Button ===== */
+.back-btn {
+    display: inline-block;
+    margin-bottom: 40px;
+    padding: 10px 18px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #00f2fe;
+    border: 1px solid rgba(0,242,254,0.4);
+    transition: 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #00f2fe;
+    color: #04060b;
+    box-shadow: 0 0 20px #00f2fe;
 }
 
 /* ===== Title ===== */
 h1 {
-    font-size: 42px;
-    font-weight: 700;
+    font-size: 48px;
     margin-bottom: 20px;
-    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-    color: #8aa4c9;
+    color: #7e94b8;
     margin-bottom: 60px;
-    font-size: 18px;
 }
 
-/* ===== Cards Layout ===== */
+/* ===== Cards ===== */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
 }
 
-/* ===== Card ===== */
 .card {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 20px;
-    padding: 30px;
+    padding: 35px;
     backdrop-filter: blur(20px);
     transition: 0.3s ease;
-    position: relative;
-    overflow: hidden;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(0,200,255,0.5);
-    box-shadow: 0 0 40px rgba(0,150,255,0.2);
+    transform: translateY(-12px);
+    border-color: rgba(0,255,255,0.4);
+    box-shadow: 0 0 40px rgba(0,255,255,0.15);
 }
 
 .card h2 {
-    font-size: 20px;
     margin-bottom: 15px;
 }
 
 .card p {
-    color: #8aa4c9;
-    margin-bottom: 25px;
     font-size: 14px;
+    color: #7e94b8;
+    margin-bottom: 25px;
 }
 
 /* ===== Download Button ===== */
 .download-btn {
     display: inline-block;
     padding: 12px 22px;
-    border-radius: 50px;
+    border-radius: 40px;
     text-decoration: none;
     font-weight: 600;
-    letter-spacing: 0.5px;
     color: #00f2fe;
     border: 1px solid #00f2fe;
     transition: 0.3s ease;
-    position: relative;
-    overflow: hidden;
 }
 
 .download-btn:hover {
     background: #00f2fe;
-    color: #05070d;
+    color: #04060b;
     box-shadow: 0 0 25px #00f2fe;
 }
 
 /* ===== Footer ===== */
 .footer {
-    margin-top: 60px;
+    margin-top: 70px;
     font-size: 13px;
     color: #5c6f8f;
 }
@@ -149,26 +174,32 @@ h1 {
 
 <body>
 
+<div class="mouse-glow"></div>
+<div class="cursor"></div>
+
 <div class="container">
 
-    <h1>Space Document Hub</h1>
+    <!-- IDE ÍRD BE MAJD A VISSZA OLDALT -->
+    <a href="#" class="back-btn">⬅ Vissza</a>
+
+    <h1>PPT & DOC</h1>
     <p class="subtitle">
-        Projekt fájlok és prezentációk modern, űr-tematikus felületen.
+        Projekt fájlok letöltése modern astro felületen.
     </p>
 
     <div class="cards">
 
         <div class="card">
-            <h2>📄 Projekt Dokumentáció</h2>
-            <p>Teljes technikai dokumentáció PDF formátumban.</p>
+            <h2>📄 Dokumentum</h2>
+            <p>Teljes projekt dokumentáció PDF formátumban.</p>
             <a href="dokumentum.pdf" download class="download-btn">
                 Letöltés PDF
             </a>
         </div>
 
         <div class="card">
-            <h2>📊 Projekt Prezentáció</h2>
-            <p>Prezentáció PowerPoint formátumban (.pptx).</p>
+            <h2>📊 Prezentáció</h2>
+            <p>Prezentáció PowerPoint (.pptx) formátumban.</p>
             <a href="prezentacio.pptx" download class="download-btn">
                 Letöltés PPTX
             </a>
@@ -177,10 +208,23 @@ h1 {
     </div>
 
     <div class="footer">
-        © 2026 • Secure Astro Interface
+        © 2026 • Astro Interface
     </div>
 
 </div>
+
+<script>
+const glow = document.querySelector(".mouse-glow");
+const cursor = document.querySelector(".cursor");
+
+document.addEventListener("mousemove", (e) => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+});
+</script>
 
 </body>
 </html>
