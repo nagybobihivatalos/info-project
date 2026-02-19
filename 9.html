@@ -1,29 +1,140 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>9.-es projekt munkák</title>
-    <link rel="stylesheet" href="kilenc.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9.-es projekt munkák</title>
+
+<style>
+
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body{
+    background:#050505;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+/* ===== HEADER ===== */
+header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+header h1{
+    font-size:3rem;
+    font-weight:900;
+    background:linear-gradient(to bottom,#fff,#444);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+header p{
+    color:#aaa;
+    margin-top:10px;
+}
+
+/* ===== BUTTON CONTAINER ===== */
+.button-container{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+/* ===== ASTRO GLASS BUTTON ===== */
+.nav-button{
+    position:relative;
+    text-decoration:none;
+    padding:16px 35px;
+    font-size:1.2rem;
+    font-weight:700;
+    color:#fff;
+    border-radius:15px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
+    transition:0.4s ease;
+    overflow:hidden;
+}
+
+/* Animated gradient border */
+.nav-button::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:15px;
+    background:linear-gradient(120deg,#3b82f6,#8b5cf6,#3b82f6);
+    background-size:300% 300%;
+    animation:gradientMove 6s linear infinite;
+    z-index:-1;
+    opacity:0;
+    transition:0.4s;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.nav-button:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px rgba(139,92,246,0.5);
+}
+
+.nav-button:hover::before{
+    opacity:1;
+}
+
+.nav-button:active{
+    transform:scale(0.95);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .nav-button{
+        padding:14px 25px;
+        font-size:1rem;
+    }
+}
+
+</style>
 </head>
+
 <body>
 
-    <header>
-        <h1></h1>
-        <p>Válasszd ki az alábbi gombok egyikét, hogy továbblépjél!</p>
-    </header>
+<header>
+    <h1>9.-es Projekt Munkák</h1>
+    <p>Válasszd ki az alábbi gombok egyikét, hogy továbblépjél!</p>
+</header>
 
-    <main>
-        <div class="button-container">
-            <a href="aramkorok.html" class="nav-button circuit-button">Áramkörök, Mérések Áramkörben</a>
-            <a href="szamitogep.html" class="nav-button pc-parts-button">Számítógép Részei, Szerelése</a>
-            <a href="osztaly.html" class="nav-button back-button">Vissza</a>
-        </div>
-    </main>
+<main>
+    <div class="button-container">
+        <a href="aramkorok.html" class="nav-button">
+            Áramkörök, Mérések Áramkörben
+        </a>
 
-   
+        <a href="szamitogep.html" class="nav-button">
+            Számítógép Részei, Szerelése
+        </a>
+
+        <a href="osztaly.html" class="nav-button">
+            Vissza
+        </a>
+    </div>
+</main>
 
 </body>
 </html>
-
