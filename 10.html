@@ -1,119 +1,155 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>10.-es projekt munkák</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10.-es projekt munkák</title>
+
 <style>
-        /* Alap stílusok */
- body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
- margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 100vh;
-  }
 
-        header {
-            background-color: #2c3e50;
-            color: #fff;
-            text-align: center;
-            padding: 50px 0;
- }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
- }
-
-        header p {
-            font-size: 1.2em;
-            margin-top: 10px;
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
 }
 
-        main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1;
-            padding: 20px;
-        }
-   .button-container {
-	display: flex;
-        flex-direction: column;
-        gap: 20px;
+body{
+    background:#050505;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:100vh;
+    overflow:hidden;
 }
 
-        .nav-button {
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, transform 0.2s ease;
- }
-
-        .nav-button:hover {
-            background-color: #2980b9;
-            transform: translateY(-3px);
+/* ===== HEADER ===== */
+header{
+    text-align:center;
+    padding:70px 20px 40px;
 }
 
-        .nav-button:active {
-            transform: translateY(1px);
+header h1{
+    font-size:3rem;
+    font-weight:900;
+    background:linear-gradient(to bottom,#fff,#444);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
-        footer {
-            background-color: #2c3e50;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
- }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9em;
+header p{
+    color:#aaa;
+    margin-top:10px;
 }
 
-        @media (min-width: 600px) {
-            .button-container {
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            .nav-button {
-                width: 200px;
-                font-size: 1.5em;
-                padding: 20px 30px;
-            }
+/* ===== MAIN ===== */
+main{
+    flex-grow:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
 }
-    </style>
+
+.button-container{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+/* ===== ASTRO BUTTON (ZÖLD VERZIÓ) ===== */
+.nav-button{
+    position:relative;
+    text-decoration:none;
+    padding:18px 40px;
+    font-size:1.2rem;
+    font-weight:700;
+    color:#fff;
+    border-radius:18px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
+    transition:0.4s ease;
+    overflow:hidden;
+}
+
+/* Animated gradient border - GREEN/TURQUOISE */
+.nav-button::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:18px;
+    background:linear-gradient(120deg,#00f5a0,#00d9f5,#00f5a0);
+    background-size:300% 300%;
+    animation:gradientMove 6s linear infinite;
+    z-index:-1;
+    opacity:0;
+    transition:0.4s;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.nav-button:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 30px rgba(0,245,160,0.5);
+}
+
+.nav-button:hover::before{
+    opacity:1;
+}
+
+.nav-button:active{
+    transform:scale(0.95);
+}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:25px;
+    color:#777;
+    font-size:0.9rem;
+    border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(min-width:600px){
+    .button-container{
+        flex-direction:row;
+    }
+
+    .nav-button{
+        width:220px;
+        text-align:center;
+        font-size:1.3rem;
+    }
+}
+
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>10. év</h1>
-        <p>Válasszd ki az alábbi gombok egyikét, hogy továbblépjél!</p>
-    </header>
-    <main>
-        <div class="button-container">
-            <a href="elsofelev.html" class="nav-button">1.félév</a>
-            <a href="masodikfelev.html" class="nav-button">2.félév</a>
-            <a href="osztaly.html" class="nav-button">Vissza</a>
-        </div>
-    </main>
+<header>
+    <h1>10. év</h1>
+    <p>Válasszd ki az alábbi gombok egyikét, hogy továbblépjél!</p>
+</header>
 
-    <footer>
-        <p>&copy; 2025 Info Projekt | Minden jog fenntartva.</p>
-    </footer>
+<main>
+    <div class="button-container">
+        <a href="elsofelev.html" class="nav-button">1. félév</a>
+        <a href="masodikfelev.html" class="nav-button">2. félév</a>
+        <a href="osztaly.html" class="nav-button">Vissza</a>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 Info Projekt | Minden jog fenntartva.</p>
+</footer>
+
 </body>
 </html>
-
-
