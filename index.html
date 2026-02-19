@@ -4,122 +4,194 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Projektek | Ultra Dark</title>
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
 
-  body {
-    background-color: #050505; /* Full sötét */
-    color: #ffffff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-    padding: 20px;
-  }
+body {
+  background-color: #050505;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  padding: 20px;
+}
 
-  /* Ez a kurzort követő fény */
-  #cursor-glow {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-    transition: width 0.3s, height 0.3s;
-  }
+/* Cursor Glow */
+#cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: 0.3s;
+}
 
-  header {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    margin-bottom: 60px;
-  }
+header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 60px;
+}
 
-  header h1 {
-    font-size: 4rem;
-    font-weight: 900;
-    letter-spacing: -2px;
-    background: linear-gradient(to bottom, #fff 0%, #444 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+header h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  background: linear-gradient(to bottom, #fff 0%, #444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-  main {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-  }
+main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
 
-  .section {
-    background: rgba(20, 20, 20, 0.6);
-    backdrop-filter: blur(10px); /* Üveg hatás */
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: border-color 0.4s ease, transform 0.2s ease;
-  }
+.section {
+  background: rgba(20,20,20,0.6);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: 0.3s;
+}
 
-  /* Hovernél a kártya széle is világít kicsit */
-  .section:hover {
-    border-color: rgba(59, 130, 246, 0.5);
-  }
+.section:hover {
+  border-color: rgba(59,130,246,0.5);
+}
 
-  .section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #3b82f6; /* Kék kiemelés */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
+.section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #3b82f6;
+}
 
-  .section p {
-    font-size: 1.1rem;
-    color: #888;
-    line-height: 1.5;
-  }
+.section p {
+  color: #888;
+}
 
-  .btn {
-    display: inline-block;
-    margin-top: 25px;
-    background: #ffffff;
-    color: #000;
-    text-decoration: none;
-    padding: 15px 35px;
-    font-weight: 800;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    text-align: center;
-  }
+.btn {
+  display: inline-block;
+  margin-top: 25px;
+  background: #ffffff;
+  color: #000;
+  text-decoration: none;
+  padding: 15px 35px;
+  font-weight: 800;
+  border-radius: 12px;
+  transition: 0.3s;
+  cursor: pointer;
+}
 
-  .btn:hover {
-    background: #3b82f6;
-    color: #fff;
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
-    transform: scale(1.02);
-  }
+.btn:hover {
+  background: #3b82f6;
+  color: #fff;
+  box-shadow: 0 0 30px rgba(59,130,246,0.4);
+}
 
-  /* Reszponzivitás */
-  @media (max-width: 600px) {
-    header h1 { font-size: 2.5rem; }
-    .section { padding: 25px; }
-  }
+/* ===== LOGIN MODAL ===== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.login-box {
+  background: rgba(20,20,20,0.8);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 20px;
+  width: 350px;
+  border: 1px solid rgba(59,130,246,0.4);
+  box-shadow: 0 0 40px rgba(59,130,246,0.2);
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.login-box h3 {
+  margin-bottom: 20px;
+  color: #3b82f6;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  box-shadow: 0 0 20px rgba(59,130,246,0.6);
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.admin-panel {
+  display: none;
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(59,130,246,0.1);
+  border-radius: 15px;
+  border: 1px solid rgba(59,130,246,0.4);
+}
+
 </style>
 </head>
 <body>
@@ -133,40 +205,65 @@
 <main>
   <section class="section">
     <h2>Rólunk</h2>
-    <p>
-      Elkötelezett fejlesztők, modern technológiák. Nem csak kódot írunk, hanem digitális élményt építünk.
-    </p>
+    <p>Elkötelezett fejlesztők, modern technológiák.</p>
   </section>
 
   <section class="section">
     <h2>Munkáink</h2>
-    <p>Nézd meg a legfrissebb fejlesztéseinket és az osztály szintű projektjeinket egy helyen.</p>
+    <p>Nézd meg a projektjeinket.</p>
     <a href="osztaly.html" class="btn">OSZTÁLY MUNKÁK</a>
+    <button class="btn" onclick="openLogin()">ADMIN LOGIN</button>
+
+    <div class="admin-panel" id="adminPanel">
+      🔐 Admin Panel Aktív <br>
+      Üdv, Admin!
+    </div>
   </section>
 </main>
 
-<script>
-  const glow = document.getElementById('cursor-glow');
-  
-  // Kurzorkövető logika
-  document.addEventListener('mousemove', (e) => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-  });
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="login-box">
+    <h3>Admin Bejelentkezés</h3>
+    <input type="text" id="username" placeholder="Felhasználónév">
+    <input type="password" id="password" placeholder="Jelszó">
+    <button onclick="login()">Belépés</button>
+    <div class="error" id="errorMsg"></div>
+  </div>
+</div>
 
-  // Ha a gomb fölé mész, kicsit megnő a glow
-  const btn = document.querySelector('.btn');
-  btn.addEventListener('mouseenter', () => {
-    glow.style.width = '800px';
-    glow.style.height = '800px';
-  });
-  btn.addEventListener('mouseleave', () => {
-    glow.style.width = '600px';
-    glow.style.height = '600px';
-  });
+<script>
+const glow = document.getElementById('cursor-glow');
+
+document.addEventListener('mousemove', (e) => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+
+function openLogin() {
+  document.getElementById('loginModal').classList.add('active');
+}
+
+function login() {
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
+  const error = document.getElementById('errorMsg');
+
+  if(user === "admin" && pass === "admin") {
+    document.getElementById('loginModal').classList.remove('active');
+    document.getElementById('adminPanel').style.display = "block";
+    error.textContent = "";
+  } else {
+    error.textContent = "Hibás felhasználónév vagy jelszó!";
+  }
+}
+
+document.getElementById('loginModal').addEventListener('click', function(e){
+  if(e.target === this){
+    this.classList.remove('active');
+  }
+});
 </script>
 
 </body>
 </html>
-
-
