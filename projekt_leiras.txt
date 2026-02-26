@@ -1,0 +1,7 @@
+4.projekt: Kis SOHO hálózat kiépítésén dolgozott Peti CPT-ben(Cisco Packet Tracer), de készítés közben gondba ütközött, Máté besegített neki így a feladat ez
+része elkészült. A python mondta Kristóf, hogy elvállalja a weboldal készítése mellett. A dokumentációnak a sémáját Máté elkészítette, utána átadta Kornélnak.
+
+
+6.projekt: Két táblás adatbázis témája megegyezik az az egyik táblával(zöldségek) és a másik tábla(gyümölcsök) Máté ötletének tovább gondolása, amit Kristóf
+megvalósított. CPT-vel egy kicsit meggyült a bajuk az ipv6-os címzések miatt Peti-nek és Máté-nak, a vártnál több ideig tartott. Kornél pedig dokumentáció
+formájában rögzítette a projekt szakaszt.
