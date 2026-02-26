@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hálózati Cím Kalkulátor</title>
+<title>Kábel Típus Kalkulátor</title>
 
 <style>
 body{
     margin:0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#141e30,#243b55);
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     height:100vh;
     display:flex;
     justify-content:center;
@@ -19,33 +19,28 @@ body{
 .container{
     backdrop-filter: blur(15px);
     background: rgba(255,255,255,0.08);
-    border-radius:20px;
     padding:40px;
+    border-radius:20px;
     width:90%;
     max-width:600px;
     color:white;
-    box-shadow:0 8px 32px rgba(0,0,0,0.4);
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);
+    text-align:center;
 }
 
 h1{
-    text-align:center;
     margin-bottom:25px;
 }
 
-input{
+select{
     width:100%;
     padding:12px;
-    margin-bottom:15px;
+    margin:10px 0;
     border:none;
     border-radius:10px;
-    outline:none;
     background: rgba(255,255,255,0.15);
     color:white;
     font-size:16px;
-}
-
-input::placeholder{
-    color:#ddd;
 }
 
 button{
@@ -54,10 +49,10 @@ button{
     border-radius:12px;
     cursor:pointer;
     font-size:15px;
-    margin:5px 5px 5px 0;
-    backdrop-filter: blur(10px);
+    margin:10px 5px;
     background: rgba(255,255,255,0.15);
     color:white;
+    backdrop-filter: blur(10px);
     transition:0.3s;
 }
 
@@ -70,12 +65,8 @@ button:hover{
     margin-top:20px;
     padding:15px;
     border-radius:12px;
-    background: rgba(0,0,0,0.3);
-}
-
-.footer-buttons{
-    margin-top:20px;
-    text-align:center;
+    background: rgba(0,0,0,0.4);
+    font-size:18px;
 }
 </style>
 </head>
@@ -83,60 +74,90 @@ button:hover{
 <body>
 
 <div class="container">
-    <h1>🌐 Hálózati Cím Kalkulátor</h1>
+    <h1>🔌 Kábel Típus Kalkulátor</h1>
 
-    <input type="text" id="ip" placeholder="IP cím (pl. 192.168.1.10)">
-    <input type="number" id="prefix" placeholder="Prefix (pl. 24)" min="0" max="32">
+    <select id="device1">
+        <option value="">Válassz első eszközt</option>
+        <option value="pc">PC</option>
+        <option value="switch">Switch</option>
+        <option value="hub">Hub</option>
+        <option value="router">Router</option>
+    </select>
 
-    <button onclick="calculate()">Számítás</button>
+    <select id="device2">
+        <option value="">Válassz második eszközt</option>
+        <option value="pc">PC</option>
+        <option value="switch">Switch</option>
+        <option value="hub">Hub</option>
+        <option value="router">Router</option>
+    </select>
+
+    <button onclick="calculateCable()">Kábel Meghatározása</button>
 
     <div class="result" id="result"></div>
 
-    <div class="footer-buttons">
-        <button onclick="downloadCode()">Kód letöltése</button>
-        <button onclick="history.back()">Vissza</button>
-    </div>
+    <button onclick="downloadCode()">Kód letöltése</button>
+    <button onclick="history.back()">Vissza</button>
+
 </div>
 
 <script>
-function ipToInt(ip){
-    return ip.split('.').reduce((acc,oct)=>(acc<<8)+parseInt(oct),0)>>>0;
-}
+function calculateCable(){
+    const d1 = document.getElementById("device1").value;
+    const d2 = document.getElementById("device2").value;
 
-function intToIp(int){
-    return [(int>>>24)&255,(int>>>16)&255,(int>>>8)&255,int&255].join('.');
-}
-
-function calculate(){
-    const ip = document.getElementById("ip").value;
-    const prefix = parseInt(document.getElementById("prefix").value);
-
-    if(!ip || isNaN(prefix) || prefix<0 || prefix>32){
-        document.getElementById("result").innerHTML="❌ Hibás adat!";
+    if(!d1 || !d2){
+        document.getElementById("result").innerHTML="❌ Válassz ki két eszközt!";
         return;
     }
 
-    const ipInt = ipToInt(ip);
-    const mask = prefix===0?0: (0xFFFFFFFF << (32-prefix))>>>0;
-    const network = ipInt & mask;
-    const broadcast = network | (~mask>>>0);
-    const firstHost = prefix===32?network:network+1;
-    const lastHost = prefix===32?network:broadcast-1;
-    const hosts = prefix>=31?0:(Math.pow(2,32-prefix)-2);
+    // Azonos típus → fordított
+    if(d1 === d2){
+        document.getElementById("result").innerHTML="🔁 Fordított (crossover) kábel szükséges.";
+        return;
+    }
 
-    document.getElementById("result").innerHTML = `
-        <b>Hálózati cím:</b> ${intToIp(network)} <br>
-        <b>Broadcast cím:</b> ${intToIp(broadcast)} <br>
-        <b>Első host:</b> ${intToIp(firstHost)} <br>
-        <b>Utolsó host:</b> ${intToIp(lastHost)} <br>
-        <b>Hostok száma:</b> ${hosts}
-    `;
+    // PC ↔ Switch/Hub → egyenes
+    if(
+        (d1==="pc" && (d2==="switch"||d2==="hub")) ||
+        (d2==="pc" && (d1==="switch"||d1==="hub"))
+      ){
+        document.getElementById("result").innerHTML="🔀 Egyenes (straight-through) kábel szükséges.";
+        return;
+    }
+
+    // Router ↔ Switch/Hub → egyenes
+    if(
+        (d1==="router" && (d2==="switch"||d2==="hub")) ||
+        (d2==="router" && (d1==="switch"||d1==="hub"))
+      ){
+        document.getElementById("result").innerHTML="🔀 Egyenes (straight-through) kábel szükséges.";
+        return;
+    }
+
+    // PC ↔ Router → fordított
+    if(
+        (d1==="pc" && d2==="router") ||
+        (d2==="pc" && d1==="router")
+      ){
+        document.getElementById("result").innerHTML="🔁 Fordított (crossover) kábel szükséges.";
+        return;
+    }
+
+    // Switch ↔ Hub → fordított
+    if(
+        (d1==="switch" && d2==="hub") ||
+        (d2==="switch" && d1==="hub")
+      ){
+        document.getElementById("result").innerHTML="🔁 Fordított (crossover) kábel szükséges.";
+        return;
+    }
 }
 
 function downloadCode(){
     const element = document.createElement('a');
     element.setAttribute('href','data:text/html;charset=utf-8,' + encodeURIComponent(document.documentElement.outerHTML));
-    element.setAttribute('download','halozati_kalkulator.html');
+    element.setAttribute('download','kabel_kalkulator.html');
     element.style.display='none';
     document.body.appendChild(element);
     element.click();
